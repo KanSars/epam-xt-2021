@@ -10,10 +10,11 @@ namespace Task_1._1
             Console.WriteLine("RECTANGLE = 1");
             Console.WriteLine("TRIANGLE = 2");
             Console.WriteLine("ANOTHER TRIANGLE = 3");
+            Console.WriteLine("X-MASS TREE = 4");
             Console.Write("Укажите номер программы: ");
             string str_task = Console.ReadLine();
             int task = int.Parse(str_task);
-            // int task = 3;
+            // int task = 4;
 
             switch (task)
             {
@@ -25,6 +26,9 @@ namespace Task_1._1
                     break;
                 case 3:
                     AnotherTriangle();
+                    break;
+                case 4:
+                    XmassTree();
                     break;
 
             }
@@ -125,6 +129,46 @@ namespace Task_1._1
                     Console.WriteLine();
                 }
                 Console.ResetColor();
+            }
+
+            //Task 1.1.3 ANOTHER TRIANGLE
+
+            static void XmassTree()
+            {
+                int ni;
+
+                Console.Write("Введите количество треугольников: ");
+                string str_ni = Console.ReadLine();
+                ni = int.Parse(str_ni);
+
+                for (int n = 1; n <= ni; n++)
+                {
+                    for (int i = 0; i < n; i++)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+
+                        for (int iiii = 0; iiii < ni - 1 - i; iiii++)
+                        {
+                            Console.Write(" ");
+                        }
+
+                        int iii = 1;
+                        while (iii <= i)
+                        {
+                            Console.Write("*");
+                            iii++;
+                        }
+
+                        int ii = 0;
+                        while (ii <= i)
+                        {
+                            Console.Write("*");
+                            ii++;
+                        }
+                        Console.WriteLine();
+                    }
+                    Console.ResetColor();
+                }
             }
         }
     }

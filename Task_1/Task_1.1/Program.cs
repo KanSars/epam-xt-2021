@@ -9,10 +9,11 @@ namespace Task_1._1
             Console.WriteLine("Список программ и их номера:");
             Console.WriteLine("RECTANGLE = 1");
             Console.WriteLine("TRIANGLE = 2");
+            Console.WriteLine("ANOTHER TRIANGLE = 3");
             Console.Write("Укажите номер программы: ");
-            //string str_task = Console.ReadLine();
-            // int task = int.Parse(str_task);
-            int task = 2;
+            string str_task = Console.ReadLine();
+            int task = int.Parse(str_task);
+            // int task = 3;
 
             switch (task)
             {
@@ -22,14 +23,19 @@ namespace Task_1._1
                 case 2:
                     Triangle();
                     break;
+                case 3:
+                    AnotherTriangle();
+                    break;
 
             }
+            //Task 1.1.1 RECTANGLE
 
-            static void Rectangle()
             /* Написать программу, которая определяет площадь прямоугольника со сторонами a и b.
             Если пользователь вводит некорректные знаения (отрицательные или ноль), должно выдаваться сообщение об ошибке.
             Возможность ввода пользователем строки вида "абвгд" или нецелых чисел игнорировать.
             */
+
+            static void Rectangle()
             {
                 int a;
                 do
@@ -60,7 +66,7 @@ namespace Task_1._1
                 Console.WriteLine("Площадь прямоугольника = {0}", S);
             }
 
-
+            //Task 1.1.2 TRIANGLE
 
             static void Triangle()
             {
@@ -73,7 +79,6 @@ namespace Task_1._1
                 for (int i = 0; i < n; i++)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    //static class string branch()
                     int ii = 0;
                     while (ii <= i)
                     {
@@ -82,7 +87,44 @@ namespace Task_1._1
                     }
                     Console.WriteLine();
                 }
-                Console.ResetColor(); // сбрасываем в стандартный
+                Console.ResetColor();
+            }
+
+            //Task 1.1.3 ANOTHER TRIANGLE
+
+            static void AnotherTriangle()
+            {
+                int n;
+
+                Console.Write("Введите высоту треугольника: ");
+                string str_n = Console.ReadLine();
+                n = int.Parse(str_n);
+
+                for (int i = 0; i < n; i++)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+
+                    for (int iiii = 0; iiii < n-1-i; iiii++)
+                    {
+                        Console.Write(" ");
+                    }
+
+                    int iii = 1;
+                    while (iii <= i)
+                    {
+                        Console.Write("*");
+                        iii++;
+                    }
+
+                    int ii = 0;
+                    while (ii <= i)
+                    {
+                        Console.Write("*");
+                        ii++;
+                    }
+                    Console.WriteLine();
+                }
+                Console.ResetColor();
             }
         }
     }

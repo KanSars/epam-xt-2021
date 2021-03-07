@@ -11,6 +11,8 @@ namespace Task_1._1
             Console.WriteLine("TRIANGLE = 2");
             Console.WriteLine("ANOTHER TRIANGLE = 3");
             Console.WriteLine("X-MASS TREE = 4");
+            Console.WriteLine("SUM OF NUMBERS = 5");
+
             Console.Write("Укажите номер программы: ");
             string str_task = Console.ReadLine();
             int task = int.Parse(str_task);
@@ -29,6 +31,9 @@ namespace Task_1._1
                     break;
                 case 4:
                     XmassTree();
+                    break;
+                case 5:
+                    SumOfNumbers();
                     break;
 
             }
@@ -169,6 +174,18 @@ namespace Task_1._1
                     }
                     Console.ResetColor();
                 }
+            }
+            static void SumOfNumbers()
+            {
+                int sum = 0;
+                for (int i = 0; i < 1000; i++)
+                {
+                    if ((i % 3 == 0) || (i % 5 == 0))
+                    {
+                        sum = sum + i;
+                    }
+                }
+                Console.WriteLine("Чудная сумма= {0}", sum);
             }
         }
     }

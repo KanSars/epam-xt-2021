@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Task_1._1
 {
@@ -14,9 +15,9 @@ namespace Task_1._1
             Console.WriteLine("5: SUM OF NUMBERS");
 
             Console.Write("Укажите номер программы: ");
-            string str_task = Console.ReadLine();
-            int task = int.Parse(str_task);
-            // int task = 4;
+            //string str_task = Console.ReadLine();
+            //int task = int.Parse(str_task);
+             int task = 2;
 
             switch (task)
             {
@@ -34,6 +35,9 @@ namespace Task_1._1
                     break;
                 case 5:
                     SumOfNumbers();
+                    break;
+                case 12:
+                    Triangle_V1();
                     break;
 
             }
@@ -76,8 +80,8 @@ namespace Task_1._1
             }
 
             //Task 1.1.2 TRIANGLE
-
-            static void Triangle()
+            
+            static void Triangle_V1()
             {
                 int n;
 
@@ -92,6 +96,7 @@ namespace Task_1._1
 
                     string s = new string('*', i);
                     Console.WriteLine(s);
+
                     //int ii = 0;
                     //while (ii <= i)
                     //{
@@ -99,6 +104,30 @@ namespace Task_1._1
                     //    ii++;
                     //}
                     //Console.WriteLine();
+                }
+                Console.ResetColor();
+            }
+            //Task 1.1.2 TRIANGLE
+            //StringBuilder
+
+            static void Triangle()
+            {
+                int n;
+
+                Console.Write("Введите высоту треугольника: ");
+                string str_n = Console.ReadLine();
+                n = int.Parse(str_n);
+
+                for (int i = 0; i <= n; i++)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+
+                    StringBuilder s = new StringBuilder();
+
+                    for (int ii = 0; ii < i; ii++)
+                        s.Append("*");
+
+                    Console.WriteLine(s.ToString());
                 }
                 Console.ResetColor();
             }

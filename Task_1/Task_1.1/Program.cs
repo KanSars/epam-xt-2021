@@ -6,12 +6,12 @@ namespace Task_1._1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Список программ и их номера:");
-            Console.WriteLine("RECTANGLE = 1");
-            Console.WriteLine("TRIANGLE = 2");
-            Console.WriteLine("ANOTHER TRIANGLE = 3");
-            Console.WriteLine("X-MASS TREE = 4");
-            Console.WriteLine("SUM OF NUMBERS = 5");
+            Console.WriteLine("Список программ:");
+            Console.WriteLine("1: RECTANGLE");
+            Console.WriteLine("2: TRIANGLE");
+            Console.WriteLine("3: ANOTHER TRIANGLE");
+            Console.WriteLine("4: X-MASS TREE");
+            Console.WriteLine("5: SUM OF NUMBERS");
 
             Console.Write("Укажите номер программы: ");
             string str_task = Console.ReadLine();
@@ -85,16 +85,20 @@ namespace Task_1._1
                 string str_n = Console.ReadLine();
                 n = int.Parse(str_n);
 
-                for (int i = 0; i < n; i++)
+                //for (int i = 0; i < n; i++)
+                for (int i = 0; i <=  n; i++)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    int ii = 0;
-                    while (ii <= i)
-                    {
-                        Console.Write("*");
-                        ii++;
-                    }
-                    Console.WriteLine();
+
+                    string s = new string('*', i);
+                    Console.WriteLine(s);
+                    //int ii = 0;
+                    //while (ii <= i)
+                    //{
+                    //    Console.Write("*");
+                    //    ii++;
+                    //}
+                    //Console.WriteLine();
                 }
                 Console.ResetColor();
             }

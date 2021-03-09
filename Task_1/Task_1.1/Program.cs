@@ -13,11 +13,14 @@ namespace Task_1._1
             Console.WriteLine("3: ANOTHER TRIANGLE");
             Console.WriteLine("4: X-MASS TREE");
             Console.WriteLine("5: SUM OF NUMBERS");
+            Console.WriteLine("6: ARRAY PROCESSING");
+            Console.WriteLine("7: NO POSITIVE");
+            Console.WriteLine("8: NON - NEGATIVE SUM");
 
-            Console.Write("Укажите номер программы: ");
+            //Console.Write("Укажите номер программы: ");
             //string str_task = Console.ReadLine();
             //int task = int.Parse(str_task);
-             int task = 2;
+            int task = 8;
 
             switch (task)
             {
@@ -39,7 +42,15 @@ namespace Task_1._1
                 case 12:
                     Triangle_V1();
                     break;
-
+                case 6:
+                    ArrayProcessing();
+                    break;
+                case 7:
+                    NoPositive();
+                    break;
+                case 8:
+                    NoNegative();
+                    break;
             }
             //Task 1.1.1 RECTANGLE
 
@@ -208,6 +219,7 @@ namespace Task_1._1
                     Console.ResetColor();
                 }
             }
+
             static void SumOfNumbers()
             {
                 int sum = 0;
@@ -219,6 +231,129 @@ namespace Task_1._1
                     }
                 }
                 Console.WriteLine("Чудная сумма= {0}", sum);
+            }
+
+            static void ArrayProcessing()
+                // чет подзастрял..
+            {
+                
+
+                int[] arr = { 2, 7, 8, 5, 9 };
+                // int n = 5;
+                //int[] arr = new int[n];
+
+                //Random r = new Random();
+                //for (int i = 0; i < arr.Length; i++)
+                //{
+                //    arr[i] = r.Next(9, 19);
+                //}
+
+                foreach (int item in arr)
+                {
+                    Console.WriteLine(item);
+                }
+
+                int min = arr[0];
+                int max = arr[0];
+
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    if (arr[i] < min)
+                    {
+                        min = arr[i];
+                    }
+                    if (arr[i] > max)
+                    {
+                        max = arr[i];
+                    }
+                }
+
+                Console.WriteLine($"min= {min}, max= {max}");
+
+                foreach (int item in arr)
+                {
+                    Console.WriteLine(item);
+                }
+
+
+            }
+            
+            static void NoPositive()
+            {
+                int n = 3;
+                int m = 2;
+                int l = 2;
+                int[,,] arr = new int[n,m,l];
+
+                Random r = new Random();
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < m; j++)
+                    {
+                        for (int q = 0; q < l; q++)
+                        {
+                            arr[i, j, q] = r.Next(-29, 29);
+                        }
+                    }
+                }
+
+                foreach (int item in arr)
+                {
+                    Console.WriteLine(item);
+                }
+
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < m; j++)
+                    {
+                        for (int q = 0; q < l; q++)
+                        {
+                            if (arr[i,j,q] < 0)
+                            {
+                                arr[i, j, q] = 0;
+                            }
+                        }
+                    }
+                }
+
+                foreach (int item in arr)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+
+            static void NoNegative()
+            {
+                int n = 15;
+                int[] arr = new int[n];
+
+                Random r = new Random();
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    arr[i] = r.Next(-19, 19);
+                }
+
+                foreach (int item in arr)
+                {
+                    Console.WriteLine(item);
+                }
+
+                int sum = 0;
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    if (arr[i] > 0)
+                    {
+                        sum = sum + arr[i];
+                    }
+                    
+                }
+
+                foreach (int item in arr)
+                {
+                    Console.WriteLine(item);
+                }
+
+                Console.WriteLine($"sum= {sum}");
             }
         }
     }

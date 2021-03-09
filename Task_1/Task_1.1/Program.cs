@@ -18,10 +18,14 @@ namespace Task_1._1
             Console.WriteLine("8: NO POSITIVE");
             Console.WriteLine("9: NON - NEGATIVE SUM");
             Console.WriteLine("10: 2D ARRAY");
-            //Console.Write("Укажите номер программы: ");
-            //string str_task = Console.ReadLine();
-            //int task = int.Parse(str_task);
-            int task = 10;
+            Console.WriteLine("21: AVERAGES");
+            Console.WriteLine();
+
+            Console.Write("Укажите номер программы: ");
+            string str_task = Console.ReadLine();
+            Console.WriteLine();
+            int task = int.Parse(str_task);
+            //int task = 21;
 
             switch (task)
             {
@@ -54,6 +58,9 @@ namespace Task_1._1
                     break;
                 case 10:
                     DArray();
+                    break;
+                case 21:
+                    Averages();
                     break;
             }
             //Task 1.1.1 RECTANGLE
@@ -398,6 +405,36 @@ namespace Task_1._1
                //Console.WriteLine($"arr[0,0]= {arr[0, 0]}");
                 Console.WriteLine($"Sum= {sum}");
             }
+
+            static void Averages()
+            {
+                string phrase = "The quick brown fox jumps over the lazy   dog.";
+                Console.WriteLine(phrase);
+                string Trimphrase = phrase.Trim( new char[] { '.', ',', '!', '?', ':'});
+                //Console.WriteLine(Trimphrase);
+                string[] words = Trimphrase.Split(' ');
+
+                int qwords = 0;
+                int sum = 0;
+                for (int i = 0; i < words.Length; i++)
+                {
+                    //Console.WriteLine($"count= {words[i]}");
+                    int count;
+                    count = words[i].Length;
+                    //Console.WriteLine($"Length= {count}");
+                    sum = sum + count;
+
+                    if (count != 0)
+                        qwords++;
+                   // Console.WriteLine($"qwords= {qwords}");
+                    //Console.WriteLine($"sum= {sum}");
+                    //Console.WriteLine();
+                }
+                double average = (double)sum / qwords; //выводи дробное число "double/int=>double"
+                // double average = sum / qwords; //выводит целое число "int/int=>int"
+                Console.WriteLine($"average= {average}");
+            }
+
         }
     }
 }

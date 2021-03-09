@@ -13,14 +13,15 @@ namespace Task_1._1
             Console.WriteLine("3: ANOTHER TRIANGLE");
             Console.WriteLine("4: X-MASS TREE");
             Console.WriteLine("5: SUM OF NUMBERS");
-            Console.WriteLine("6: ARRAY PROCESSING");
-            Console.WriteLine("7: NO POSITIVE");
-            Console.WriteLine("8: NON - NEGATIVE SUM");
-
+            Console.WriteLine("6: FONT ADJUSMENT");
+            Console.WriteLine("7: ARRAY PROCESSING");
+            Console.WriteLine("8: NO POSITIVE");
+            Console.WriteLine("9: NON - NEGATIVE SUM");
+            Console.WriteLine("10: 2D ARRAY");
             //Console.Write("Укажите номер программы: ");
             //string str_task = Console.ReadLine();
             //int task = int.Parse(str_task);
-            int task = 8;
+            int task = 10;
 
             switch (task)
             {
@@ -42,14 +43,17 @@ namespace Task_1._1
                 case 12:
                     Triangle_V1();
                     break;
-                case 6:
+                case 7:
                     ArrayProcessing();
                     break;
-                case 7:
+                case 8:
                     NoPositive();
                     break;
-                case 8:
+                case 9:
                     NoNegative();
+                    break;
+                case 10:
+                    DArray();
                     break;
             }
             //Task 1.1.1 RECTANGLE
@@ -354,6 +358,45 @@ namespace Task_1._1
                 }
 
                 Console.WriteLine($"sum= {sum}");
+            }
+            static void DArray()
+            {
+                int n = 3;
+                int m = 2;
+                int[,] arr = new int[n, m];
+
+                int q = 1;
+                Random r = new Random();
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < m; j++)
+                    {
+                        //arr[i, j] = r.Next(-29, 29);
+                        arr[i, j] = q;
+                        q++;
+                    }
+                }
+
+                foreach (int item in arr)
+                {
+                    Console.WriteLine(item);
+                }
+
+                int sum = 0;
+
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < m; j++)
+                    { 
+                        if (((i + j) % 2) == 0)
+                        {
+                            sum = sum + arr[i,j];
+                        }
+                    }
+                }
+                sum = sum - arr[0, 0];
+               //Console.WriteLine($"arr[0,0]= {arr[0, 0]}");
+                Console.WriteLine($"Sum= {sum}");
             }
         }
     }

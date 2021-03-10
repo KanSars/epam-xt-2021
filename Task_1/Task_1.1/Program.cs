@@ -20,13 +20,15 @@ namespace Task_1._1
             Console.WriteLine("10: 2D ARRAY");
             Console.WriteLine("21: AVERAGES");
             Console.WriteLine("22: DOUBLER");
+            Console.WriteLine("23: LOWERCASE");
+
             Console.WriteLine();
 
             Console.Write("Укажите номер программы: ");
             //string str_task = Console.ReadLine();
             //int task = int.Parse(str_task);
             Console.WriteLine();
-            int task = 22;
+            int task = 23;
 
             switch (task)
             {
@@ -65,6 +67,9 @@ namespace Task_1._1
                     break;
                 case 22:
                     Doubler();
+                    break;
+                case 23:
+                    Lowercase();
                     break;
             }
             //Task 1.1.1 RECTANGLE
@@ -484,6 +489,41 @@ namespace Task_1._1
                     i++;
                 }
                 Console.WriteLine($"result= {phrase}");
+            }
+
+            static void Lowercase0()
+            {
+                string phrase = " A aa a.aa,aa .  ";
+                int ind = phrase.IndexOf(' ');
+                int count = 0;
+
+                for (int i = 0; i < phrase.Length-1; i++)
+                {
+                    if (phrase[i] == ' ' && Char.IsLower(phrase[i + 1]))
+                    {
+                        int t = i+1;
+                        count++;
+                    }
+                }
+                Console.WriteLine($"result= {count}");
+            }
+
+            static void Lowercase()
+            {
+                string phrase = " A a a.aa,aa .  ";
+                int ind = phrase.IndexOf(' ');
+                int count = 0;
+
+                for (int i = 0; i < phrase.Length - 1; i++)
+                {
+                    if ((phrase[i] == ' ' || phrase[i] == '.' || phrase[i] == ',' || phrase[i] == ':' || phrase[i] == ';') 
+                        && Char.IsLower(phrase[i + 1]))
+                    {
+                        int t = i + 1;
+                        count++;
+                    }
+                }
+                Console.WriteLine($"result= {count}");
             }
         }
     }

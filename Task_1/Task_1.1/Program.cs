@@ -19,13 +19,14 @@ namespace Task_1._1
             Console.WriteLine("9: NON - NEGATIVE SUM");
             Console.WriteLine("10: 2D ARRAY");
             Console.WriteLine("21: AVERAGES");
+            Console.WriteLine("22: DOUBLER");
             Console.WriteLine();
 
             Console.Write("Укажите номер программы: ");
-            string str_task = Console.ReadLine();
+            //string str_task = Console.ReadLine();
+            //int task = int.Parse(str_task);
             Console.WriteLine();
-            int task = int.Parse(str_task);
-            //int task = 21;
+            int task = 22;
 
             switch (task)
             {
@@ -61,6 +62,9 @@ namespace Task_1._1
                     break;
                 case 21:
                     Averages();
+                    break;
+                case 22:
+                    Doubler();
                     break;
             }
             //Task 1.1.1 RECTANGLE
@@ -435,6 +439,52 @@ namespace Task_1._1
                 Console.WriteLine($"average= {average}");
             }
 
+            static void Doubler0()
+            {
+                string phrase = "asdfs";
+                Console.WriteLine($"{phrase}");
+
+                string word = "s";
+                Console.WriteLine($"{word}");
+
+                for (int i = 0; i < phrase.Length; i++)
+                {
+                    if (word.Contains(phrase[i]))
+                    {
+                        //Console.WriteLine($"{phrase}");
+                        //Console.WriteLine($"phrase[i]= {phrase[i]}");
+                        phrase = phrase.Insert(i, phrase[i].ToString());
+                        i++;
+                    }
+                }
+                Console.WriteLine($"{phrase}");
+            }
+
+            static void Doubler()
+            {
+                string phrase = "asdfs";
+                Console.WriteLine($"phrase= {phrase}");
+
+                string word = "smnb";
+                Console.WriteLine($"word= {word}");
+
+                char[] letter = word.ToCharArray();
+
+                for (int i = 0; i < phrase.Length;)
+                {
+                    for (int ii = 0; ii < letter.Length; ii++)
+                    {
+                        if (letter[ii] == phrase[i])
+                        {
+                            //Console.WriteLine($"YES");
+                            phrase = phrase.Insert(i+1, letter[ii].ToString());
+                            i++;
+                        }
+                    }
+                    i++;
+                }
+                Console.WriteLine($"result= {phrase}");
+            }
         }
     }
 }

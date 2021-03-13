@@ -1,5 +1,12 @@
 ﻿using System;
 using System.Text;
+[Flags]
+public enum Styles
+{
+    x = 1,
+    y = 2,
+    z = 4
+}
 
 namespace Task_1._1
 {
@@ -28,7 +35,7 @@ namespace Task_1._1
             //string str_task = Console.ReadLine();
             //int task = int.Parse(str_task);
             Console.WriteLine();
-            int task = 23;
+            int task = 7;
 
             switch (task)
             {
@@ -46,6 +53,9 @@ namespace Task_1._1
                     break;
                 case 5:
                     SumOfNumbers();
+                    break;
+                case 6:
+                    FontAdjusment();
                     break;
                 case 12:
                     Triangle_V1();
@@ -256,17 +266,17 @@ namespace Task_1._1
             static void ArrayProcessing()
                 // чет подзастрял..
             {
-                
 
-                int[] arr = { 2, 7, 8, 5, 9 };
-                // int n = 5;
-                //int[] arr = new int[n];
 
-                //Random r = new Random();
-                //for (int i = 0; i < arr.Length; i++)
-                //{
-                //    arr[i] = r.Next(9, 19);
-                //}
+                // int[] arr = { 2, 7, 8, 5, 9 };
+                int n = 5;
+                int[] arr = new int[n];
+
+                Random r = new Random();
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    arr[i] = r.Next(1, 29);
+                }
 
                 foreach (int item in arr)
                 {
@@ -289,6 +299,19 @@ namespace Task_1._1
                 }
 
                 Console.WriteLine($"min= {min}, max= {max}");
+
+                for (int  i = 1; i < arr.Length; i++)
+                {
+                    for (int j = 0; j < arr.Length - i; j++)
+                    {
+                        if (arr[j] > arr[j + 1])
+                        {
+                            int temp = arr[j];
+                            arr[j] = arr[j+1];
+                            arr[j+1] = temp;
+                        }
+                    }
+                }
 
                 foreach (int item in arr)
                 {
@@ -524,6 +547,11 @@ namespace Task_1._1
                     }
                 }
                 Console.WriteLine($"result= {count}");
+            }
+
+            static void FontAdjusment()
+            {
+                Console.ReadLine();   
             }
         }
     }

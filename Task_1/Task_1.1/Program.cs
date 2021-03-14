@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Text;
 [Flags]
-public enum Styles
+public enum Styles : byte
 {
-    x = 1,
-    y = 2,
-    z = 4
+    None = 0,
+    Bold = 1,
+    Italic = 2,
+    Underline = 4,
 }
 
 namespace Task_1._1
@@ -35,7 +36,7 @@ namespace Task_1._1
             //string str_task = Console.ReadLine();
             //int task = int.Parse(str_task);
             Console.WriteLine();
-            int task = 7;
+            int task = 6;
 
             switch (task)
             {
@@ -121,7 +122,7 @@ namespace Task_1._1
             }
 
             //Task 1.1.2 TRIANGLE
-            
+
             static void Triangle_V1()
             {
                 int n;
@@ -131,7 +132,7 @@ namespace Task_1._1
                 n = int.Parse(str_n);
 
                 //for (int i = 0; i < n; i++)
-                for (int i = 0; i <=  n; i++)
+                for (int i = 0; i <= n; i++)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
 
@@ -187,7 +188,7 @@ namespace Task_1._1
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
 
-                    for (int iiii = 0; iiii < n-1-i; iiii++)
+                    for (int iiii = 0; iiii < n - 1 - i; iiii++)
                     {
                         Console.Write(" ");
                     }
@@ -264,7 +265,7 @@ namespace Task_1._1
             }
 
             static void ArrayProcessing()
-                // чет подзастрял..
+            // чет подзастрял..
             {
 
 
@@ -300,15 +301,15 @@ namespace Task_1._1
 
                 Console.WriteLine($"min= {min}, max= {max}");
 
-                for (int  i = 1; i < arr.Length; i++)
+                for (int i = 1; i < arr.Length; i++)
                 {
                     for (int j = 0; j < arr.Length - i; j++)
                     {
                         if (arr[j] > arr[j + 1])
                         {
                             int temp = arr[j];
-                            arr[j] = arr[j+1];
-                            arr[j+1] = temp;
+                            arr[j] = arr[j + 1];
+                            arr[j + 1] = temp;
                         }
                     }
                 }
@@ -320,13 +321,13 @@ namespace Task_1._1
 
 
             }
-            
+
             static void NoPositive()
             {
                 int n = 3;
                 int m = 2;
                 int l = 2;
-                int[,,] arr = new int[n,m,l];
+                int[,,] arr = new int[n, m, l];
 
                 Random r = new Random();
                 for (int i = 0; i < n; i++)
@@ -351,7 +352,7 @@ namespace Task_1._1
                     {
                         for (int q = 0; q < l; q++)
                         {
-                            if (arr[i,j,q] < 0)
+                            if (arr[i, j, q] < 0)
                             {
                                 arr[i, j, q] = 0;
                             }
@@ -388,7 +389,7 @@ namespace Task_1._1
                     {
                         sum = sum + arr[i];
                     }
-                    
+
                 }
 
                 foreach (int item in arr)
@@ -426,15 +427,15 @@ namespace Task_1._1
                 for (int i = 0; i < n; i++)
                 {
                     for (int j = 0; j < m; j++)
-                    { 
+                    {
                         if (((i + j) % 2) == 0)
                         {
-                            sum = sum + arr[i,j];
+                            sum = sum + arr[i, j];
                         }
                     }
                 }
                 sum = sum - arr[0, 0];
-               //Console.WriteLine($"arr[0,0]= {arr[0, 0]}");
+                //Console.WriteLine($"arr[0,0]= {arr[0, 0]}");
                 Console.WriteLine($"Sum= {sum}");
             }
 
@@ -442,7 +443,7 @@ namespace Task_1._1
             {
                 string phrase = "The quick brown fox jumps over the lazy   dog.";
                 Console.WriteLine(phrase);
-                string Trimphrase = phrase.Trim( new char[] { '.', ',', '!', '?', ':'});
+                string Trimphrase = phrase.Trim(new char[] { '.', ',', '!', '?', ':' });
                 //Console.WriteLine(Trimphrase);
                 string[] words = Trimphrase.Split(' ');
 
@@ -458,7 +459,7 @@ namespace Task_1._1
 
                     if (count != 0)
                         qwords++;
-                   // Console.WriteLine($"qwords= {qwords}");
+                    // Console.WriteLine($"qwords= {qwords}");
                     //Console.WriteLine($"sum= {sum}");
                     //Console.WriteLine();
                 }
@@ -505,7 +506,7 @@ namespace Task_1._1
                         if (letter[ii] == phrase[i])
                         {
                             //Console.WriteLine($"YES");
-                            phrase = phrase.Insert(i+1, letter[ii].ToString());
+                            phrase = phrase.Insert(i + 1, letter[ii].ToString());
                             i++;
                         }
                     }
@@ -520,11 +521,11 @@ namespace Task_1._1
                 int ind = phrase.IndexOf(' ');
                 int count = 0;
 
-                for (int i = 0; i < phrase.Length-1; i++)
+                for (int i = 0; i < phrase.Length - 1; i++)
                 {
                     if (phrase[i] == ' ' && Char.IsLower(phrase[i + 1]))
                     {
-                        int t = i+1;
+                        int t = i + 1;
                         count++;
                     }
                 }
@@ -539,7 +540,7 @@ namespace Task_1._1
 
                 for (int i = 0; i < phrase.Length - 1; i++)
                 {
-                    if ((phrase[i] == ' ' || phrase[i] == '.' || phrase[i] == ',' || phrase[i] == ':' || phrase[i] == ';') 
+                    if ((phrase[i] == ' ' || phrase[i] == '.' || phrase[i] == ',' || phrase[i] == ':' || phrase[i] == ';')
                         && Char.IsLower(phrase[i + 1]))
                     {
                         int t = i + 1;
@@ -549,10 +550,62 @@ namespace Task_1._1
                 Console.WriteLine($"result= {count}");
             }
 
+
             static void FontAdjusment()
             {
-                Console.ReadLine();   
+                
+                Styles currentStyle = Styles.None;
+
+                
+                string input;
+
+                do
+                {
+                    Console.WriteLine($"Параметры надписи: {currentStyle}");
+                    lines();
+
+                    input = Console.ReadLine();
+
+                    foreach (var chr in input)
+                {
+                       
+                    byte code;
+
+                    code = Convert.ToByte(chr.ToString());
+
+                        Console.WriteLine($"code= {code}");
+                        if (code == 3)
+                        {
+                            code = 4;
+                        }
+
+                        Console.WriteLine($"(Styles)code= {(Styles)code}");
+                      
+                   // if (byte.TryParse(chr.ToString(), out code))
+                    {
+                        switch ((Styles)code)
+                        {
+                            case Styles.Bold:
+                            case Styles.Italic:
+                            case Styles.Underline:
+                                currentStyle = currentStyle ^ (Styles)code;
+                                break;
+                        }
+                    }
+                }
+                    Console.WriteLine($"Параметры надписи: {currentStyle}");
+                    Console.WriteLine();
+                } while (Convert.ToInt32(input) != 0);
+                
+                void lines()
+                {
+                    Console.WriteLine("1: bold");
+                    Console.WriteLine("2: italik");
+                    Console.WriteLine("3: underline");
+                }
+
             }
+
         }
     }
 }

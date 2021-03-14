@@ -33,10 +33,10 @@ namespace Task_1._1
             Console.WriteLine();
 
             Console.Write("Укажите номер программы: ");
-            //string str_task = Console.ReadLine();
-            //int task = int.Parse(str_task);
+            string str_task = Console.ReadLine();
+            int task = int.Parse(str_task);
             Console.WriteLine();
-            int task = 6;
+            // int task = 6;
 
             switch (task)
             {
@@ -267,8 +267,6 @@ namespace Task_1._1
             static void ArrayProcessing()
             // чет подзастрял..
             {
-
-
                 // int[] arr = { 2, 7, 8, 5, 9 };
                 int n = 5;
                 int[] arr = new int[n];
@@ -318,8 +316,6 @@ namespace Task_1._1
                 {
                     Console.WriteLine(item);
                 }
-
-
             }
 
             static void NoPositive()
@@ -553,10 +549,8 @@ namespace Task_1._1
 
             static void FontAdjusment()
             {
-                
                 Styles currentStyle = Styles.None;
 
-                
                 string input;
 
                 do
@@ -568,7 +562,6 @@ namespace Task_1._1
 
                     foreach (var chr in input)
                 {
-                       
                     byte code;
 
                     code = Convert.ToByte(chr.ToString());

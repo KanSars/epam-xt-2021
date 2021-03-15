@@ -6,6 +6,10 @@ namespace Task_2._1
     {
         static void Main(string[] args)
         {
+            Ring qqq;
+            qqq = new Ring(2, 4);
+
+            Console.WriteLine($"qqq= {qqq.SqrOfRing()}");
 
             MyPoint point;
             point = new MyPoint();
@@ -27,7 +31,9 @@ namespace Task_2._1
             myString = new MyString();
 
             // myString.SetSymbolsNewValue(phrase);
-            Console.WriteLine(myString.symbols);
+            Console.WriteLine($"myString.symbols= {myString.symbols}");
+            Console.WriteLine($"myString.symbols= {Convert.ToString(myString.SetSymbolsNewValue(phrase))}");
+
 
             MyString MyStrResult;
             MyStrResult = new MyString();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Task_2._1
 {
@@ -6,43 +7,131 @@ namespace Task_2._1
     {
         static void Main(string[] args)
         {
-            Ring qqq;
-            qqq = new Ring(2, 4);
+            Console.WriteLine("Список программ:");
+            Console.WriteLine("1: CUSTOM STRING");
+            Console.WriteLine("2: CUSTOM PAINT");
+            Console.WriteLine();
 
-            Console.WriteLine($"qqq= {qqq.SqrOfRing()}");
+            Console.Write("Укажите номер программы: ");
 
-            MyPoint point;
-            point = new MyPoint();
-            point.x = 7;
+            string str_task = Console.ReadLine();
+            int task = int.Parse(str_task);
 
-            int a = point.InternalSumm();
+            Console.WriteLine();
+            // int task = 6;
 
-            int c = 9;
-            int b = point.ExternalSumm(a, 9);
+            switch (task)
+            {
+                case 1:
+                    CustomString();
+                    break;
+                case 2:
+                    CustomPaint();
+                    break;
+            }
 
-            
+            static void CustomString()
+            {
 
-            string phrase;
-            phrase = Console.ReadLine();
-            string phrase2;
-            phrase2 = Console.ReadLine();
+                Ring qqq;
+                qqq = new Ring(2, 4);
 
-            MyString myString;
-            myString = new MyString();
+                Console.WriteLine($"qqq= {qqq.SqrOfRing()}");
 
-            // myString.SetSymbolsNewValue(phrase);
-            Console.WriteLine($"myString.symbols= {myString.symbols}");
-            Console.WriteLine($"myString.symbols= {Convert.ToString(myString.SetSymbolsNewValue(phrase))}");
+                MyPoint point;
+                point = new MyPoint();
+                point.x = 7;
+
+                int a = point.InternalSumm();
+
+                int c = 9;
+                int b = point.ExternalSumm(a, 9);
 
 
-            MyString MyStrResult;
-            MyStrResult = new MyString();
-            int count = 0;
-            count = MyStrResult.MyCompare(phrase, phrase2);
 
-            Console.WriteLine($"count= {count}");
+                string phrase;
+                phrase = Console.ReadLine();
+                string phrase2;
+                phrase2 = Console.ReadLine();
 
-            Console.WriteLine(MyStrResult.MyConCat(phrase, phrase2));
+                MyString myString;
+                myString = new MyString();
+
+                // myString.SetSymbolsNewValue(phrase);
+                Console.WriteLine($"myString.symbols= {myString.symbols}");
+                Console.WriteLine($"myString.symbols= {Convert.ToString(myString.SetSymbolsNewValue(phrase))}");
+
+
+                MyString MyStrResult;
+                MyStrResult = new MyString();
+                int count = 0;
+                count = MyStrResult.MyCompare(phrase, phrase2);
+
+                Console.WriteLine($"count= {count}");
+
+                Console.WriteLine(MyStrResult.MyConCat(phrase, phrase2));
+            }
+
+            static void CustomPaint()
+            {
+                Console.WriteLine("Выберете действие");
+                Console.WriteLine("1. Добавить фигуру");
+                Console.WriteLine("2. Вывести фигуры");
+                Console.WriteLine("3. Очистить холст");
+                Console.WriteLine("4. Выход");
+                string str_task = Console.ReadLine();
+                int task = int.Parse(str_task);
+
+                Console.WriteLine();
+                // int task = 6;
+
+                switch (task)
+                {
+                    case 1:
+                        AddToCollection();
+                        break;
+                    //case 2:
+                    //    CustomPaint();
+                    //    break;
+                    //case 3:
+                    //    CustomString();
+                    //    break;
+                    //case 4:
+                    //    CustomPaint();
+                    //    break;
+                }
+
+                static void AddToCollection()
+                {
+                    Console.WriteLine("Выберете тип фигуры:");
+                    Console.WriteLine("1. Circle");
+                    //........ (2. ...)
+                    Console.ReadLine();
+                    string str_figure = Console.ReadLine();
+                    int numberOfFigure = int.Parse(str_figure);
+                    //.....numberOfFigure = 1;
+
+                    Console.WriteLine("Введите радиус:");
+                    string str_radius = Console.ReadLine();
+                    int r = int.Parse(str_radius);
+
+                    Circle newFigure = new Circle(r);
+
+                    StringBuilder figures = new StringBuilder();
+                    figures = figures.Append($"newFigure= {newFigure}");
+                    
+                    Console.WriteLine($"figures.ToString()= {figures.ToString()}");
+
+                    // return ($"figures.ToString()= {figures.ToString()}");
+                }
+
+
+
+
+
+
+
+            }
         }
     }
 

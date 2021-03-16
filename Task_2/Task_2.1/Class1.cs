@@ -22,10 +22,6 @@ namespace Task_2._1
                 return length;
             }
     }
-
-    //class Round // : Circle(int radius)
-    //{
-    //}
     class Round : Circle
     {
         int x = 0;
@@ -67,9 +63,9 @@ namespace Task_2._1
             return square;
 
         }
-        //public double SumOfRingsCircuits
-        //{
-        //    get { return this.innerRing.Circuit + this.outerRing.Circuit; }
-        //}
+    }
+    class Paint
+    {
+        
     }
 }

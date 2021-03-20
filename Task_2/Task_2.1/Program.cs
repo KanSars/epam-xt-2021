@@ -7,29 +7,6 @@ namespace Task_2._1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Список программ:");
-            Console.WriteLine("1: CUSTOM STRING");
-            Console.WriteLine("2: CUSTOM PAINT");
-            Console.WriteLine();
-
-            Console.Write("Укажите номер программы: ");
-
-            string str_task = Console.ReadLine();
-            int task = int.Parse(str_task);
-
-            Console.WriteLine();
-            // int task = 6;
-
-            switch (task)
-            {
-                case 1:
-                    CustomString();
-                    break;
-                case 2:
-                    CustomPaint();
-                    break;
-            }
-
             static void CustomString()
             {
 

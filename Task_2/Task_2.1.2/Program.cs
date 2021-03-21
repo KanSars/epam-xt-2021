@@ -43,19 +43,18 @@ namespace Task_2._1._2
                     case 1:
                         thisFigure = AddCircleToList();
                         Console.WriteLine("Фигура Окружность создана!");
-                        Console.WriteLine();
                         break;
                     case 2:
                         thisFigure = AddRoundToList();
                         Console.WriteLine("Фигура Круг создана!");
-                        Console.WriteLine();
                         break;
                     case 3:
                         thisFigure = AddRingToList();
                         Console.WriteLine("Фигура Кольцо создана!");
-                        Console.WriteLine();
                         break;
                 }
+                Console.WriteLine();
+
                 return thisFigure;
             }
 

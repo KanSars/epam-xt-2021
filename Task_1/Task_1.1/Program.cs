@@ -36,7 +36,6 @@ namespace Task_1._1
             string str_task = Console.ReadLine();
             int task = int.Parse(str_task);
             Console.WriteLine();
-            // int task = 6;
 
             switch (task)
             {
@@ -92,66 +91,50 @@ namespace Task_1._1
 
             static void Rectangle()
             {
-                int a;
+                int sideA;
+                int sideB;
                 do
                 {
                     Console.Write("Введите сторону 'а' (значение больше 0): ");
-                    string str_a = Console.ReadLine();
-                    a = int.Parse(str_a);
-                    if (a < 1)
-                    {
+                    sideA = int.Parse(Console.ReadLine());
+                    if (sideA < 1)
                         Console.WriteLine("Alarm: a<=0");
-                    }
-                } while (a < 1);
+                } while (sideA < 1);
 
-                int b;
                 do
                 {
                     Console.Write("Введите сторону 'b' (значение больше 0): ");
-                    string str_b = Console.ReadLine();
-                    b = int.Parse(str_b);
-                    if (b < 1)
-                    {
+                    sideB = int.Parse(Console.ReadLine());
+                    if (sideB < 1)
                         Console.WriteLine("Alarm: b<=0");
-                    }
-                } while (b < 1);
+                } while (sideB < 1);
 
-                int S = a * b;
+                int square = sideA * sideB;
 
-                Console.WriteLine("Площадь прямоугольника = {0}", S);
+                Console.WriteLine("Площадь прямоугольника = {0}", square);
             }
 
             //Task 1.1.2 TRIANGLE
 
             static void Triangle_V1()
             {
-                int n;
+                int height;
 
                 Console.Write("Введите высоту треугольника: ");
-                string str_n = Console.ReadLine();
-                n = int.Parse(str_n);
+                height = int.Parse(Console.ReadLine());
 
-                //for (int i = 0; i < n; i++)
-                for (int i = 0; i <= n; i++)
+                for (int i = 0; i <= height; i++)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
 
                     string s = new string('*', i);
                     Console.WriteLine(s);
-
-                    //int ii = 0;
-                    //while (ii <= i)
-                    //{
-                    //    Console.Write("*");
-                    //    ii++;
-                    //}
-                    //Console.WriteLine();
                 }
                 Console.ResetColor();
             }
+
             //Task 1.1.2 TRIANGLE
             //StringBuilder
-
             static void Triangle()
             {
                 int n;

@@ -8,23 +8,26 @@ namespace Task_2._1._2
     {
         static void Main(string[] args)
         {
-            List<string> mylist = new List<string>();
+            List<Figure> mylist = new List<Figure>();
             int action;
 
             do
             {
-                Menu();
+                PrintMenu();
 
                 action = int.Parse(Console.ReadLine());
 
                 switch (action)
                 {
                     case 1:
-                        mylist.Add(FigureToAdd());
+                        PrintListOfFigures();
+
+                        mylist.Add(GetFigure());
                         break;
                     case 2:
-                        foreach (string figure in mylist)
-                            Console.WriteLine($"Фигура= {figure}");
+                        foreach (Figure figure in mylist)
+                            Console.WriteLine($"Фигура: {figure.ToString()}");
+                        Console.WriteLine();
                         break;
                     case 3:
                         mylist.Clear();
@@ -32,33 +35,7 @@ namespace Task_2._1._2
                 }
             } while (action != 4);
 
-            static string FigureToAdd()
-            {
-                Console.WriteLine("Введите № фигры");
-                int typeOfFigure = int.Parse(Console.ReadLine());
-                string thisFigure = "Null";
-
-                switch (typeOfFigure)
-                {
-                    case 1:
-                        thisFigure = AddCircleToList();
-                        Console.WriteLine("Фигура Окружность создана!");
-                        break;
-                    case 2:
-                        thisFigure = AddRoundToList();
-                        Console.WriteLine("Фигура Круг создана!");
-                        break;
-                    case 3:
-                        thisFigure = AddRingToList();
-                        Console.WriteLine("Фигура Кольцо создана!");
-                        break;
-                }
-                Console.WriteLine();
-
-                return thisFigure;
-            }
-
-            void Menu()
+            void PrintMenu()
             {
                 Console.WriteLine("Выберите действие:");
                 Console.WriteLine("1.Добавить фигуру");
@@ -67,10 +44,55 @@ namespace Task_2._1._2
                 Console.WriteLine("4.Выход");
             }
 
-            static string AddCircleToList()
+            void PrintListOfFigures()
             {
-                Console.WriteLine("Введите X Y");
-                
+                Console.WriteLine("Выберите фигуру:");
+                Console.WriteLine("1.Окружность");
+                Console.WriteLine("2.Круг");
+                Console.WriteLine("3.Окружность");
+                Console.WriteLine("4.Отрезок");
+                Console.WriteLine("5.Квадрат");
+            }
+
+            Figure GetFigure()
+            {
+                int typeOfFigure = int.Parse(Console.ReadLine());
+                Figure thisFigure;
+
+                switch (typeOfFigure)
+                {
+                    case 1:
+                        thisFigure = CreateCircleOrRoundForList(true);
+                        Console.WriteLine("Фигура Окружность создана!");
+                        break;
+                    case 2:
+                        thisFigure = CreateCircleOrRoundForList(false);
+                        Console.WriteLine("Фигура Круг создана!");
+                        break;
+                    case 3:
+                        thisFigure = CreateRingForList();
+                        Console.WriteLine("Фигура Кольцо создана!");
+                        break;
+                    case 4:
+                        thisFigure = CreatLineForList();
+                        Console.WriteLine("Фигура Линия создана!");
+                        break;
+                    case 5:
+                        thisFigure = CreatSquareForList();    
+                        Console.WriteLine("Фигура Квадрат создана!");
+                        break;
+                    default:
+                        throw new Exception("wrong number");
+                }
+                Console.WriteLine();
+
+                return thisFigure;
+            }
+
+            static Figure CreateCircleOrRoundForList(bool circle)
+            {
+                Console.WriteLine("Введите через пробел X Y");
+
                 string[] symbols = Console.ReadLine().Split(' ');
 
                 int x = int.Parse((symbols[0].ToString()));
@@ -78,36 +100,29 @@ namespace Task_2._1._2
 
                 Console.WriteLine("Введите радиус");
                 int radius = int.Parse(Console.ReadLine());
-                Circle newCircle = new Circle(x, y, radius);
-                return newCircle.ToString();
+
+                if (circle)
+                {
+                    Circle newCircle = new Circle(x, y, radius);
+                    return newCircle;
+                } else
+                {
+                    Round newRound = new Round(x, y, radius);
+                    return newRound;
+                }
             }
 
-            static string AddRoundToList()
+            static Figure CreateRingForList()
             {
-                Console.WriteLine("Введите X Y");
-                
-                string[] symbols = Console.ReadLine().Split(' ');
+                Console.WriteLine("Введите через пробел X Y");
 
-                int x = int.Parse((symbols[0].ToString()));
-                int y = int.Parse((symbols[1].ToString()));
-
-                Console.WriteLine("Введите радиус");
-                int radius = int.Parse(Console.ReadLine());
-                Round newRound = new Round(x, y, radius);
-
-                return newRound.ToString();
-            }
-            static string AddRingToList()
-            {
-                Console.WriteLine("Введите X Y");
-                
                 string[] coordinates = Console.ReadLine().Split(' ');
 
                 int x = int.Parse((coordinates[0].ToString()));
                 int y = int.Parse((coordinates[1].ToString()));
 
-                Console.WriteLine("Введите радиусы для внутреннего и внешнего кольца");
-                
+                Console.WriteLine("Введите через пробел радиусы для внутреннего и внешнего кольца");
+
                 string[] radiuses = Console.ReadLine().Split(' ');
 
                 int innerR = int.Parse((radiuses[0].ToString()));
@@ -122,15 +137,48 @@ namespace Task_2._1._2
 
                 Ring newRing = new Ring(x, y, innerR, outerR);
 
-                return newRing.ToString();
+                return newRing;
+            }
+
+            static Figure CreatLineForList()
+            {
+                Console.WriteLine("Введите через пробел X1 Х2");
+
+                string[] symbols = Console.ReadLine().Split(' ');
+
+                int x1 = int.Parse((symbols[0].ToString()));
+                int x2 = int.Parse((symbols[1].ToString()));
+
+                Line newLine = new Line(x1, x2);
+
+                return newLine;
+            }
+
+            static Figure CreatSquareForList()
+            {
+                Console.WriteLine("Введите X1 Х2");
+
+                string[] symbols = Console.ReadLine().Split(' ');
+
+                int x1 = int.Parse((symbols[0].ToString()));
+                int x2 = int.Parse((symbols[1].ToString()));
+
+                Square newSquare = new Square(x1, x2);
+
+            return newSquare;
             }
         }
     }
-    class Circle
+    public abstract class Figure
     {
-        int x = 0;
-        int y = 0;
-        int r = 33;
+        public override string ToString()
+        {
+            return "Некая фигура";
+        }
+    }
+    class Circle : Figure
+    {
+        int x, y, r;
 
         public Circle(int X, int Y, int radius)
         {
@@ -151,9 +199,7 @@ namespace Task_2._1._2
     }
     class Round : Circle
     {
-        int x = 0;
-        int y = 0;
-        int r = 0;
+        int x, y, r;
 
         public Round(int X, int Y, int radius) : base(X, Y, radius)
         {
@@ -173,14 +219,11 @@ namespace Task_2._1._2
             return $"Round, x= {x.ToString()}, y= {y.ToString()}, r= {r.ToString()}";
         }
     }
-    class Ring
+    class Ring : Figure
     {
         private Round innerRing;
         private Round outerRing;
-        int x;
-        int y;
-        int innerr;
-        int outerr;
+        int x, y, innerr, outerr;
 
         public Ring(int X, int Y, int innerR, int outerR)
         {
@@ -201,6 +244,62 @@ namespace Task_2._1._2
         public override string ToString()
         {
             return $"Ring, x= {x.ToString()}, y= {y.ToString()}, innerRadius= {innerr.ToString()}, outerRadius= {outerr.ToString()}";
+        }
+    }
+    public abstract class Linear : Figure
+    {
+        void Segment(int x1, int x2) // оставлять ли здесь x1, x2?
+        { }
+    }
+    public class Line : Linear
+    {
+        public int x1 = 0;
+        public int x2 = 0; 
+        public int line;
+        
+        public Line(int coordX1, int coordX2)
+        {
+            this.x1 = coordX1;
+            this.x2 = coordX2;
+
+            this.line = Math.Abs(coordX1 - coordX2);
+        }
+        public override string ToString()
+        {
+            return $"Line, x1= {this.x1.ToString()}, x2= {this.x2.ToString()}, length= {this.line.ToString()}";
+        }
+    }
+
+    public class Square : Line
+    {
+        public int side;
+        public Square(int coordX1, int coordX2) : base(coordX1, coordX2)
+        {
+                    if (coordX1 == coordX2)
+                        throw new Exception("Координаты точек не должны совпадать");
+                    else                                                      
+                    {
+                        this.x1 = coordX1;
+                        this.x2 = coordX2;
+                        this.side = Math.Abs(x2 - x1);
+                    }
+        }
+        public override string ToString()
+        {
+            return $"Squere, side= {this.side.ToString()}";
+        }
+    }
+       class Params
+    {
+        int x, y, radius;
+        public Params(int X, int Y)
+        {
+            this.x = X;
+            this.y = Y;
+        }
+        public Params(int R)
+        {
+            this.radius = R;
         }
     }
 }

@@ -7,16 +7,14 @@ namespace Task_2._1
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine("Введите строку:");
-
             string phrase = "asdf";
             string phrase2 = "asdf";
             
             MyString row = new MyString(phrase);
 
             //проверяем класс и метод: выводит сумму символов массивов, т.к. класс содержит строку как массив
-            char[] s3 = row.ConCat(phrase2);
-            foreach (var item in s3)
+            char[] symbols = row.ConCat(phrase2);
+            foreach (var item in symbols)
             {
                 Console.WriteLine(item);
             }
@@ -78,14 +76,8 @@ namespace Task_2._1
         }
         public string MyToString()
         {
-            var result = new StringBuilder();
-            result = null;
-
-            for (int i = 0; i < this.stringInMassiv.Length; i++)
-            {
-                    result.Append(stringInMassiv[i]);
-            }
-            return result.ToString();
+            string result = new string(stringInMassiv);
+            return result;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Task_2._1._2
 {
@@ -15,20 +14,25 @@ namespace Task_2._1._2
             {
                 PrintMenu();
 
-                action = int.Parse(Console.ReadLine());
+                if (!int.TryParse(Console.ReadLine(), out action))
+                {
+                    Console.WriteLine("Введите целое число");
+                    Console.WriteLine();
+                }
 
                 switch (action)
                 {
                     case 1:
                         PrintListOfFigures();
-
-                        mylist.Add(GetFigure());
+                        AddFigureToList(int.Parse(Console.ReadLine()));
                         break;
+
                     case 2:
                         foreach (Figure figure in mylist)
                             Console.WriteLine($"Фигура: {figure.ToString()}");
                         Console.WriteLine();
                         break;
+
                     case 3:
                         mylist.Clear();
                         break;
@@ -54,49 +58,37 @@ namespace Task_2._1._2
                 Console.WriteLine("5.Квадрат");
             }
 
-            Figure GetFigure()
+            void AddFigureToList(int typeOfFigure)
             {
-                int typeOfFigure = int.Parse(Console.ReadLine());
-                Figure thisFigure;
-
                 switch (typeOfFigure)
                 {
                     case 1:
-                        thisFigure = CreateCircleOrRoundForList(true);
-                        Console.WriteLine("Фигура Окружность создана!");
+                        mylist.Add(CreateCircleOrRoundForList(true));
                         break;
                     case 2:
-                        thisFigure = CreateCircleOrRoundForList(false);
-                        Console.WriteLine("Фигура Круг создана!");
+                        mylist.Add(CreateCircleOrRoundForList(false));
                         break;
                     case 3:
-                        thisFigure = CreateRingForList();
-                        Console.WriteLine("Фигура Кольцо создана!");
+                        mylist.Add(CreateRingForList());
                         break;
                     case 4:
-                        thisFigure = CreatLineForList();
-                        Console.WriteLine("Фигура Линия создана!");
+                        mylist.Add(CreateLineForList());
                         break;
                     case 5:
-                        thisFigure = CreatSquareForList();    
-                        Console.WriteLine("Фигура Квадрат создана!");
+                        mylist.Add(CreateSquareForList());
                         break;
                     default:
                         throw new Exception("wrong number");
                 }
-                Console.WriteLine();
 
-                return thisFigure;
+                Console.WriteLine();
             }
+
+            
 
             static Figure CreateCircleOrRoundForList(bool circle)
             {
-                Console.WriteLine("Введите через пробел X Y");
-
-                string[] symbols = Console.ReadLine().Split(' ');
-
-                int x = int.Parse((symbols[0].ToString()));
-                int y = int.Parse((symbols[1].ToString()));
+                TakeParams(out int x, out int y);
 
                 Console.WriteLine("Введите радиус");
                 int radius = int.Parse(Console.ReadLine());
@@ -104,71 +96,79 @@ namespace Task_2._1._2
                 if (circle)
                 {
                     Circle newCircle = new Circle(x, y, radius);
+
+                    Console.WriteLine("Фигура Окружность добавлена!");
+
                     return newCircle;
                 } else
                 {
                     Round newRound = new Round(x, y, radius);
+
+                    Console.WriteLine("Фигура Круг добавлена!");
+
                     return newRound;
                 }
+
+                
             }
 
             static Figure CreateRingForList()
             {
-                Console.WriteLine("Введите через пробел X Y");
-
-                string[] coordinates = Console.ReadLine().Split(' ');
-
-                int x = int.Parse((coordinates[0].ToString()));
-                int y = int.Parse((coordinates[1].ToString()));
+                TakeParams(out int x, out int y);
 
                 Console.WriteLine("Введите через пробел радиусы для внутреннего и внешнего кольца");
 
                 string[] radiuses = Console.ReadLine().Split(' ');
-
-                int innerR = int.Parse((radiuses[0].ToString()));
+                int radius = int.Parse((radiuses[0].ToString()));
                 int outerR = int.Parse((radiuses[1].ToString()));
 
-                if (innerR > outerR)
+                if (radius > outerR)
                 {
-                    int tempraduis = innerR;
-                    innerR = outerR;
+                    int tempraduis = radius;
+                    radius = outerR;
                     outerR = tempraduis;
                 }
+                Ring newRing = new Ring(x, y, radius, outerR);
 
-                Ring newRing = new Ring(x, y, innerR, outerR);
+                Console.WriteLine("Фигура Кольцо добавлена!");
 
                 return newRing;
             }
 
-            static Figure CreatLineForList()
+            static Figure CreateLineForList()
             {
-                Console.WriteLine("Введите через пробел X1 Х2");
-
-                string[] symbols = Console.ReadLine().Split(' ');
-
-                int x1 = int.Parse((symbols[0].ToString()));
-                int x2 = int.Parse((symbols[1].ToString()));
+                TakeParams(out int x1, out int x2);
 
                 Line newLine = new Line(x1, x2);
+
+                Console.WriteLine("Фигура Линия добавлена!");
 
                 return newLine;
             }
 
-            static Figure CreatSquareForList()
+            static Figure CreateSquareForList()
             {
-                Console.WriteLine("Введите X1 Х2");
-
-                string[] symbols = Console.ReadLine().Split(' ');
-
-                int x1 = int.Parse((symbols[0].ToString()));
-                int x2 = int.Parse((symbols[1].ToString()));
+                TakeParams(out int x1, out int x2);
 
                 Square newSquare = new Square(x1, x2);
 
-            return newSquare;
+                Console.WriteLine("Фигура Квадрат добавлена!");
+
+                return newSquare;
             }
         }
+
+        static void TakeParams(out int X1, out int X2)
+        {
+            Console.WriteLine("Введите X1 Х2");
+
+            string[] symbols = Console.ReadLine().Split(' ');
+            X1 = int.Parse((symbols[0].ToString()));
+            X2 = int.Parse((symbols[1].ToString()));
+        }
     }
+
+
     public abstract class Figure
     {
         public override string ToString()
@@ -178,128 +178,116 @@ namespace Task_2._1._2
     }
     class Circle : Figure
     {
-        int x, y, r;
+        protected int X;
+        protected int Y;
+        protected int R;
 
-        public Circle(int X, int Y, int radius)
+        public Circle(int x, int y, int radius)
         {
-            this.x = X;
-            this.y = Y;
-            this.r = radius;
+            X = x;
+            Y = y;
+            R = radius;
         }
         public double LengthCircle()
         {
             double length;
-            length = 2 * Math.PI * this.r;
+            length = 2 * Math.PI * R;
             return length;
         }
         public override string ToString()
         {
-            return $"Circle, x= {this.x.ToString()}, y= {this.y.ToString()}, r= {this.r.ToString()}";
+            return $"Circle, x= {X.ToString()}, y= {Y.ToString()}, r= {R.ToString()}";
         }
     }
     class Round : Circle
     {
-        int x, y, r;
-
-        public Round(int X, int Y, int radius) : base(X, Y, radius)
+        public Round(int x, int y, int radius) : base(x, y, radius)
         {
-            this.x = X;
-            this.y = Y;
-            this.r = radius;
+            X = x;
+            Y = y;
+            R = radius;
         }
 
         public double SqrOfRound()
         {
             double result;
-            result = Math.PI * this.r * this.r / 2;
+            result = Math.PI * R * R / 2;
             return result;
         }
         public override string ToString()
         {
-            return $"Round, x= {x.ToString()}, y= {y.ToString()}, r= {r.ToString()}";
+            return $"Round, x= {X.ToString()}, y= {Y.ToString()}, r= {R.ToString()}";
         }
     }
-    class Ring : Figure
+    class Ring : Round
     {
-        private Round innerRing;
         private Round outerRing;
-        int x, y, innerr, outerr;
+        protected int innerR;
+        protected int outerR;
 
-        public Ring(int X, int Y, int innerR, int outerR)
+        public Ring(int x, int y, int radius, int outerRadius): base (x, y, radius)
         {
-            this.innerRing = new Round(X, Y, innerR);
-            this.outerRing = new Round(X, Y, outerR);
-            this.x = X;
-            this.y = Y;
-            this.innerr = innerR;
-            this.outerr = outerR;
+            outerRing = new Round(X, Y, outerRadius);
+            X = x;
+            Y = y;
+            innerR = radius;
+            outerR = outerRadius;
         }
         public double SqrOfRing()
         {
             double square;
-            square = outerRing.SqrOfRound() - innerRing.SqrOfRound();
+            square = outerRing.SqrOfRound() - SqrOfRound();
             return square;
 
         }
         public override string ToString()
         {
-            return $"Ring, x= {x.ToString()}, y= {y.ToString()}, innerRadius= {innerr.ToString()}, outerRadius= {outerr.ToString()}";
+            return $"Ring, x= {X.ToString()}, y= {Y.ToString()}, innerRadius= {innerR.ToString()}, outerRadius= {outerR.ToString()}";
         }
     }
     public abstract class Linear : Figure
     {
-        void Segment(int x1, int x2) // оставлять ли здесь x1, x2?
-        { }
+        protected int X1;
+        protected int X2;
+        public Linear(int x1, int x2)
+        {
+            X1 = x1;
+            X2 = x2;
+        }
     }
     public class Line : Linear
-    {
-        public int x1 = 0;
-        public int x2 = 0; 
-        public int line;
+    { 
+        protected int line;
         
-        public Line(int coordX1, int coordX2)
+        public Line(int x1, int x2): base ( x1, x2)
         {
-            this.x1 = coordX1;
-            this.x2 = coordX2;
-
-            this.line = Math.Abs(coordX1 - coordX2);
+            X1 = x1;
+            X2 = x2;
+            line = Math.Abs(X1 - X2);
         }
         public override string ToString()
         {
-            return $"Line, x1= {this.x1.ToString()}, x2= {this.x2.ToString()}, length= {this.line.ToString()}";
+            return $"Line, x1= {X1.ToString()}, x2= {X2.ToString()}, length= {this.line.ToString()}";
         }
     }
 
-    public class Square : Line
+    public class Square : Linear
     {
-        public int side;
-        public Square(int coordX1, int coordX2) : base(coordX1, coordX2)
+        protected int Side;
+        public Square(int x1, int x2) : base(x1, x2)
         {
-                    if (coordX1 == coordX2)
-                        throw new Exception("Координаты точек не должны совпадать");
-                    else                                                      
-                    {
-                        this.x1 = coordX1;
-                        this.x2 = coordX2;
-                        this.side = Math.Abs(x2 - x1);
-                    }
+            if (x1 == x2)
+                throw new Exception("Координаты точек не должны совпадать");
+            else
+            {
+                X1 = x1;
+                X2 = x2;
+                Side = Math.Abs(X2 - X1);
+            }
         }
         public override string ToString()
         {
-            return $"Squere, side= {this.side.ToString()}";
-        }
-    }
-       class Params
-    {
-        int x, y, radius;
-        public Params(int X, int Y)
-        {
-            this.x = X;
-            this.y = Y;
-        }
-        public Params(int R)
-        {
-            this.radius = R;
+            return $"Squere, side= {Side.ToString()}";
         }
     }
 }

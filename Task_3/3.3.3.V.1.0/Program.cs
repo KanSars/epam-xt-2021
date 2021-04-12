@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-
+// todo
 namespace _3._3._3.V._1._0
 {
     class Program

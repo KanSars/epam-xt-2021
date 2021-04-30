@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-// question: на сколько это корректно: функция в функции?
-
 namespace _4._1
 {
     static class Recoil
@@ -21,34 +19,42 @@ namespace _4._1
         {
             pathOfDict = Path.GetDirectoryName(WatchedDir) + "\\Watcher\\dict.txt";
 
-
-            if (!File.Exists(pathOfDict))
+            try
             {
-                Console.WriteLine("Нет сохраненных версий отслеживаемой директории");
-            }
-            else
-            {
-                //--- считываем из блокнота данные в dict и выводим его
-                //--- предлагаем задать ключ и ждем ответа
-                //--- считываем ключ, проверив его наличие в dict, по ключу откатываемся из Repository
-
-                ReadDictFromTxt();
-
-                string s = Console.ReadLine();
-
-                maxKeyinDict = (dict.OrderByDescending(x => x.Key).FirstOrDefault().Key);
-
-                while (!int.TryParse(s, out int i) || int.Parse(s) < 1 || int.Parse(s) > maxKeyinDict)
+                if (!File.Exists(pathOfDict))
                 {
-                    s = Console.ReadLine();
+                    throw new Exception();
                 }
-                int key = int.Parse(s);
+                else
+                {
+                    //--- считываем из блокнота данные в dict и выводим его
+                    //--- предлагаем задать ключ и ждем ответа
+                    //--- считываем ключ, проверив его наличие в dict, по ключу откатываемся из Repository
 
-                Repository = Path.GetDirectoryName(WatchedDir) + @"\Watcher\" + $"{key + " " + dict[key]}";
+                    ReadDictFromTxt();
 
-                deleteFolder(WatchedDir);
-                CopyBack(Repository, WatchedDir);
+                    string s = Console.ReadLine();
+
+                    maxKeyinDict = (dict.OrderByDescending(x => x.Key).FirstOrDefault().Key);
+
+                    int key;
+
+                    while (!int.TryParse(s, out key) || key < 1 || key > maxKeyinDict)
+                    {
+                        s = Console.ReadLine();
+                    }
+
+                    Repository = Path.GetDirectoryName(WatchedDir) + @"\Watcher\" + $"{key + " " + dict[key]}";
+
+                    deleteFolder(WatchedDir);
+                    CopyBack(Repository, WatchedDir);
+                }
             }
+            catch (Exception)
+            {
+
+            }
+           
         }
 
         public static void ReadDictFromTxt()

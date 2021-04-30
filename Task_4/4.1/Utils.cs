@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-// Console.WriteLine("CopyDir Started"); ==>> какую папку создали
 
 namespace _4._1
 {
@@ -81,7 +80,6 @@ namespace _4._1
                     writer.WriteLine($"{kvp.Key}\t{kvp.Value}");
                 }
             }
-            Console.WriteLine($"Новая директория создана: {ToDir}");
         }
 
         public static void CopyDir(string WatchedDir, string ToDir)

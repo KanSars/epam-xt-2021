@@ -7,7 +7,6 @@ namespace _4._1
     {
         public void WatchChanges(string watchedDir)
         {
-            Console.WriteLine($"Отслеживается: {watchedDir}");
             string WatchedDir = watchedDir;
 
             using var watcher = new FileSystemWatcher(WatchedDir);
@@ -29,13 +28,11 @@ namespace _4._1
 
             watcher.EnableRaisingEvents = true;
 
-            Console.WriteLine("Press enter to exit.");
             Console.ReadLine();
 
 
             void OnChanged(object sender, FileSystemEventArgs e)
             {
-                //приостанавливаем watcher
                 watcher.EnableRaisingEvents = false;
 
                 if (e.ChangeType != WatcherChangeTypes.Changed)
@@ -43,26 +40,14 @@ namespace _4._1
                     return;
                 }
 
-                Console.WriteLine($"Changed: {e.FullPath}");
-
                 Utils.CopyDirToNew(WatchedDir);
 
-                // продолжаем работу watcher
                 watcher.EnableRaisingEvents = true;
             }
 
-            void OnCreated(object sender, FileSystemEventArgs e)
-            {
+            void OnCreated(object sender, FileSystemEventArgs e) => Utils.CopyDirToNew(WatchedDir);
 
-                Console.WriteLine($"Created: {e.FullPath}");
-                Utils.CopyDirToNew(WatchedDir);
-            }
-
-            void OnDeleted(object sender, FileSystemEventArgs e)
-            {
-                Console.WriteLine($"Deleted: {e.FullPath}");
-                Utils.CopyDirToNew(WatchedDir);
-            }
+            void OnDeleted(object sender, FileSystemEventArgs e) => Utils.CopyDirToNew(WatchedDir);
         }
     }
 }

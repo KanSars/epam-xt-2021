@@ -9,10 +9,6 @@ namespace _4._1
         {
             string WatchedDir = $@"D:\epam-xt-2021\Task_4\1";
 
-            string[] names = WatchedDir.Split('\\');
-
-            string PathFolderWatchedDir = Path.GetDirectoryName(WatchedDir) + "\\Watcher";
-
             Watcher watcher = new Watcher();
 
             Menu();
@@ -34,20 +30,22 @@ namespace _4._1
 
         public static void Menu()
         {
-            Console.WriteLine("Выберете режим:");
-            Console.WriteLine("Режима наблюдения: 1");
-            Console.WriteLine("Режима отката: 2");
-
+            string menu = "Выберете режим: \n" +
+                          "Режима наблюдения: 1 \n" +
+                          "Режима отката: 2";
+            Console.WriteLine(menu);
         }
         static int ReadNeededMode()
         {
             string s = Console.ReadLine();
 
-            while (!int.TryParse(s, out int i) || int.Parse(s) < 1 || int.Parse(s) > 2) // || -важно, чтобы int.Parse(s) не сработал if!true
+            int mode;
+
+            while (!int.TryParse(s, out mode) || mode < 1 || mode > 2)
             {
                 s = Console.ReadLine();
             }
-            return int.Parse(s);
+            return mode;
         }
     }
 }

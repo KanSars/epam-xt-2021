@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background-color: #4e627a;
+        }
+
+        .container {
+            background-color: #ffffff;
+            width: 600px;
+            border-radius: 5px;
+            margin: auto;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            box-shadow: 0px 20px 40px -20px black;
+            padding: 5px;
+            font-weight: bold;
+        }
+
+        .column {
+            display: inline-block;
+            width: 197px;
+            background-color: #ffffff;
+            box-shadow: inset -1px 0 0 #dddddd;
+        }
+
+        .button {
+            background-color: #f56330;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+            margin: 4px 0px 5px;
+            position: relative;
+            left: 50%;
+            transform: translate(-50%, 0);
+            border-radius: 5%;
+        }
+
+        .central_content {
+            color: #f0753c;
+            font-weight: bold;
+            height: 15px;
+            line-height: 15px;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .img {
+            padding: 0;
+            position: relative;
+            width: 64px;
+            height: 64px;
+            background: #c2c2c2;
+            display: block;
+            margin: auto;
+        }
+
+        .price {
+            font-family: Light 300;
+            text-align: center;
+            color: black;
+            font-size: 14px;
+            margin: 5px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <form action="/action_page.php">
+        <div class="container">
+
+            <div class="column">
+                <img src="task_8.4-host_1.PNG" class="img">
+                <p class="central_content"> Виртуальный хостинг </p>
+                <p class="price">3.95$ в месяц</p>
+                <a class="button">Подробнее</a>
+            </div>
+
+            <div class="column">
+                <img src="task_8.4-host_2.PNG" class="img">
+                <p class="central_content"> Облачный хочтинг </p>
+                <p class="price">68.95$ в месяц</p>
+                <a class="button">Подробнее</a>
+            </div>
+
+            <div class="column" style="box-shadow: inset 0px 0 0 red;">
+                <img src="task_8.4-host_3.PNG" class="img">
+                <p class="central_content"> Выделенный хостинг </p>
+                <p class="price">217.95$ в месяц</p>
+                <a class="button">Подробнее</a>
+            </div>
+
+        </div>
+    </form>
+</body>
+
+</html>

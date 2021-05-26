@@ -1,0 +1,46 @@
+*{
+    margin: 0px;
+}
+
+.container {
+    padding: 30px;
+    background-color: #0690cf;
+    width: 759px;
+    display: inline-block;
+    border: 5px solid #0075b2;
+
+    font-family: corbel;
+    font-size: 32px;
+    color: #fffcfb;   
+}
+
+input[type=text], input[type=password] {
+    width: 300px;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+    border: 2px solid #abadb3;
+}
+
+.registerbtn {
+    background-color: #ffdf7f;
+    color: black;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    margin-top: 40px;
+    
+    font-family: corbel;
+    font-size: 20px;
+}
+
+.password-box {
+    display: inline-block;
+    width: 375px;
+}
+
+label{
+    font-size: 32px;
+}

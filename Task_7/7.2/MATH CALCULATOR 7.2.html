@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <p id="hello"></p>
+
+  <script>
+
+    function CalcStr(str) {
+
+      str.replace(/\s/g, '');
+
+      let arrStr = str.split('');
+
+      //console.log(arrStr);
+
+      if (arrStr.pop() !== '=') {
+        throw new Error("Отсутствует знак \"=\" ");
+      }
+
+      console.log('before splite', JSON.stringify(arrStr));
+
+      let i = 1;
+
+      while (arrStr.length > 2) {
+        switch (arrStr[1]) {
+          case '+':
+            arrStr.splice(0, 3, arrStr[0] + arrStr[2]);
+            break;
+          case '-':
+            arrStr.splice(0, 3, arrStr[0] - arrStr[2]);
+            break;
+          case '*':
+            arrStr.splice(0, 3, arrStr[0] * arrStr[2]);
+            break;
+          case '/':
+            arrStr.splice(0, 3, arrStr[0] / arrStr[2]);
+            break;
+
+          default:
+            alert('Неверный формат строки');
+            return;
+        }
+
+        console.log(`iteration ${i++}`, JSON.stringify(arrStr));
+      }
+
+      console.log('result', JSON.stringify(arrStr), arrStr[0].toFixed(2));
+    }
+
+    try {
+
+      let user = new CalcStr('2+2+3*4=');
+
+    } catch (e) {
+      alert(e.message);
+    }
+
+  </script>
+</body>
+
+</html>

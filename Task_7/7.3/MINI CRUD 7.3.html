@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+// Данный файл предназначен для тестирования функций
+
+<body>
+  <p id="hello"></p>
+
+
+  <script>
+
+    let user1 = {
+      name: "John",
+      age: 30,
+    };
+
+    let user2 = {
+      name: "Kolya",
+      age: 55,
+    };
+
+    let user22 = {
+      name: "Nikolya",
+      age: 55,
+    };
+
+    let Tom = {
+      name: "Tom",
+      age: 55,
+    };
+
+    let Tomas = {
+      name: "Tomas",
+      //age: 55,
+      gender: 'man',
+    };
+
+    class Service {
+      constructor() {
+        this.repo = new Map();
+
+        this.repo.set(1112, Tom);
+        this.repo.set(1111, "Tom"); //для теста
+
+      }
+
+      getNewId() {
+        let generateId = () => Math.ceil(Math.random() * (10000)).toString();
+        let Id = generateId();
+
+        while (this.repo.has(Id)) {
+          Id = generateId();
+        }
+
+        return Id;
+      }
+
+      //принимает объект и позволяет добавить его в коллекцию
+      add(user) {
+        //TODO ошибку если это не объект       
+        this.repo.set(this.getNewId(), user);
+      }
+
+      //принимает id и возвращает найденный объект или NULL если не найден
+      getById(takenId) {
+        if (this.repo.has(takenId)) {
+          return this.repo.get(takenId);
+        }
+        return null;
+      }
+
+      //возвращает весь массив объектов
+      getAll() {
+        //let objects= [];
+        //for (let amount of this.repo.values()) {
+        //  objects.push(amount);
+        //}
+        //return objects;
+
+        let arr = Array.from(this.repo.values());
+        return arr;
+      }
+
+      //принимает id и возвращает удаленный объект
+      deleteById(takenId) {
+        this.tempPair = [];
+        if (this.repo.has(takenId)) {
+          this.tempPair = [takenId, this.repo.get(takenId)];
+          this.repo.delete(takenId);
+          return this.tempPair;
+        }
+        return false;
+      }
+
+      // принимает id первым параметром и объект-вторым. Обновляет поля объекта 
+      // новыми значениями
+      updateById(takenId, User4) {
+        if (this.repo.has(takenId)) {
+          for (let i in User4) {
+            if (User4.hasOwnProperty(i)) {
+              this.repo.get(takenId)[i] = User4[i];
+            }
+          }
+        }
+        return false;
+      }
+
+      // принимает id и заменяет старый объект - новым
+      replaceById(takenId, User4) {
+        if (this.repo.has(takenId)) {
+          this.repo.set(takenId, User4);
+        }
+        return false;
+      }
+
+    }
+
+    // проверка:
+
+    var storage = new Service();
+
+    storage.add(user1);
+    storage.add(user2);
+
+    //console.log(getById(1112));
+
+    //console.log(storage.getAll());
+    
+    //console.log(deleteById(1112));
+
+    //storage.updateById(1112, Tomas);
+
+    //storage.replaceById(1112, Tomas);
+
+
+  </script>
+</body>
+
+</html>

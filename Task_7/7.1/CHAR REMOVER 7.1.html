@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <p id="hello"></p>
+
+  <script>
+
+    // строка для преобразования (пример)
+    let str = 'У попа была собака';
+
+    // преобразуем в массив
+    let arrOfWords = str.split(/\?|!|:|;|,|\.|\s|\t/);
+
+    //находим повторяющиеся буквы (дубликаты) в словах
+    for (let word of arrOfWords) {
+      let tempArray = word.split('').sort();
+      
+      for (let i = 0; i < tempArray.length; i++) {
+        if (tempArray[i + 1] === tempArray[i]) {
+          let duplicate = tempArray[i];
+
+          //удаляем дубликаты из строки
+          str = str.replaceAll(duplicate, '');
+        }
+      }    
+    }
+
+    console.log(str);
+
+  </script>
+</body>
+
+</html>

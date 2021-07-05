@@ -1,0 +1,17 @@
+﻿@using Task_8.ASP.Dependencies;
+@{
+
+    var deletingUserId = Request["DeletingUserId"];
+
+    int intdeletingUserId = 0;
+
+    if (int.TryParse(deletingUserId, out int result))
+    {
+        intdeletingUserId = int.Parse(deletingUserId);
+    }
+
+    DependencyResolver.Instance.ListLogic.RemoveUserFromDict(intdeletingUserId);
+
+    Response.Redirect("/Pages/Users/UsersPage");
+
+}

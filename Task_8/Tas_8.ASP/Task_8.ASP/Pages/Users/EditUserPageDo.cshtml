@@ -1,0 +1,25 @@
+﻿@using System.Globalization
+@using Task_8.ASP.Entities;
+@using Task_8.ASP.Dependencies;
+
+@if (IsPost)
+{
+    var updatingUseruserId = Request["UpdatingUserID"];
+    var updatingUserName = Request["UpdatingUserName"];
+    //var updatingUserDoB = Request["UpdatingUserDoB"];
+    int userId;
+    //DateTime dob;
+    string dobFormat = "dd.MM.yyyy";
+    if (int.TryParse(updatingUseruserId, out userId) && !string.IsNullOrWhiteSpace(updatingUserName)
+        //&& DateTime.TryParseExact(updatingUserDoB, dobFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dob)
+        )
+    {
+
+        User user = new User(updatingUserName);
+
+        DependencyResolver.Instance.ListLogic.EditUser(userId, user);
+
+        Response.Redirect("/Pages/Users/UsersPage");
+        return;
+    }
+}

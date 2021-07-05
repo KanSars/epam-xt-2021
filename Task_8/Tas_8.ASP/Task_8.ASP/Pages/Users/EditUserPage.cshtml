@@ -1,0 +1,49 @@
+﻿@using System.Globalization
+@using Task_8.ASP.Dependencies;
+@using Task_8.ASP.Entities;
+
+@if (IsPost)
+{
+    var editingUserId = Request["EditingUserId"];
+    int userId;
+    if (int.TryParse(editingUserId, out userId))
+    {
+        //
+    }
+
+    var dictOfUsers = DependencyResolver.Instance.ListLogic.GetDictOfAllUsers();
+
+    User user = dictOfUsers[userId];
+
+    <text>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <link href="~/Styles/reset.css" rel="stylesheet" />
+            <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+            <link href="~/Styles/main.css" rel="stylesheet" />
+        </head>
+        <body>
+            <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+            <button id="BackBtn" type="submit" class="btn btn-primary"> << </button>
+            <script>
+                $('#BackBtn').click(function () {
+                    location.href = '/Pages/Users/UsersPage';
+                })
+            </script>
+            <main>
+                <form action="~/Pages/Users/EditUserPageDo" method="post" role="form">
+                    <div class="form-group">
+                        <input type="hidden" value="@userId" id="UpdatingUserID" name="UpdatingUserID" class="form-control">
+                        <label for="UpdatingUserName" class="control-label">Имя пользователя: </label><input type="text" value="@user.Name" id="UpdatingUserName" name="UpdatingUserName" class="form-control">
+                    </div>
+                    @*<div class="form-group">
+                    <label for="UpdatingUserDoB" class="control-label">Дата рождения пользователя: </label><input type="text" value="@logic.GetUser(userGuid).DayOfBirth.ToString("dd.MM.yyyy")" id="UpdatingUserDoB" name="UpdatingUserDoB" class="form-control">
+                </div>*@
+                    <button type="submit" id="UpdateUser" name="UpdateUser">Редактировать данные</button>
+                </form>
+            </main>
+        </body>
+    </html>
+    </text>
+}

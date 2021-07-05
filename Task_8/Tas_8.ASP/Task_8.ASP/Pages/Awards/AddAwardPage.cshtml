@@ -1,0 +1,49 @@
+﻿@using Task_8.ASP.Dependencies;
+@using Task_8.ASP.Entities;
+
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    string titleAward = null;
+}
+
+<button id="BackBtn" type="submit" class="btn btn-primary"> << </button>
+
+<script>
+    $('#BackBtn').click(function () {
+        location.href = '/Pages/Awards/AwardsPage';
+    })
+</script>
+
+
+<form method="post">
+
+    <div class="form-group">
+        <label for="exampleInputPassword1">Новая награда</label>
+        <input name="titleAward" type="text" class="form-control" placeholder="Введите наименование награды" value="@titleAward">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Добавить награду</button>
+</form>
+
+@if (IsPost)
+{
+    titleAward = Request["titleAward"];
+
+    Award award = new Award(titleAward);
+
+    DependencyResolver.Instance.ListLogic.AddAwardToDict(award);
+
+}
+
+Список наград:
+
+@{
+    var listAwards = DependencyResolver.Instance.ListLogic.GetAllAwards();
+
+    foreach (var item in listAwards)
+    {
+        <div>@item.Title</div>
+    }
+}

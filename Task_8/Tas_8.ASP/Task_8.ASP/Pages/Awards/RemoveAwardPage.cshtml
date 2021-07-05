@@ -1,0 +1,10 @@
+﻿@using Task_8.ASP.Dependencies;
+@{
+
+    var deletingAwardTitle = Request["DeletingAwardTitle"];
+
+    DependencyResolver.Instance.ListLogic.RemoveAwardFromDict(deletingAwardTitle);
+
+    Response.Redirect("/Pages/Awards/AwardsPage");
+
+}

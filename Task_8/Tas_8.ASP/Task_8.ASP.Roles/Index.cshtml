@@ -1,0 +1,65 @@
+﻿@using Task_8.ASP.Roles;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    PageData["Title"] = "Стартовая страница";
+
+    //string pageName = "Стартовая страница";
+
+    int idUser = 0;
+
+    string nameUser = null;
+
+}
+
+
+
+
+
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("users"))
+        {
+            <button id="counterBtn" type="submit" class="btn btn-primary">Go to counter!</button>
+            <script>
+                $('#counterBtn').click(function () {
+                    location.href = '/Pages/counter';
+                })
+            </script>
+
+        }
+
+        if (User.IsInRole("admin"))
+        {
+            <button id="RemoveUserBtn" type="submit" class="btn btn-primary">Go to Removing!</button>
+        }
+
+        <button id="SignOutBtn" type="submit" class="btn btn-primary">Go to SignOut!</button>
+
+    }
+    else
+    {
+        <div> не доступно </div>
+        <button id="SignInBtn" type="submit" class="btn btn-primary">Go to SignIn!</button>
+    }
+}
+<script>
+    $('#RemoveUserBtn').click(function () {
+        location.href = '/Pages/RemoveUserPage';
+    })
+</script>
+
+<script>
+    $('#SignInBtn').click(function () {
+        location.href = '/Pages/SignIn';
+    })
+</script>
+
+
+<script>
+    $('#SignOutBtn').click(function () {
+        location.href = '/Pages/SingOut';
+    })
+</script>

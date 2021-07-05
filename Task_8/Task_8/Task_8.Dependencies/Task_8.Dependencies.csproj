@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Task_8.BLL.Interfaces\Task_8.BLL.Interfaces.csproj" />
+    <ProjectReference Include="..\Task_8.BLL\Task_8.BLL.csproj" />
+    <ProjectReference Include="..\Task_8.DAL.Interfaces\Task_8.DAO.Interfaces.csproj" />
+    <ProjectReference Include="..\Task_8.UsersAndAdwardsJsonDAO\Task_8.UsersAndAwardsJsonDAO.csproj" />
+  </ItemGroup>
+
+</Project>

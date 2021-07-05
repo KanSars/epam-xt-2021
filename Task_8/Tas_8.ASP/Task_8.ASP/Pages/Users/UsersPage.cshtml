@@ -1,0 +1,101 @@
+﻿@using Task_8.ASP.Dependencies;
+@using Task_8.ASP.Entities;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Styles/reset.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Styles/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <button id="BackBtn" type="submit" class="btn btn-primary"> << </button>
+    <script>
+        $('#BackBtn').click(function () {
+            location.href = '/Index';
+        })
+    </script>
+
+    <main>
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                @*<th>DayOfBirth</th>
+                    <th>Age</th>*@
+                <th>Awards</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            @{
+
+                var dictUsers = DependencyResolver.Instance.ListLogic.GetDictOfAllUsers();
+
+                List<Award> listAwards = new List<Award>();
+
+                foreach (var item in dictUsers)
+                {
+                    <text>
+                        <tr>
+                            <td>@item.Key </td>
+                            <td>@item.Value.Name</td>
+                            <td>
+                                @{
+                                    listAwards = DependencyResolver.Instance.ListLogic.GetAllAwardsOfUser(item.Key);
+
+                                    foreach (var itemList in listAwards)
+                                    {
+                                        <text>@itemList.Title, </text>
+                                    }
+                                }
+                            </td>
+                            @{
+                                if (User.IsInRole("admin"))
+                                {
+                                    <td>
+                                        <form action="~/Pages/Users/EditUserPage" method="post" role="form">
+                                            <input type="hidden" value=@item.Key id="EditingUserId" name="EditingUserId">
+                                            <button type="submit" id="EditUser" name="EditUser" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Edit</i></button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="~/Pages/Users/AwardingPage" method="post" role="form">
+                                            <input type="hidden" value=@item.Key id="AwardingUserId" name="AwardingUserId">
+                                            <button type="submit" id="AwardingUser" name="AwardingUser" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Award</i></button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="~/Pages/Users/RemoveUserPage" method="post" role="form">
+                                            <input type="hidden" value=@item.Key id="DeletingUserId" name="DeletingUserId">
+                                            <button type="submit" id="DeleteUser" name="DeleteUser" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove"></i></button>
+                                        </form>
+                                    </td>
+                                }
+                            }
+                        </tr>
+                    </text>
+                }
+            }
+        </table>
+    </main>
+
+    @{
+        if (User.IsInRole("admin"))
+        {
+            <button id="NewUserBtn" type="submit" class="btn btn-primary">Add User</button>
+        }
+    }
+
+
+    <script>
+        $('#NewUserBtn').click(function () {
+            location.href = '/Pages/Users/AddUserPage';
+        })
+    </script>
+</body>
+</html>

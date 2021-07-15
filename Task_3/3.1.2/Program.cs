@@ -13,8 +13,8 @@ namespace _3._1._2
             var dict = new Dictionary<string, int>();
             
             string[] line;
-            line = Console.ReadLine().ToLower().Split(" ,.?!\'()\"".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-            
+            line = Console.ReadLine().ToLower().Split(" ,.?!\'()\"".ToCharArray(), StringSplitOptions.RemoveEmptyEntries); //TODO .Split(" ,.?!\'()\"".ToCharArray() отдельно для лучшей читаемости
+
             foreach (var word in line)
             {
                 if (!dict.ContainsKey(word)) dict.Add(word, 1);

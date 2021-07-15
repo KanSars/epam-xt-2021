@@ -1,0 +1,18 @@
+﻿@using Task_8.Entities;
+@using Task_8.Dependencies;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task_8</title>
+</head>
+<body>
+    @{
+        User user = new(1, "Vasiliy");
+
+        Console.WriteLine($"{user.Id}, {user.Name}");
+
+        DependencyResolver.Instance.ListLogic.AddUserToDict(user); //TODO генератор ID
+    }
+</body>
+</html>

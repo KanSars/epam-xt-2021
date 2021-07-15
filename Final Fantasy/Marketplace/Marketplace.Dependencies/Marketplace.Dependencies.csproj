@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B1A0B375-9183-4D87-8410-CEB6B131E0CC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Marketplace.Dependencies</RootNamespace>
+    <AssemblyName>Marketplace.Dependencies</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\Marketplace\packages\NLog.4.7.10\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DependencyResolver.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Marketplace.BLL.Interfaces\Marketplace.BLL.Interfaces.csproj">
+      <Project>{7759925f-0832-453a-8d30-f53b07518a39}</Project>
+      <Name>Marketplace.BLL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Marketplace.BLL\Marketplace.BLL.csproj">
+      <Project>{52df904b-4894-4adf-991a-5c22f8a97f09}</Project>
+      <Name>Marketplace.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Marketplace.BuyerGoodsJsonDAO\Marketplace.BuyersProductsJsonDAO.csproj">
+      <Project>{d6a6b56c-5ede-439a-b5fa-04f98c7d4ab3}</Project>
+      <Name>Marketplace.BuyersProductsJsonDAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Marketplace.DAO.Interfaces\Marketplace.DAO.Interfaces.csproj">
+      <Project>{db8dd57f-0482-42be-9760-6a0b94d1bc0f}</Project>
+      <Name>Marketplace.DAO.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Marketplace\BuyersProductsSqlDAO\BuyersProductsSqlDAO.csproj">
+      <Project>{b111b77d-9ab6-4d3f-b2a9-658a69ddcc9e}</Project>
+      <Name>BuyersProductsSqlDAO</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

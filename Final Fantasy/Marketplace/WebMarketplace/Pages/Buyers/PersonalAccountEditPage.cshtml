@@ -1,0 +1,37 @@
+﻿@using Marketplace.Dependencies;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    var buyerData = DependencyResolver.Instance.BuyresLogic.GetBuyerData(HttpContext.Current.User.Identity.Name);
+
+}
+
+<form action="~/Pages/Buyers/PersonalAccountEditPageDo" method="post" role="form">
+    <div class="form-group">
+        <div class="col-sm-3 my-1">
+            <label for="UpdatingBuyerName" class="control-label">Имя покупателя: </label>
+            <input type="text" value="@buyerData.Name" id="UpdatingBuyerName" name="UpdatingBuyerName" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-3 my-1">
+            <label for="UpdatingBuyerSurname" class="control-label">Фамилия покупателя: (не работает)</label>
+            <input type="text" value="@buyerData.Surname" id="UpdatingBuyerSurname" name="UpdatingBuyerSurname" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-3 my-1">
+            <label for="UpdatingBuyerDoB" class="control-label">Дата рождения: (не работает)</label>
+            <input type="text" value="@buyerData.DoB.ToShortDateString()" id="UpdatingBuyerDoB" name="UpdatingBuyerDoB" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-3 my-1">
+            <label for="UpdatingBuyerEmail" class="control-label">Email: (не работает)</label>
+            <input type="text" value="@buyerData.Email" id="UpdatingBuyerEmail" name="UpdatingBuyerEmail" class="form-control">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Обновить данные</button>
+</form>

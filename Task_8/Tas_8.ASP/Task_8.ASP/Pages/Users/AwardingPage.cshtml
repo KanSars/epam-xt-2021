@@ -1,0 +1,63 @@
+﻿@using System.Globalization
+@using Task_8.ASP.Dependencies;
+@using Task_8.ASP.Entities;
+
+@if (IsPost)
+{
+
+    var awardingUserId = Request["AwardingUserId"];
+    int userId;
+
+    if (int.TryParse(awardingUserId, out userId))
+    {
+        //
+    }
+
+    string awardTitle = null;
+
+    <text>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <link href="~/Styles/reset.css" rel="stylesheet" />
+            <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+            <link href="~/Styles/main.css" rel="stylesheet" />
+        </head>
+        <body>
+            <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+            <button id="BackBtn" type="submit" class="btn btn-primary"> << </button>
+            <script>
+                $('#BackBtn').click(function () {
+                    location.href = '/Pages/Users/UsersPage';
+                })
+            </script>
+            <main>
+                <form action="~/Pages/Users/AwardingPageDo" method="post" role="form">
+                    <div class="form-group">
+                        <input type="hidden" value="@userId" id="AwardingUserID" name="AwardingUserID" class="form-control">
+                        <label for="AwardingTitle" class="control-label">Введите нагарду: </label><input type="text" id="AwardingTitle" name="AwardingTitle" class="form-control">
+                    </div>
+                    @*<div class="form-group">
+                            <label for="AwardingUserTitle" class="control-label">Дата рождения пользователя: </label><input type="text" value="@awardTitle" id="AwardingUserTitle" name="AwardingUserTitle" class="form-control">
+                        </div>*@
+                    <button type="submit" id="AwardUser" name="AwardUser">Наградить</button>
+                </form>
+            </main>
+        </body>
+    </html>
+    </text>
+}
+
+
+<p>Выберите награду из уже существующих или добавьте свою</p>
+
+<p>Список существующих наград:</p>
+
+@{
+    var listAwards = DependencyResolver.Instance.ListLogic.GetAllAwards();
+
+    foreach (var item in listAwards)
+    {
+        <div>Award title: @item.Title</div>
+    }
+}

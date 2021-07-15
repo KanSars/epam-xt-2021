@@ -1,0 +1,64 @@
+﻿@using Task_8.ASP.Dependencies;
+@using Task_8.ASP.Entities;
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    int idUser = 0;
+    string nameUser = null;
+    //DateTime dateOfBirth = new DateTime();
+
+}
+
+<button id="BackBtn" type="submit" class="btn btn-primary"> << </button>
+<script>
+    $('#BackBtn').click(function () {
+        location.href = '/Pages/Users/UsersPage';
+    })
+</script>
+
+<button id="counterBtn" type="submit" class="btn btn-primary">Go to IndexS!</button>
+
+<script>
+    $('#counterBtn').click(function () {
+        location.href = '/Index';
+    })
+</script>
+
+
+<form method="post">
+
+    <div class="form-group">
+        <label for="exampleInputPassword1">Имя пользователя</label>
+        <input name="nameUser" type="text" class="form-control" placeholder="Введите имя пользователя" value="@nameUser">
+    </div>
+    <!--<div class="form-group">
+        <label for="exampleInputPassword1">Дата рождения</label>
+        <input name="dateOfBirth" type="datetime" class="form-control" placeholder="Введите имя пользователя" value="01.01.1900"-->
+    @*value="@dateOfBirth*@
+    <!--">
+    </div>-->
+    <button type="submit" class="btn btn-primary">Отправить данные</button>
+</form>
+
+@if (IsPost)
+{
+    nameUser = Request["nameUser"];
+    //DateTime.TryParse(Request["dateOfBirth"], out dateOfBirth);
+
+    User user = new User(nameUser);
+
+    //User user = new User(nameUser, dateOfBirth);
+
+    DependencyResolver.Instance.ListLogic.AddUserToDict(user);
+}
+
+Список пользователей:
+
+@{
+    var listUsers = DependencyResolver.Instance.ListLogic.GetAllUsers();
+
+    foreach (var item in listUsers)
+    {
+        <div>ID: @item.Id. Name: @item.Name.</div>
+    }
+}

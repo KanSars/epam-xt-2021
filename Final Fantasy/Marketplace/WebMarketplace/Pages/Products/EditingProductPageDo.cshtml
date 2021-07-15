@@ -1,0 +1,25 @@
+﻿@using System.Globalization
+@using Marketplace.Entities;
+@using Marketplace.Dependencies;
+
+@{
+    var editingProductId = Request["UpdatingProductId"];
+    int productId;
+    //if (int.TryParse(editingProductId, out productId))
+    //{ }
+
+    //var product = DependencyResolver.Instance.ProductsLogic.GetProductById(productId);
+
+    var title = Request["UpdatingProductTitle"];
+    var priceOfProduct = Request["UpdatingProductPrice"];
+    int price;
+
+    if (int.TryParse(editingProductId, out productId) && int.TryParse(priceOfProduct, out price))
+    {
+        DependencyResolver.Instance.ProductsLogic.EditProductData(productId, title, price);
+    }
+
+    Response.Redirect("/Pages/Catalog/ShopWindowPage");
+    //Response.Redirect(Request.UrlReferrer.ToString());
+
+}

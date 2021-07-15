@@ -1,0 +1,131 @@
+﻿@{
+    string pageName = null;
+    if (PageData.ContainsKey("Title"))
+    {
+        pageName = PageData["Title"];
+    }
+    else
+    {
+        pageName = "Unknown Page";
+    }
+
+    string loginStr = HttpContext.Current.User.Identity.Name;
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link type="text/css" rel="stylesheet" href="~/Content/Site.css" />
+    <title>@pageName</title>
+    <!--@RenderSection("head", required: false)-->
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Buttons.css" rel="stylesheet" />
+</head>
+<body style="background-color: #99a1f0;">
+    <script src="~/Scripts/bootstrap.bundle.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+    <div class="mycontainer">
+
+        <div class="header">
+            <div>
+                "Эти кнопки доступны только авторизированным пользователям"
+                <button id="IndexBtn" type="submit" class="btn btn-primary">На главную</button>
+
+                <button id="PersonalAccountBtn" type="submit" class="btn btn-primary">Личный кабинет</button>
+
+                <button id="CartOfProductsBtn" type="submit" class="btn btn-primary">Корзина товаров</button>
+
+                <button id="CatalogOfProductsBtn" type="submit" class="btn btn-primary">Каталог товаров</button>
+
+                <button id="SearchingProductsBtn" type="submit" class="btn btn-primary">Поиск товаров</button>
+            </div>
+        </div>
+
+        <div class="auth">
+
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                    <div style="width: 100%; margin-right: 30%">
+                        <p>Login: @loginStr</p>
+                        <button id="SignOutBtn" type="submit" class="btn btn-primary">Выйти</button>
+                    </div>
+                }
+                else
+                {
+                    <button id="SignInBtn" type="submit" class="btn btn-primary">Войти</button>
+                    <button id="RegisterBtn" type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                }
+
+            }
+        </div>
+
+        <div class="menu">
+            MENU
+        </div>
+
+        <div class="content">
+            CONTENT
+            <div>@RenderBody()</div>
+        </div>
+
+        <div class="footer">
+            FOOTER
+        </div>
+
+    </div>
+</body>
+</html>
+
+<script>
+    $('#IndexBtn').click(function () {
+        location.href = '/Index';
+    })
+</script>
+
+<script>
+    $('#PersonalAccountBtn').click(function () {
+        location.href = '/Pages/Buyers/PersonalAccountPage';
+    })
+</script>
+
+<script>
+    $('#CartOfProductsBtn').click(function () {
+        location.href = '/Pages/Buyers/ShoppingCartPage';
+    })
+</script>
+
+<script>
+    $('#CatalogOfProductsBtn').click(function () {
+        location.href = '/Pages/Catalog/ShopWindowPage';
+    })
+</script>
+
+<script>
+    $('#SearchingProductsBtn').click(function () {
+        location.href = '/Pages/Catalog/SearchProductsPage';
+    })
+</script>
+
+<script>
+    $('#SignOutBtn').click(function () {
+        location.href = '/Pages/SignOutDo';
+    })
+</script>
+
+<script>
+    $('#SignInBtn').click(function () {
+        location.href = '/Pages/SignIn';
+    })
+</script>
+
+<script>
+    $('#RegisterBtn').click(function () {
+        location.href = '/Pages/RegistrationPage';
+    })
+</script>

@@ -1,0 +1,17 @@
+﻿@using Marketplace.Dependencies;
+@{
+
+    var addingAdminRoleLogin = Request["AddingAdminRoleLogin"];
+
+    //if (int.TryParse(deleingBuyerId, out idBuyer))
+    {
+        //intdeletingUserId = int.Parse(deletingUserId);
+    }
+
+
+    DependencyResolver.Instance.BuyersRolesLogic.AddAdminRoleForBuyer(addingAdminRoleLogin);
+
+    //Вернуться на страницу... (через проверки и логирование)
+    //Response.Redirect("/Pages/Buyers/ShoppingCartPage"); //в дальнейшем лучше через страницу "покупка совершена" и кнопки типа "Продолжить пкупки?"
+    Response.Redirect("/Pages/Admin/BuyersPage");
+}

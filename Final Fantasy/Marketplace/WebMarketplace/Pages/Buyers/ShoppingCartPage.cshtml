@@ -1,0 +1,85 @@
+﻿@using Marketplace.Entities;
+@using Marketplace.Dependencies;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+}
+
+TODO: при нажатии удалить из корзины удаляет ВСЕ указанные продукты, а не единицу товара
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        список покупок
+
+        
+    </div>
+
+    <table class="table">
+        <tr>
+            @*<th>ID</th>*@
+            <th>Name</th>
+            @*<th>DayOfBirth</th>
+            <th>Age</th>*@
+            @*<th>Awards</th>*@
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @{
+
+            //GetBuyerCartList(login)
+            List<Product> productList = new List<Product>();
+            productList = DependencyResolver.Instance.BuyersProductsLogic.GetProductsOfBuyer(HttpContext.Current.User.Identity.Name);
+
+            foreach (var item in productList) //через проверку, иначе "Ваша корзина пуста" и кнопку "К покупкам"
+            {
+                <text>
+                    <tr>
+                        @*<td>@item.Key </td>*@
+                        <td>@item.Title</td>
+
+                        @{
+                            //if (User.IsInRole("admin"))
+                            {
+                                @*<td>
+                                    <form action="~/Pages/Users/EditUserPage" method="post" role="form">
+                                        <input type="hidden" value=@item.Id id="EditingUserId" name="EditingUserId">
+                                        <button type="submit" id="EditUser" name="EditUser" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Edit</i></button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="~/Pages/Users/AwardingPage" method="post" role="form">
+                                        <input type="hidden" value=@item.Id id="AwardingUserId" name="AwardingUserId">
+                                        <button type="submit" id="AwardingUser" name="AwardingUser" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Award</i></button>
+                                    </form>
+                                </td>*@
+                                <td>
+                                    <form action="~/Pages/Buyers/RemovingProductFromCartDo" method="post" role="form">
+                                        <input type="hidden" value=@item.Id id="RemovingProductId" name="RemovingProductId">
+                                        <button type="submit" id="RemoveProduct" name="RemoveProduct" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove"> Убрат из корзины</i></button>
+                                    </form>
+                                </td>
+                            }
+                        }
+                    </tr>
+                </text>
+            }
+        }
+    </table>
+
+    <div>
+        Кнопка Оформить /через BLL (проверка баланса и пр.)
+        <form action="~/Pages/Buyers/MakingAPurchasePageDo" method="post" role="form">
+            <button type="submit" id="RemoveProduct" name="RemoveProduct" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove"> Оформить заказ</i></button>
+        </form>
+    </div>
+</body>
+</html>

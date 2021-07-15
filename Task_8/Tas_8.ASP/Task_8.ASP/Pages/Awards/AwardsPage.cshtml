@@ -1,0 +1,123 @@
+﻿@using Task_8.ASP.Models;
+@using Task_8.ASP.Dependencies;
+@using Task_8.ASP.Entities;
+
+@*// TODO удаление через подтверждение*@
+
+@{
+    Layout = null;
+
+    int idUser = 0;
+
+    string nameUser = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AwardsPage</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <table>
+                        <thead>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Удалить награду у всех пользователей?
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <button id="BackBtn" type="submit" class="btn btn-primary"> << </button>
+
+    <script>
+        $('#BackBtn').click(function () {
+            location.href = '/Index';
+        })
+    </script>
+
+
+
+    @{ List<Award> awardsList = new List<Award>();
+        awardsList = DependencyResolver.Instance.ListLogic.GetAllAwards();
+
+        foreach (var item in awardsList)
+        {
+            string a = "DeleteBtn"; //здесь необходимо для корректной работы скрипта кнопки
+
+            <div>
+                @{
+                    <form action="~/Pages/Awards/RemoveAwardPage" method="post" role="form">
+                        @{
+                            if (User.IsInRole("admin"))
+                            {
+                                <button type="submit" id="DeleteAward" name="DeleteAward" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove"></i></button>
+                                @*<button id="DeleteBtn" type="button" class="btn btn-danger btn-group-xs">Delete</button>*@
+                            }
+                        }
+
+
+                        <span>@item.Title </span>
+                        <input name="DeletingAwardTitle" id="DeletingAwardId" type="hidden" value=@item.Title>
+                        <input name="ForceDelete" id="ForceDelete" type="hidden" value="true">
+
+                        <script>
+                                        $(@a).click(function () {
+                                            $("#myModal").modal();
+                                        });
+                        </script>
+
+                    </form>
+                }
+
+            </div>
+        }
+
+    }
+
+
+    @{
+        if (User.IsInRole("admin"))
+        {
+            <button id="NewAwardBtn" type="submit" class="btn btn-primary">New</button>
+        }
+    }
+
+    <script>
+        $('#NewAwardBtn').click(function () {
+            location.href = '/Pages/Awards/AddAwardPage';
+        })
+    </script>
+
+</body>
+</html>

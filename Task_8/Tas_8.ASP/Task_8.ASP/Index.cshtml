@@ -1,0 +1,50 @@
+﻿@using Task_8.ASP.Models;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    PageData["Title"] = "Стартовая страница";
+}
+
+
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        <button id="UsersBtn" type="submit" class="btn btn-primary">Go to Users!</button>
+        <script>
+            $('#UsersBtn').click(function () {
+                location.href = '/Pages/Users/UsersPage';
+            })
+        </script>
+
+        <button id="AwardsBtn" type="submit" class="btn btn-primary">Go to Awards!</button>
+        <script>
+            $('#AwardsBtn').click(function () {
+                location.href = '/Pages/Awards/AwardsPage';
+            })
+        </script>
+
+        <button id="SignOutBtn" type="submit" class="btn btn-primary">SignOut!</button>
+        <script>
+            $('#SignOutBtn').click(function () {
+                location.href = '/Pages/SignOut';
+            })
+        </script>
+    }
+    else
+    {
+        <button id="SignInBtn" type="submit" class="btn btn-primary">SignIn</button>
+        <script>
+            $('#SignInBtn').click(function () {
+                location.href = '/Pages/SignOut';
+            })
+        </script>
+    }
+}
+
+@*<button id="SignOutBtn" type="submit" class="btn btn-primary">Go to SignOut!</button>
+    <script>
+        $('#SignOutBtn').click(function () {
+            location.href = '/Pages/SingOut';
+        })
+    </script>*@

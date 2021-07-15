@@ -1,0 +1,21 @@
+﻿@using System.Globalization
+@using Task_8.ASP.Entities;
+@using Task_8.ASP.Dependencies;
+
+@if (IsPost)
+{
+
+    var awardingUserId = Request["AwardingUserID"];
+    var awardingTitle = Request["AwardingTitle"];
+    int userId;
+    if (int.TryParse(awardingUserId, out userId) && !string.IsNullOrWhiteSpace(awardingTitle)
+        //
+        )
+    {
+
+        DependencyResolver.Instance.ListLogic.AddUserAwardToList(userId, awardingTitle);
+
+                    Response.Redirect("/Pages/Users/UsersPage");
+        return;
+    }
+}

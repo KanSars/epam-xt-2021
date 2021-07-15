@@ -18,6 +18,7 @@ namespace _3._3._3
 
             pizzeria.Count(Console.ReadLine(), PizzaType.Fighter); // как этот Fighter вручную с консоли ввести чтобы он его понял?
 
+
             //TODO бернуть методы пиццерии в вызов и добавить поток
         }
 

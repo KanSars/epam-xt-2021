@@ -1,0 +1,68 @@
+﻿@using Marketplace.Dependencies;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+}
+
+TODO: если ничего не нйдено сообщить об этом
+
+<body>
+    <div>
+        <form method="post">
+            <div class="form-group">
+                <div class="col-sm-3 my-1">
+                    <label for="desiredProductId">Поиск товаров</label>
+                    <input name="desiredProduct" type="text" class="form-control" id="desiredProductId" aria-describedby="emailHelp" placeholder="Поиск по товарам">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+
+    @{
+        if (IsPost)
+        {
+            var titleProduct = Request["desiredProduct"];
+
+            <table class="table">
+                <tr>
+                    <th>Наименование товара</th>
+                    <th>--</th>
+                    @*<th>DayOfBirth</th>
+                        <th>Age</th>*@
+                    <th>Цена</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @{
+
+                    var productsList = DependencyResolver.Instance.ProductsLogic.GetProductsByTitle(titleProduct);
+
+                    foreach (var item in productsList)
+                    {
+                        <text>
+                            <tr>
+                                <td>@item.Title </td>
+                                <td>@item.Price</td>
+
+                                @{
+                                    //if (User.IsInRole("admin"))
+                                    if (true)
+                                    {
+                                        <td>
+                                            <form action="~/Pages/Catalog/BuyingPageDo" method="post" role="form">
+                                                <input type="hidden" value=@item.Id id="BuyingProductId" name="BuyingProductId">
+                                                <button type="submit" id="BuyingProduct" name="BuyingProduct" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Добавить в корзину</i></button>
+                                            </form>
+                                        </td>
+                                    }
+                                }
+                            </tr>
+                        </text>
+                    }
+                }
+            </table>
+        }
+    }
+</body>

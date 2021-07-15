@@ -1,0 +1,17 @@
+﻿@using Marketplace.Dependencies;
+@{
+
+    var removingProductId = Request["RemovingProductId"];
+
+    int idProduct = 0;
+
+    if (int.TryParse(removingProductId, out idProduct))
+    {
+        //intdeletingUserId = int.Parse(deletingUserId);
+    }
+
+    //MakingAPurchase(login);
+    DependencyResolver.Instance.BuyersProductsLogic.MakingAPurchase(HttpContext.Current.User.Identity.Name);
+
+    Response.Redirect("/Pages/Buyers/ShoppingCartPage");
+}

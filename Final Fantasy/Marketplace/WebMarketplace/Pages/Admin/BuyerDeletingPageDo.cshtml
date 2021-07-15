@@ -1,0 +1,24 @@
+﻿@using Marketplace.Dependencies;
+@{
+
+    var deleingBuyerId = Request["DeletingBuyerId"];
+
+    int idBuyer = 0;
+
+    if (int.TryParse(deleingBuyerId, out idBuyer))
+    {
+        //intdeletingUserId = int.Parse(deletingUserId);
+    }
+
+    //1. удалит логин из таблицы Buyers (а позже и пароль)
+    //2. удалить данные пользователя из BuyerData
+    //3. удалить все пары покупатель_продукт
+
+    DependencyResolver.Instance.BuyresLogic.DeleteBuyer(idBuyer);
+    DependencyResolver.Instance.BuyresLogic.DeleteBuyerData(idBuyer);
+    DependencyResolver.Instance.BuyersProductsLogic.DeleteProductFromCart(idBuyer);
+
+    //Вернуться на страницу... (через проверки и логирование)
+    //Response.Redirect("/Pages/Buyers/ShoppingCartPage"); //в дальнейшем лучше через страницу "покупка совершена" и кнопки типа "Продолжить пкупки?"
+            Response.Redirect("/Pages/Admin/BuyersPage");
+}

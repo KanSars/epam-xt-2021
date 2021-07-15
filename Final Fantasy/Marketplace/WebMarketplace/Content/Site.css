@@ -1,0 +1,51 @@
+﻿{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+}
+
+/*[class*=container] {
+    border: 1px solid #ccc;
+}*/
+
+.mycontainer {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 50px 350px 50px;
+    /*grid-template-rows: 30% 800% 30%;*/
+    /*max-width: 100%;*/
+    grid-template-areas:
+        "h h h h h h h h h h a a"
+        "m m c c c c c c c c c c"
+        "f f f f f f f f f f f f";
+}
+
+.header {
+    grid-area: h;
+    height: 100px;
+}
+
+.auth {
+    grid-area: a;
+    /*margin: 10px 10px 10px 10px;*/
+    height: 100px;
+}
+
+.menu {
+    grid-area: m;
+}
+
+.content {
+    grid-area: c;
+}
+
+.footer {
+    grid-area: f;
+    position: fixed;
+    height: 25px;
+    width: 100%;
+    background: green;
+    bottom: 0;
+}

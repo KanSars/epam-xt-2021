@@ -1,0 +1,93 @@
+﻿@using Marketplace.Dependencies;
+
+@{
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    PageData["Title"] = "Стартовая страница";
+
+    //string pageName = "Стартовая страница";
+
+    int idUser = 0;
+
+    string nameUser = null;
+
+    string loginStr = HttpContext.Current.User.Identity.Name;
+
+}
+
+@*<div>@RenderPage("~/Pages/Catalog/ShopWindowPage.cshtml")</div>*@
+
+<a href="~/Pages/Admin/BuyersPage.cshtml">~/Pages/Admin/BuyersPage.cshtml</a>
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("users")) // ПОЗЖЕ НАСТРОИТЬ РОЛЕВУЮ МОДЕЛЬ
+        {
+            <div>
+                'Это видят все'
+            </div>
+            <button id="counterBtn" type="submit" class="btn btn-primary">Go to counter!</button>
+            <script>
+                $('#counterBtn').click(function () {
+                    location.href = '/Pages/counter';
+                })
+            </script>
+
+        }
+
+        <div>
+        ЗДЕСЬ ДОЛЖНА БЫТЬ ИНФОРМАЦИЯ О САЙТЕ (о товарах и пр)
+        </div>
+
+        if (User.IsInRole("admin"))
+        {
+            <div>
+                'Это видит только админ'
+            </div>
+            <button id="RemoveUserBtn" type="submit" class="btn btn-primary">Go to Removing!</button>
+            <a href="~/Pages/Admin/BuyersPage.cshtml">~/Pages/Admin/BuyersPage.cshtml</a>
+        }
+
+        if (User.IsInRole("user"))
+        {
+            <div>
+                'Это видит админ и юзер'
+            </div>
+        }
+
+        <button id="SignOutBtn" type="submit" class="btn btn-primary">Go to SignOut!</button>
+        <a href="~/Pages/Buyers/PersonalAccountPage.cshtml">~/Pages/Buyers/PersonalAccountPage.cshtml</a>
+        <a href="~/Pages/Buyers/ShoppingCartPage.cshtml">~/Pages/Buyers/ShoppingCartPage.cshtml</a>
+
+
+    }
+    else
+    {
+        <div> не доступно </div>
+        <button id="SignInBtn" type="submit" class="btn btn-primary">Go to SignIn!</button>
+    }
+
+}
+
+    временно для всех:
+<a href="~/Pages/Admin/BuyersPage.cshtml">~/Pages/Admin/BuyersPage.cshtml</a>
+
+
+<script>
+    $('#RemoveUserBtn').click(function () {
+        location.href = '/Pages/RemoveUserPage';
+    })
+</script>
+
+<script>
+    $('#SignInBtn').click(function () {
+        location.href = '/Pages/SignIn';
+    })
+</script>
+
+
+<script>
+    $('#SignOutBtn').click(function () {
+        location.href = '/Pages/SignOutDo';
+    })
+</script>

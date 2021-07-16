@@ -17,6 +17,15 @@
 
     DateTime.TryParseExact(updatingDoB, dobFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dob);
 
+
+    if (!DateTime.TryParseExact(updatingDoB, dobFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dob))
+    {
+        <div class="alert alert-danger" role="alert">
+            Неверный формат даты
+        </div>
+        return;
+    }
+
     //DateTime.TryParseExact
 
     //if (int.TryParse(updatingBuyeruserId, out buyerId) && !string.IsNullOrWhiteSpace(updatingBuyerName)

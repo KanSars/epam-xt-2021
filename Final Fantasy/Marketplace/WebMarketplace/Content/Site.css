@@ -8,6 +8,7 @@
 /*[class*=container] {
     border: 1px solid #ccc;
 }*/
+ /*DOTO при уменьшении размеров экрана кнопки выходят за границы*/
 
 .mycontainer {
     display: grid;
@@ -24,13 +25,13 @@
 
 .header {
     grid-area: h;
-    height: 100px;
+    height: 150px;
 }
 
 .auth {
     grid-area: a;
     /*margin: 10px 10px 10px 10px;*/
-    height: 100px;
+    height: 150px;
 }
 
 .menu {

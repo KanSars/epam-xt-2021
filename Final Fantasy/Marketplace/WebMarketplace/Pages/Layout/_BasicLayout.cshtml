@@ -29,6 +29,7 @@
     <script src="~/Scripts/bootstrap.bundle.js"></script>
     <script src="~/Scripts/jquery-3.6.0.min.js"></script>
 
+
     <div class="mycontainer">
 
         <div class="header">
@@ -38,9 +39,11 @@
 
                 <button id="PersonalAccountBtn" type="submit" class="btn btn-primary">Личный кабинет</button>
 
-                <button id="CartOfProductsBtn" type="submit" class="btn btn-primary">Корзина товаров</button>
-
                 <button id="CatalogOfProductsBtn" type="submit" class="btn btn-primary">Каталог товаров</button>
+
+                <button id="BuyersBtn" type="submit" class="btn btn-primary">Список пользователей</button>
+
+                <button id="CartOfProductsBtn" type="submit" class="btn btn-primary">Корзина товаров</button>
 
                 <button id="SearchingProductsBtn" type="submit" class="btn btn-primary">Поиск товаров</button>
             </div>
@@ -75,7 +78,7 @@
         </div>
 
         <div class="footer">
-            FOOTER
+            @RenderPage("~/Pages/Layout/_Footer.cshtml")
         </div>
 
     </div>
@@ -95,14 +98,20 @@
 </script>
 
 <script>
-    $('#CartOfProductsBtn').click(function () {
-        location.href = '/Pages/Buyers/ShoppingCartPage';
+    $('#CatalogOfProductsBtn').click(function () {
+        location.href = '/Pages/Catalog/ShopWindowPage';
     })
 </script>
 
 <script>
-    $('#CatalogOfProductsBtn').click(function () {
-        location.href = '/Pages/Catalog/ShopWindowPage';
+    $('#BuyersBtn').click(function () {
+        location.href = '/Pages/Admin/BuyersPage';
+    })
+</script>
+
+<script>
+    $('#CartOfProductsBtn').click(function () {
+        location.href = '/Pages/Buyers/ShoppingCartPage';
     })
 </script>
 

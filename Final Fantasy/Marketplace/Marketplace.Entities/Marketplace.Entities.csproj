@@ -57,6 +57,7 @@
     <Compile Include="BuyersProducts.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Product.cs" />
+    <Compile Include="ProductInCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,7 @@ namespace Marketplace.DAO.Interfaces
 
         List<Product> GetProductsOfBuyer(string login);
 
+        List<ProductInCart> GetProductsInCart(string login);
         void AddProductToCart(string login, int idProduct);
 
         void RemoveProductFromCart(string login, int idProduct);

@@ -1,7 +1,7 @@
 ﻿@using Marketplace.Dependencies;
 
 @{
-    Layout = null;
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -23,11 +23,9 @@
     </div>
     <table class="table">
         <tr>
+            <th>ID</th>
             <th>Login</th>
-            <th>--</th>
-            @*<th>DayOfBirth</th>
-                <th>Age</th>*@
-            <th>----</th>
+            <th>Права пользователя</th>
             <th></th>
             <th></th>
             <th></th>
@@ -35,20 +33,25 @@
         @{
 
             var buyersList = DependencyResolver.Instance.BuyresLogic.GetAllBuyers();
+            //var buyersDataList = DependencyResolver.Instance.BuyresLogic.GetBuyersDataList();
+
 
             foreach (var item in buyersList)
             {
                 <text>
+                        
                         <tr>
+                            <td>@item.Id</td>
                             <td>@item.Login </td>
-                            <td>@{ 
-                                foreach (var role in DependencyResolver.Instance.BuyersRolesLogic.GetRolesOfBuyer(item.Login))
-                                {
-                                    @role;@: 
+                            <td>
+                                @{
+                                    foreach (var role in DependencyResolver.Instance.BuyersRolesLogic.GetRoles(item.Login))
+                                    {
+                                        @role;@:
+                                    }
                                 }
-                            }
                             </td>
-                            <td>--</td>
+
 
                             @{
                                 //if (User.IsInRole("admin"))
@@ -67,7 +70,12 @@
                                             <button type="submit" id="AddingAdminRole" name="AddingAdminRole" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove"></i>Add admin Role</button>
                                         </form>
                                     </td>
-
+                                    <td>
+                                        <form action="~/Pages/Admin/RemovingAdminRolePageDo" method="post" role="form">
+                                            <input type="hidden" value=@item.Id id="RemovingAdminRoleId" name="RemovingAdminRoleId">
+                                            <button type="submit" id="RemovingAdminRole" name="RemovingAdminRole" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove"></i>Remove admin Role</button>
+                                        </form>
+                                    </td>
                                 }
                             }
                         </tr>

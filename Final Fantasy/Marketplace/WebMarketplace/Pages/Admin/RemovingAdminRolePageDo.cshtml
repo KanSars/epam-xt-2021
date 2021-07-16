@@ -1,0 +1,23 @@
+﻿//TODO функционал
+
+//удалить login, pass public void DeleteBuyer(int idBuyer)
+удалить Дата public void DeleteBuyerData(int idBuyer)
+GetBuyerById
+удалить корзину DependencyResolver.Instance.BuyersProductsLogic.MakingAPurchase(HttpContext.Current.User.Identity.Name);
+
+@using Marketplace.Dependencies;
+@{
+
+    var removingAdminRoleId = Request["RemovingAdminRoleId"];
+
+    int idBuyer = 0;
+
+    if (int.TryParse(removingAdminRoleId, out idBuyer))
+    {
+        //intdeletingUserId = int.Parse(deletingUserId);
+    }
+
+    DependencyResolver.Instance.BuyersRolesLogic.RevokeAdminRights(idBuyer);
+
+    Response.Redirect(Request.UrlReferrer.ToString());
+}

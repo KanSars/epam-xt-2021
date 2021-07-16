@@ -25,26 +25,25 @@ namespace BuyersProductsSqlDAO
 
                 command.Parameters.AddWithValue("@Title", title);
 
-                // DBNull.Value
-
                 _connection.Open();
 
-                var result = command.ExecuteScalar();
+                var result = command.ExecuteNonQuery();
 
-                //if (result != null)
-                //    return new Note(
-                //        id: (int)result,
-                //        text: text,
-                //        creationDate: creationDate);
+                if (result == 0)
+                {
+                    throw new InvalidOperationException("Cannot add the product");
+                }
 
-                //throw new InvalidOperationException(
-                //    string.Format("Cannot add Note with parameters: {0}, {1};",
-                //    text, creationDate));
             }
         }
 
         public void AddProduct(string title, int price)
         {
+            if (price < 0)
+            {
+                throw new FormatException("Invalid parameter format");
+            }
+
             using (SqlConnection _connection = new SqlConnection(_connectionString))
             {
                 var query = "INSERT INTO dbo.Products(Title, Price) " +
@@ -58,26 +57,19 @@ namespace BuyersProductsSqlDAO
 
                 _connection.Open();
 
-                var result = command.ExecuteScalar();
+                var result = command.ExecuteNonQuery();
 
-                //if (result != null)
-                //    return new Note(
-                //        id: (int)result,
-                //        text: text,
-                //        creationDate: creationDate);
-
-                //throw new InvalidOperationException(
-                //    string.Format("Cannot add Note with parameters: {0}, {1};",
-                //    text, creationDate));
+                if (result == 0)
+                {
+                    throw new InvalidOperationException("Cannot add the product");
+                }
             }
         }
         public List<Product> GetAllProducts()
         {
             var productsList = new List<Product>();
 
-            SqlConnection connection = new SqlConnection(_connectionString);
-
-            using (connection)
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 SqlCommand command = new SqlCommand("SELECT Id, Title, Price FROM Products", connection);
                 connection.Open();
@@ -93,18 +85,16 @@ namespace BuyersProductsSqlDAO
                 }
             }
 
-            return productsList;
+            return productsList; //TODO если не удалось вернуть то?
         }
 
         public List<Product> GetProductsByTitle(string partOfTitle)
         {
             var productsList = new List<Product>();
 
-            SqlConnection connection = new SqlConnection(_connectionString);
-
-            using (connection)
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                SqlCommand command = new SqlCommand("SELECT Id, Title FROM dbo.Products WHERE Title LIKE '%' + @PartOfTitle + '%'", connection);
+                SqlCommand command = new SqlCommand("SELECT Id, Title, Price FROM dbo.Products WHERE Title LIKE '%' + @PartOfTitle + '%'", connection);
 
                 command.Parameters.AddWithValue("@PartOfTitle", partOfTitle);
 
@@ -115,23 +105,33 @@ namespace BuyersProductsSqlDAO
                 {
                     productsList.Add(new Product(
                         id: (int)reader["Id"],
-                        title: (string)reader["Title"]
+                        title: (string)reader["Title"],
+                        price: (int)reader["Price"]
                         ));
                 }
             }
 
-            return productsList;
+            return productsList; //то же (см.выше)
         }
 
         public Product GetProductById(int id)
         {
+            if (id <= 0)
+            {
+                throw new FormatException("Invalid parameter format");
+            }
+
             var result = GetAllProducts().FirstOrDefault(productInList => productInList.Id == id);
 
-            return result;
+            return result; //TODO если не удалось?
         }
 
         public void EditProductData(int id, string title, int price)
         {
+            if ((id <= 0) || (price < 0))
+            {
+                throw new FormatException("Invalid parameter format");
+            }
 
             using (SqlConnection _connection = new SqlConnection(_connectionString))
             {
@@ -139,42 +139,20 @@ namespace BuyersProductsSqlDAO
                     "WHERE Id = @Id";
                 var command = new SqlCommand(query, _connection);
 
-
                 command.Parameters.AddWithValue("@Id", id);
                 command.Parameters.AddWithValue("@Title", title);
                 command.Parameters.AddWithValue("@Price", price);
-
-                //command.Parameters.AddWithValue("@DateOfBirth", newDateOfBirth);
 
                 _connection.Open();
 
                 var result = command.ExecuteNonQuery();
 
-                //if (result == 0)                                      //TODO add an Exception
-                //    throw new InvalidOperationException(
-                //        string.Format("Не удалось исправить данные"));
+                if (result == 0)
+                {
+                    throw new InvalidOperationException("Data could not be changed");
+                }
             }
         }
 
-
-
-        //public List<Product> GetProductsByTitle(string title)
-        //{
-        //    Product product = new Product();
-
-        //    List<Product> neededProductsList = new List<Product>();
-
-        //    var allProductsList = GetAllProducts();
-
-        //    foreach (var item in allProductsList)
-        //    {
-        //        if (item.Title == title)
-        //        {
-        //            neededProductsList.Add(item);
-        //        }
-        //    }
-
-        //    return neededProductsList; //кстати не факт что вернет (поэтому лучше через bool)
-        //}
     }
 }

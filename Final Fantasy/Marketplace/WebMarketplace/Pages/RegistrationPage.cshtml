@@ -2,17 +2,19 @@
 @using Marketplace.Dependencies;
 
 @{
-            Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
-            if (IsPost)
-            {
-                var login = Request["login"];
-                var pass = Request["pass"];
-                // if(проверки на валидность введенных данных)
-                if (DependencyResolver.Instance.BuyresLogic.GetIdBuyer(login) == 0)
-                {
-                    DependencyResolver.Instance.BuyresLogic.AddBuyer(login, pass);
-                    DependencyResolver.Instance.BuyersRolesLogic.AddRoleForBuyer(login);
+    if (IsPost)
+    {
+        var login = Request["login"];
+        var pass = Request["pass"];
+        // if(проверки на валидность введенных данных)
+        if (DependencyResolver.Instance.BuyresLogic.GetIdBuyer(login) == 0)
+        {
+            DependencyResolver.Instance.BuyresLogic.AddBuyer(login, pass);
+            DateTime date = new DateTime(1753, 1, 1);                                           //TODO так почему же GetBuyerData не справляется с пустой табличкой
+            DependencyResolver.Instance.BuyresLogic.AddBuyerData(login, "", "", date, "");
+            DependencyResolver.Instance.BuyersRolesLogic.AddRoleForBuyer(login);
             <div class="alert alert-success" role="alert">
                 Пользователь успешно зарегистрирован!!!
             </div>

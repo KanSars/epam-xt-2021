@@ -15,8 +15,6 @@
 
 }
 
-@*<div>@RenderPage("~/Pages/Catalog/ShopWindowPage.cshtml")</div>*@
-
 <a href="~/Pages/Admin/BuyersPage.cshtml">~/Pages/Admin/BuyersPage.cshtml</a>
 @{
     if (User.Identity.IsAuthenticated)
@@ -36,7 +34,7 @@
         }
 
         <div>
-        ЗДЕСЬ ДОЛЖНА БЫТЬ ИНФОРМАЦИЯ О САЙТЕ (о товарах и пр)
+            ЗДЕСЬ ДОЛЖНА БЫТЬ ИНФОРМАЦИЯ О САЙТЕ (о товарах и пр)
         </div>
 
         if (User.IsInRole("admin"))
@@ -45,8 +43,6 @@
             <div>
                 'Это видит только админ'
             </div>
-            <button id="RemoveUserBtn" type="submit" class="btn btn-primary">Go to Removing!</button>
-            <a href="~/Pages/Admin/BuyersPage.cshtml">~/Pages/Admin/BuyersPage.cshtml</a>
         }
 
         if (User.IsInRole("user"))
@@ -55,10 +51,6 @@
                 'Это видит админ и юзер'
             </div>
         }
-
-        <button id="SignOutBtn" type="submit" class="btn btn-primary">Go to SignOut!</button>
-        <a href="~/Pages/Buyers/PersonalAccountPage.cshtml">~/Pages/Buyers/PersonalAccountPage.cshtml</a>
-        <a href="~/Pages/Buyers/ShoppingCartPage.cshtml">~/Pages/Buyers/ShoppingCartPage.cshtml</a>
 
 
     }

@@ -15,11 +15,13 @@ namespace Marketplace.DAO.Interfaces
 
         List<Buyer> GetAllBuyers();
 
+        List<BuyerData> GetBuyersDataList();
+
         void DeleteBuyer(int idBuyer);
 
         int GetIdBuyer(string login);
 
-        void AddBuyerData(string login, string name);
+        void AddBuyerData(string login, string name, string surname, DateTime doB, string email);
 
         void EditBuyerData(string login, string name, string surname, DateTime doB, string email);
 

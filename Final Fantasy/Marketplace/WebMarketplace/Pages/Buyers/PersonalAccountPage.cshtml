@@ -7,13 +7,6 @@
 
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
 <body>
     <div>
         Вы зашли как (login): @HttpContext.Current.User.Identity.Name
@@ -33,27 +26,11 @@
     </div>
 
     <div>
-        Кнопка На главную
-    </div>
-
-
-
-    <div>
         <button id="EditBtn" type="submit" class="btn btn-primary">Редактировать данные</button>
     </div>
 
-    <div>
-        Кнопка К покупкам
-        <a href="~/Pages/Catalog/ShopWindowPage.cshtml">~/Pages/Catalog/ShopWindowPage.cshtml</a>
-    </div>
-
-    <div>
-        Кнопка В корзину
-        <a href="~/Pages/Buyers/ShoppingCartPage.cshtml">~/Pages/Buyers/ShoppingCartPage.cshtml</a>
-    </div>
-
 </body>
-</html>
+
 
 <script>
     $('#EditBtn').click(function () {

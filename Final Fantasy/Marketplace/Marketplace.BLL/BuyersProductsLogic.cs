@@ -27,6 +27,11 @@ namespace Marketplace.BLL
             return _buyersProductsDAO.GetProductsOfBuyer(login);
         }
 
+        public List<ProductInCart> GetProductsInCart(string login)
+        {
+            return _buyersProductsDAO.GetProductsInCart(login);
+        }
+
         public void AddProductToCart(string login, int idProduct)
         {
             _buyersProductsDAO.AddProductToCart(login, idProduct);

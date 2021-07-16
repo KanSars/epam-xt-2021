@@ -7,7 +7,12 @@
 
 }
 
-<form action="~/Pages/Buyers/PersonalAccountEditPageDo" method="post" role="form">
+@*<script src="~/Scripts/validatorDate.js"></script>*@
+<script src="~/Scripts/jquery.validate.min.js"></script>
+
+//TODO не переходить на страницу DO, а выполнить тут же с предупреждением
+
+<form action="~/Pages/Buyers/PersonalAccountEditPageDo" method="post" role="form" id="EditForm">
     <div class="form-group">
         <div class="col-sm-3 my-1">
             <label for="UpdatingBuyerName" class="control-label">Имя покупателя: </label>
@@ -35,3 +40,35 @@
 
     <button type="submit" class="btn btn-primary">Обновить данные</button>
 </form>
+
+@*<script>
+    $("#EditForm").validate({
+        onkeyup: true,
+        //onfocusout: false, //DOTO поэкспериментировать
+        //onkeyup: false,
+        //onclick: false,
+        //onsubmit: false
+        rules: {
+            UpdatingBuyerDoB: {
+                required: true,
+                // email: true
+                Date
+            },
+            UpdatingBuyerEmail: {
+                required: true,
+                //minlength: 4
+            }
+
+        },
+        messages: {
+            UpdatingBuyerDoB: {
+                date: "Please enter a valid date.",
+            },
+            UpdatingBuyerEmail: {
+                required: "Поле \"Пароль\" обязательно для заполнения",
+                minlength: jQuery.validator.format("Длина пароля должна быть не менее 4-х символов")
+            }
+        }
+    });
+</script>*@
+

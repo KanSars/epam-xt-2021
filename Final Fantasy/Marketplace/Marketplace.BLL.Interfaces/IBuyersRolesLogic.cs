@@ -8,10 +8,12 @@ namespace Marketplace.BLL.Interfaces
 {
     public interface IBuyersRolesLogic
     {
-        List<string> GetRolesOfBuyer(string login);
+        List<string> GetRoles(string login);
 
         void AddRoleForBuyer(string login);
 
-        void AddAdminRoleForBuyer(string login);
+        void AssignAdminRights(string login);
+
+        void RevokeAdminRights(int idBuyer);
     }
 }

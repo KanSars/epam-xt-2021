@@ -8,10 +8,10 @@
         //intdeletingUserId = int.Parse(deletingUserId);
     }
 
-
-    DependencyResolver.Instance.BuyersRolesLogic.AddAdminRoleForBuyer(addingAdminRoleLogin);
+    //TODO: проверять нет ли УЖЕ прав администрирования (чтобы не дублировалось)
+    DependencyResolver.Instance.BuyersRolesLogic.AssignAdminRights(addingAdminRoleLogin);
 
     //Вернуться на страницу... (через проверки и логирование)
     //Response.Redirect("/Pages/Buyers/ShoppingCartPage"); //в дальнейшем лучше через страницу "покупка совершена" и кнопки типа "Продолжить пкупки?"
-    Response.Redirect("/Pages/Admin/BuyersPage");
+    Response.Redirect("~/Index");
 }

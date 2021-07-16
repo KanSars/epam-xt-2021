@@ -43,17 +43,31 @@ TODO: если ничего не нйдено сообщить об этом
                     {
                         <text>
                             <tr>
-                                <td>@item.Title </td>
+                                <td>@item.Title</td>
                                 <td>@item.Price</td>
+                                <td>@item.Price</td>
+                                <td>@item.Id</td>
 
                                 @{
                                     //if (User.IsInRole("admin"))
                                     if (true)
                                     {
                                         <td>
+                                            <form action="~/Pages/Products/EditingProductPage" method="post" role="form">
+                                                <input type="hidden" value=@item.Id id="EditingProductId" name="EditingProductId">
+                                                <button type="submit" id="EditingProduct" name="EditingProduct" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Редактировать</i></button>
+                                            </form>
+                                        </td>
+                                        <td>
                                             <form action="~/Pages/Catalog/BuyingPageDo" method="post" role="form">
                                                 <input type="hidden" value=@item.Id id="BuyingProductId" name="BuyingProductId">
                                                 <button type="submit" id="BuyingProduct" name="BuyingProduct" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Добавить в корзину</i></button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form action="~/Pages/Users/RemoveUserPage" method="post" role="form">
+                                                <input type="hidden" value=@item.Id id="DeletingUserId" name="DeletingUserId">
+                                                <button type="submit" id="DeleteUser" name="DeleteUser" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove">Удалить</i></button>
                                             </form>
                                         </td>
                                     }

@@ -16,10 +16,11 @@
         else
         {
             //тут можно с переходом через страничку "Введённый Вами пара логин/пароль не верны вернитесь на страничку ввода данных или к регистрации"
-            @*@:ошибочка при вводе
-                Response.Redirect("/Pages/SignIn");*@
-            <div class="alert alert-success" role="alert">
-                Ошибочка при вводе!!!
+
+            <div class="col-sm-6 my-1">
+                <div class="alert alert-success" role="alert">
+                    Неверный логин или пароль. Пожалуйста, проверте их и повторите попытку.
+                </div>
             </div>
         }
     }
@@ -32,30 +33,26 @@
 <form method="post" id="signInForm">
     <div class="form-group">
         <div class="col-sm-3 my-1">
-            <label for="exampleInputEmail1">Login</label>
+            <label for="exampleInputEmail1">Логин</label>
             <input name="login" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="login">
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-3 my-1">
-            <label for="exampleInputPassword1">Password</label>
-            <input name="pass" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <label for="exampleInputPassword1">Пароль</label>
+            <input name="pass" type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Войти</button>
 </form>
 
-<button id="RegisterBtn" type="submit" class="btn btn-primary">Зарегистрироваться</button>
-
-<script>
-    $('#RegisterBtn').click(function () {
-        location.href = '/Pages/RegistrationPage';
-    })
-</script>
-
 <script>
     $("#signInForm").validate({
         onkeyup: true,
+        //onfocusout: false, //DOTO поэкспериментировать
+        //onkeyup: false,
+        //onclick: false,
+        //onsubmit: false
         rules: {
             login: {
                 required: true,
@@ -69,15 +66,16 @@
         },
         messages: {
             login: {
-                required: "Поле email обязательно для заполнения",
+                required: "Поле \"Логин\" обязательно для заполнения",
             },
             pass: {
-                required: "Поле имя обязательно для заполнения",
-                minlength: jQuery.validator.format("Длина имени должна быть больше 4-ти символов")
+                required: "Поле \"Пароль\" обязательно для заполнения",
+                minlength: jQuery.validator.format("Длина пароля должна быть не менее 4-х символов")
             }
         }
     });
 </script>
+
 
 @*<form method="post">
         <div class="form-group">

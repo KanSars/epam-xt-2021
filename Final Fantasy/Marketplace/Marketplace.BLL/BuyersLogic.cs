@@ -30,6 +30,11 @@ namespace Marketplace.BLL
             return _buyersDAO.GetAllBuyers();
         }
 
+        public List<BuyerData> GetBuyersDataList()
+        {
+            return _buyersDAO.GetBuyersDataList();
+        }
+
         public Buyer GetBuyer(int id)
         {
             return _buyersDAO.GetBuyer(id);
@@ -45,9 +50,9 @@ namespace Marketplace.BLL
             _buyersDAO.DeleteBuyer(idBuyer);
         }
 
-        public void AddBuyerData(string login, string name)
+        public void AddBuyerData(string login, string name, string surname, DateTime doB, string email)
         {
-            _buyersDAO.AddBuyerData(login, name);
+            _buyersDAO.AddBuyerData(login, name, surname, doB, email);
         }
 
         //public void EditBuyerData(string login, string name)

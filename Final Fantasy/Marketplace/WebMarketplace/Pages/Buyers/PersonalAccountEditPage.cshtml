@@ -1,11 +1,23 @@
 ﻿@using Marketplace.Dependencies;
 @using System.Globalization
-
+@using NLog;
 
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
+
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
-    var buyerData = DependencyResolver.Instance.BuyresLogic.GetBuyerData(HttpContext.Current.User.Identity.Name);
+    Marketplace.Entities.BuyerData buyerData = new Marketplace.Entities.BuyerData();
+
+    try
+    {
+        buyerData = DependencyResolver.Instance.BuyresLogic.GetBuyerData(HttpContext.Current.User.Identity.Name);
+    }
+    catch (Exception e)
+    {
+
+        logger.Error(e.Message);
+    }
 
     if (IsPost)
     {
@@ -24,10 +36,21 @@
         if (DateTime.TryParseExact(updatingDoB, dobFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dob) &&
             (dob > minDate) && (dob < maxDate))
         {
-            DependencyResolver.Instance.BuyresLogic.EditBuyerData(HttpContext.Current.User.Identity.Name, updatingBuyerName, updatingBuyerSurname, dob, updatingBuyerEmail);
+            try
+            {
+                DependencyResolver.Instance.BuyresLogic.EditBuyerData(HttpContext.Current.User.Identity.Name, updatingBuyerName, updatingBuyerSurname, dob, updatingBuyerEmail);
+                Response.Redirect("~/Pages/Buyers/PersonalAccountPage");
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message);
+            }
+            finally
+            {
+                Response.Redirect("~/Pages/Buyers/PersonalAccountPage");
+            }
 
-            Response.Redirect("~/Pages/Buyers/PersonalAccountPage");
-            return;
+
         }
         else
         {

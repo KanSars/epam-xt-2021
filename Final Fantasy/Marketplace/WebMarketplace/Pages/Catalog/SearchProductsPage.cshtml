@@ -1,36 +1,42 @@
 ﻿@using Marketplace.Dependencies;
+@using NLog;
 
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
+
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
-
-
 }
 
 <body>
-    <div>
-        <form method="post">
-            <div class="form-group">
-                <div class="col-sm-3 my-1">
-                    <label for="desiredProductId">Поиск товаров</label>
-                    <input name="desiredProduct" type="text" class="form-control" id="desiredProductId" aria-describedby="emailHelp" placeholder="Поиск по товарам">
-                </div>
+    <form method="post">
+        <div class="form-group">
+            <div class="col-sm-3 my-1">
+                <label for="desiredProductId">Поиск товаров</label>
+                <input name="desiredProduct" type="text" class="form-control" id="desiredProductId" aria-describedby="emailHelp" placeholder="Поиск по товарам">
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-    </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
 
     @{
         if (IsPost)
         {
             var titleProduct = Request["desiredProduct"];
 
-            var productsList = DependencyResolver.Instance.ProductsLogic.GetProductsByTitle(titleProduct);
+            List<Marketplace.Entities.Product> productsList = new List<Marketplace.Entities.Product>();
 
-            //TODO проверку
+            try
+            {
+                productsList = DependencyResolver.Instance.ProductsLogic.GetProductsByTitle(titleProduct);
+            }
+            catch (Exception e)
+            {
+
+                logger.Error(e.Message);
+            }
 
             if (productsList.Count != 0)
             {
-
                 <table class="table, col-sm-10 my-1">
                     <tr>
                         <th>Наименование товара</th>
@@ -43,7 +49,6 @@
                         }
                     </tr>
                     @{
-
                         foreach (var item in productsList)
                         {
                             <text>
@@ -67,7 +72,6 @@
                                     @{
                                         if (User.IsInRole("admin"))
                                         {
-
                                             <td>
                                                 <form action="~/Pages/Products/EditingProductPage" method="post" role="form">
                                                     <input type="hidden" value=@item.Id id="EditingProductId" name="EditingProductId">
@@ -85,7 +89,6 @@
                                 </tr>
                             </text>
                         }
-
                     }
                 </table>
             }

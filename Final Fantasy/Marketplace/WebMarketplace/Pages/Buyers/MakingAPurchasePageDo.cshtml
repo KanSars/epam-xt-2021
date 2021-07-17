@@ -1,17 +1,32 @@
 ﻿@using Marketplace.Dependencies;
+@using NLog;
+
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
 
     var removingProductId = Request["RemovingProductId"];
 
     int idProduct = 0;
 
-    if (int.TryParse(removingProductId, out idProduct))
+    if (!int.TryParse(removingProductId, out idProduct))
     {
-        //intdeletingUserId = int.Parse(deletingUserId);
+        logger.Warn("idProduct transmission error");
     }
 
-    //MakingAPurchase(login);
-    DependencyResolver.Instance.BuyersProductsLogic.MakingAPurchase(HttpContext.Current.User.Identity.Name);
+    try
+    {
+        DependencyResolver.Instance.BuyersProductsLogic.MakingAPurchase(HttpContext.Current.User.Identity.Name);
 
-    Response.Redirect("/Pages/Buyers/ShoppingCartPage");
+        Response.Redirect(Request.UrlReferrer.ToString());
+    }
+    catch (Exception e)
+    {
+
+        logger.Error(e.Message);
+    }
+    finally
+    {
+        Response.Redirect(Request.UrlReferrer.ToString());
+    }
+
 }

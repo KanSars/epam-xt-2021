@@ -31,5 +31,7 @@ namespace Marketplace.DAO.Interfaces
 
         bool IsUserExist(string login, string pass);
 
+        void DeleteBuyerById(int idBuyer);
+
     }
 }

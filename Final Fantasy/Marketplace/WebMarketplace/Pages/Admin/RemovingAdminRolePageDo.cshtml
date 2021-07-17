@@ -17,7 +17,7 @@
     {
         DependencyResolver.Instance.BuyersRolesLogic.RevokeAdminRights(idBuyer);
 
-        Response.Redirect(Request.UrlReferrer.ToString());
+        //Response.Redirect(Request.UrlReferrer.ToString());
     }
     catch (Exception e)
     {
@@ -26,6 +26,6 @@
     }
     finally
     {
-        Response.Redirect("~/Index");
+        Response.Redirect(Request.UrlReferrer.ToString()); //TODO: проверить работоспособность
     }
 }

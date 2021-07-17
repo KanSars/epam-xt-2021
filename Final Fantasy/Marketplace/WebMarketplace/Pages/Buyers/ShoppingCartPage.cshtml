@@ -1,11 +1,23 @@
 ﻿@using Marketplace.Entities;
 @using Marketplace.Dependencies;
+@using NLog;
 
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
+
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
     List<ProductInCart> productList = new List<ProductInCart>();
-    productList = DependencyResolver.Instance.BuyersProductsLogic.GetProductsInCart(HttpContext.Current.User.Identity.Name);
+
+    try
+    {
+        productList = DependencyResolver.Instance.BuyersProductsLogic.GetProductsInCart(HttpContext.Current.User.Identity.Name);
+    }
+    catch (Exception e)
+    {
+
+        logger.Error(e.Message);
+    }
 }
 
 <body>

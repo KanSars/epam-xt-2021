@@ -179,5 +179,19 @@ namespace BuyersProductsSqlDAO
             }
         }
 
+        public void DeleteProductByIdProduct(int idProduct)
+        {
+            Buyers_ProductsSqlDAO Buyers_Products = new Buyers_ProductsSqlDAO();
+
+            if (idProduct <= 0)
+            {
+                throw new FormatException("Invalid parameter format");
+            }
+
+            DeleteProduct(idProduct);
+
+            Buyers_Products.DeleteProductFromCartByIdProduct(idProduct);
+        }
+
     }
 }

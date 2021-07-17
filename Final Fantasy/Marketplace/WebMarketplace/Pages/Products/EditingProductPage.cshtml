@@ -1,20 +1,33 @@
 ﻿@using Marketplace.Dependencies;
 @using Marketplace.Entities;
+@using NLog;
 
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
 
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
     var editingProductId = Request["EditingProductId"];
-    int productId;
+    int idProduct;
 
     Product product = new Product();
 
-    if (int.TryParse(editingProductId, out productId)
-        )
+    if (!int.TryParse(editingProductId, out idProduct))
     {
-        product = DependencyResolver.Instance.ProductsLogic.GetProductById(productId);
+        logger.Warn("idProduct transmission error");
+        Response.Redirect(Request.UrlReferrer.ToString());
     }
+
+    try
+    {
+        product = DependencyResolver.Instance.ProductsLogic.GetProductById(idProduct);
+    }
+    catch (Exception e)
+    {
+
+        logger.Error(e.Message);
+    }
+
 
 }
 

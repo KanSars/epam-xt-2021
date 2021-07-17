@@ -1,9 +1,23 @@
 ﻿@using Marketplace.Dependencies;
+@using NLog;
 
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
+
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
-    var buyerData = DependencyResolver.Instance.BuyresLogic.GetBuyerData(HttpContext.Current.User.Identity.Name);
+    Marketplace.Entities.BuyerData buyerData = new Marketplace.Entities.BuyerData();
+
+    try
+    {
+        buyerData = DependencyResolver.Instance.BuyresLogic.GetBuyerData(HttpContext.Current.User.Identity.Name);
+    }
+    catch (Exception e)
+    {
+
+        logger.Error(e.Message);
+    }
+
 
 }
 

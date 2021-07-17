@@ -1,25 +1,40 @@
-﻿@using System.Globalization
-@using Marketplace.Entities;
-@using Marketplace.Dependencies;
+﻿@using Marketplace.Dependencies;
+@using NLog;
 
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
+
     var editingProductId = Request["UpdatingProductId"];
     int productId;
-    //if (int.TryParse(editingProductId, out productId))
-    //{ }
 
-    //var product = DependencyResolver.Instance.ProductsLogic.GetProductById(productId);
+    if (!int.TryParse(editingProductId, out productId))
+    {
+        logger.Warn("idProduct transmission error");
+        Response.Redirect(Request.UrlReferrer.ToString());
+    }
 
     var title = Request["UpdatingProductTitle"];
+
     var priceOfProduct = Request["UpdatingProductPrice"];
     int price;
 
-    if (int.TryParse(editingProductId, out productId) && int.TryParse(priceOfProduct, out price))
+    if (!int.TryParse(priceOfProduct, out price))
+    {
+        logger.Warn("Proce transmission error");
+        Response.Redirect(Request.UrlReferrer.ToString());
+    }
+
+    try
     {
         DependencyResolver.Instance.ProductsLogic.EditProductData(productId, title, price);
     }
+    catch (Exception e)
+    {
 
-    Response.Redirect("/Pages/Catalog/ShopWindowPage");
-    //Response.Redirect(Request.UrlReferrer.ToString());
-
+        logger.Error(e.Message);
+    }
+    finally
+    {
+        Response.Redirect("/Pages/Catalog/ShopWindowPage");
+    }
 }

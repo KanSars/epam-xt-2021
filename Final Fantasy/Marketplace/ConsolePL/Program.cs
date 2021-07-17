@@ -20,14 +20,14 @@ namespace Marketplace.ConsolePL
         private static Logger logger = LogManager.GetCurrentClassLogger();
         static void Main(string[] args)
         {
-            try
-            {
-                DependencyResolver.Instance.BuyersRolesLogic.AssignAdminRights("qweqwe");
-            }
-            catch (Exception e)
-            {
-                logger.Error(e.Message);
-            }
+            //try
+            //{
+            //    
+            //}
+            //catch (Exception e)
+            //{
+            //    logger.Error(e.Message);
+            //}
             
 
 

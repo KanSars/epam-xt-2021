@@ -308,5 +308,21 @@ namespace BuyersProductsSqlDAO
             return false;
         }
 
+        public void DeleteBuyerById(int idBuyer)
+        {
+            if (idBuyer <= 0)
+            {
+                throw new FormatException("Invalid parameter format");
+            }
+
+            Buyers_ProductsSqlDAO Buyers_Products = new Buyers_ProductsSqlDAO();
+
+            DeleteBuyer(idBuyer);
+
+            DeleteBuyerData(idBuyer);
+
+            Buyers_Products.DeleteProductFromCart(idBuyer);
+        }
+
     }
 }

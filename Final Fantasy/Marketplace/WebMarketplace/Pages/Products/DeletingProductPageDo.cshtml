@@ -10,18 +10,13 @@
 
     if (!int.TryParse(deletingProductId, out idProduct))
     {
-        //logger
+        logger.Warn("idProduct transmission error");
+        Response.Redirect(Request.UrlReferrer.ToString());
     }
 
     try
     {
-        //TODO в одну функцию в BLL:
-
-
-        DependencyResolver.Instance.ProductsLogic.DeleteProduct(idProduct);
-        DependencyResolver.Instance.BuyersProductsLogic.DeleteProductFromCartByIdProduct(idProduct);
-
-        //DependencyResolver.Instance.ProductsLogic.DeleteProductByIdProduct(idProduct);
+        DependencyResolver.Instance.ProductsLogic.DeleteProductByIdProduct(idProduct);
 
         Response.Redirect(Request.UrlReferrer.ToString());
     }
@@ -29,12 +24,10 @@
     {
         logger.Error(e.Message);
 
-        Response.Redirect("~/Index");
     }
-    //finally
-    //{
-    //    //Response.Redirect(Request.UrlReferrer.ToString());
-    //    Response.Redirect("~/Index");
-    //}
+    finally
+    {
+        Response.Redirect(Request.UrlReferrer.ToString());
+    }
 
 }

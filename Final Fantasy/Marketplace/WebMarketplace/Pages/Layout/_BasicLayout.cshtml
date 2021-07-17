@@ -36,24 +36,24 @@
             @{
                 if (User.Identity.IsAuthenticated)
                 {
-                        <div>
-                            <button id="IndexBtn" type="submit" class="btn btn-primary">На главную</button>
+                    <div>
+                        <button id="IndexBtn" type="submit" class="btn btn-primary">На главную</button>
 
-                            <button id="PersonalAccountBtn" type="submit" class="btn btn-primary">Личный кабинет</button>
+                        <button id="PersonalAccountBtn" type="submit" class="btn btn-primary">Личный кабинет</button>
 
-                            <button id="CatalogOfProductsBtn" type="submit" class="btn btn-primary">Каталог товаров</button>
+                        <button id="CatalogOfProductsBtn" type="submit" class="btn btn-primary">Каталог товаров</button>
 
-                            @{
-                                if (User.IsInRole("admin"))
-                                {
-                                    <button id="BuyersBtn" type="submit" class="btn btn-primary">Список пользователей</button>
-                                }
+                        @{
+                            if (User.IsInRole("admin"))
+                            {
+                                <button id="BuyersBtn" type="submit" class="btn btn-primary">Список пользователей</button>
                             }
+                        }
 
-                            <button id="CartOfProductsBtn" type="submit" class="btn btn-primary">Корзина товаров</button>
+                        <button id="CartOfProductsBtn" type="submit" class="btn btn-primary">Корзина товаров</button>
 
-                            <button id="SearchingProductsBtn" type="submit" class="btn btn-primary">Поиск товаров</button>
-                        </div>
+                        <button id="SearchingProductsBtn" type="submit" class="btn btn-primary">Поиск товаров</button>
+                    </div>
                 }
             }
 

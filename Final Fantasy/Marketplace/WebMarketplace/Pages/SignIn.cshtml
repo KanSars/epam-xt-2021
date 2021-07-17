@@ -1,6 +1,9 @@
 ﻿@using WebMarketplace.Models;
+@using NLog;
 
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
+
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
     if (IsPost)
@@ -8,21 +11,30 @@
         var login = Request["login"];
         var pass = Request["pass"];
 
-        if (Auth.CanLogin(login, pass))
+        try
         {
-            FormsAuthentication.SetAuthCookie(login, createPersistentCookie: true);
-            Response.Redirect("/");
-        }
-        else
-        {
-            //тут можно с переходом через страничку "Введённый Вами пара логин/пароль не верны вернитесь на страничку ввода данных или к регистрации"
-
-            <div class="col-sm-6 my-1">
-                <div class="alert alert-success" role="alert">
-                    Неверный логин или пароль. Пожалуйста, проверте их и повторите попытку.
+            if (Auth.CanLogin(login, pass))
+            {
+                FormsAuthentication.SetAuthCookie(login, createPersistentCookie: true);
+                Response.Redirect("/");
+            }
+            else
+            {
+                <div class="col-sm-6 my-1">
+                    <div class="alert alert-success" role="alert">
+                        Неверный логин или пароль. Пожалуйста, проверте их и повторите попытку.
+                    </div>
                 </div>
-            </div>
+            }
         }
+        catch (Exception e)
+        {
+            logger.Error(e.Message);
+        }
+
+
+
+
     }
 }
 

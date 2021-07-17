@@ -1,7 +1,10 @@
 ﻿@using Marketplace.Entities;
 @using Marketplace.Dependencies;
+@using NLog;
 
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
+
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 }
 
@@ -13,8 +16,17 @@
             <th>Цена</th>
         </tr>
         @{
+            List<Marketplace.Entities.Product> productsList = new List<Marketplace.Entities.Product>();
 
-            var productsList = DependencyResolver.Instance.ProductsLogic.GetAllProducts();
+            try
+            {
+                productsList = DependencyResolver.Instance.ProductsLogic.GetAllProducts();
+            }
+            catch (Exception e)
+            {
+
+                logger.Error(e.Message);
+            }
 
             foreach (var item in productsList)
             {

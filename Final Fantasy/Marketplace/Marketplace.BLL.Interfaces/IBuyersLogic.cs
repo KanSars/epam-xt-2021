@@ -31,5 +31,7 @@ namespace Marketplace.BLL.Interfaces
         void DeleteBuyerData(int idBuyer);
 
         bool IsUserExist(string login, string pass);
+
+        void DeleteBuyerById(int idBuyer);
     }
 }

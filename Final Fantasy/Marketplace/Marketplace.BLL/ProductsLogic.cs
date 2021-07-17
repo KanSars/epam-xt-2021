@@ -17,6 +17,12 @@ namespace Marketplace.BLL
             _productsDAO = listDao;
         }
 
+        private IBuyersProductsDAO _buyersProductsDAO;
+        public ProductsLogic(IBuyersProductsDAO listDAO)
+        {
+            _buyersProductsDAO = listDAO;
+        }
+
         public void AddProduct(string title)
         {
             _productsDAO.AddProduct(title);
@@ -46,5 +52,17 @@ namespace Marketplace.BLL
         {
             _productsDAO.EditProductData(id, title, price);
         }
+
+        public void DeleteProduct(int idProduct)
+        {
+            _productsDAO.DeleteProduct(idProduct);
+        }
+
+        public void DeleteProductByIdProduct(int idProduct)
+        {
+            _productsDAO.DeleteProduct(idProduct);
+            _buyersProductsDAO.DeleteProductFromCartByIdProduct(idProduct);
+        }
+
     }
 }

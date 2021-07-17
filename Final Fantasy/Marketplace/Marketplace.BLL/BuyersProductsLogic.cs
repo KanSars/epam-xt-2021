@@ -61,5 +61,11 @@ namespace Marketplace.BLL
         {
             _buyersProductsDAO.DeleteProductFromCart(idBuyer);
         }
+
+        public void DeleteProductFromCartByIdProduct(int idProduct)
+        {
+            _buyersProductsDAO.DeleteProductFromCartByIdProduct(idProduct);
+        }
+
     }
 }

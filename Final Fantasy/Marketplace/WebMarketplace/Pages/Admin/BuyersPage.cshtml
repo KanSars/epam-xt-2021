@@ -1,88 +1,76 @@
 ﻿@using Marketplace.Dependencies;
+@using NLog;
 
 @{
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
-}
 
-<!DOCTYPE html>
+    Logger logger = LogManager.GetCurrentClassLogger();
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-        //список лоигинов покупателей
-        //кнопка удалить на против каждого из них
+    List<Marketplace.Entities.Buyer> buyersList = new List<Marketplace.Entities.Buyer>();
 
-        кнопка перехода на маркетПейдж для возможности добавления/редактировать/удаления продуктов из списка
-
-        //вот вопрос - у как удалять продукт, если он уже в корзине? (не повезло покупателю и удалить и из корзины? - так бывает..)
-
-    </div>
-    <table class="table">
-        <tr>
-            <th>ID</th>
-            <th>Login</th>
-            <th>Права пользователя</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-        @{
-
-            var buyersList = DependencyResolver.Instance.BuyresLogic.GetAllBuyers();
-            //var buyersDataList = DependencyResolver.Instance.BuyresLogic.GetBuyersDataList();
+    try
+    {
+        buyersList = DependencyResolver.Instance.BuyresLogic.GetAllBuyers();
+    }
+    catch (Exception e)
+    {
+        logger.Error(e.Message);
+    }
 
 
-            foreach (var item in buyersList)
-            {
-                <text>
-                        
-                        <tr>
-                            <td>@item.Id</td>
-                            <td>@item.Login </td>
-                            <td>
-                                @{
-                                    foreach (var role in DependencyResolver.Instance.BuyersRolesLogic.GetRoles(item.Login))
-                                    {
-                                        @role;@:
+    if (User.IsInRole("admin"))
+    {
+        <body>
+            <table class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Login</th>
+                    <th>Права пользователя</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @{
+                    foreach (var item in buyersList)
+                    {
+                        <text>
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Login </td>
+                                <td>
+                                    @{
+                                        foreach (var role in DependencyResolver.Instance.BuyersRolesLogic.GetRoles(item.Login))
+                                        {
+                                            @role;@:
+                                        }
                                     }
-                                }
-                            </td>
+                                </td>
 
+                                <td>
+                                    <form action="~/Pages/Admin/BuyerDeletingPageDo" method="post" role="form">
+                                        <input type="hidden" value=@item.Id id="DeletingBuyerId" name="DeletingBuyerId">
+                                        <button type="submit" id="DeletingBuyer" name="DeletingBuyer" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove"></i>Delete</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="~/Pages/Admin/AddingAdminRolePageDo" method="post" role="form">
+                                        <input type="hidden" value=@item.Login id="AddingAdminRoleLogin" name="AddingAdminRoleLogin">
+                                        <button type="submit" id="AddingAdminRole" name="AddingAdminRole" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove"></i>Add admin Role</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="~/Pages/Admin/RemovingAdminRolePageDo" method="post" role="form">
+                                        <input type="hidden" value=@item.Id id="RemovingAdminRoleId" name="RemovingAdminRoleId">
+                                        <button type="submit" id="RemovingAdminRole" name="RemovingAdminRole" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove"></i>Remove admin Role</button>
+                                    </form>
+                                </td>
 
-                            @{
-                                //if (User.IsInRole("admin"))
-                                if (true)
-                                {
-                                    <td>
-                                        <form action="~/Pages/Admin/BuyerDeletingPageDo" method="post" role="form">
-                                            <input type="hidden" value=@item.Id id="DeletingBuyerId" name="DeletingBuyerId">
-                                            <button type="submit" id="DeletingBuyer" name="DeletingBuyer" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove"></i>Delete</button>
-                                        </form>
-                                    </td>
-                                    <a href="~/Pages/Admin/AddingAdminRolePageDo.cshtml">~/Pages/Admin/AddingAdminRolePageDo.cshtml</a>
-                                    <td>
-                                        <form action="~/Pages/Admin/AddingAdminRolePageDo" method="post" role="form">
-                                            <input type="hidden" value=@item.Login id="AddingAdminRoleLogin" name="AddingAdminRoleLogin">
-                                            <button type="submit" id="AddingAdminRole" name="AddingAdminRole" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove"></i>Add admin Role</button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form action="~/Pages/Admin/RemovingAdminRolePageDo" method="post" role="form">
-                                            <input type="hidden" value=@item.Id id="RemovingAdminRoleId" name="RemovingAdminRoleId">
-                                            <button type="submit" id="RemovingAdminRole" name="RemovingAdminRole" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove"></i>Remove admin Role</button>
-                                        </form>
-                                    </td>
-                                }
-                            }
-                        </tr>
-                </text>
-            }
-        }
-    </table>
+                            </tr>
+                        </text>
+                    }
+                }
+            </table>
 
-</body>
-</html>
+        </body>
+    }
+}

@@ -22,5 +22,7 @@ namespace Marketplace.BLL.Interfaces
         void MakingAPurchase(string login);
 
         void DeleteProductFromCart(int idBuyer);
+
+        void DeleteProductFromCartByIdProduct(int idProduct);
     }
 }

@@ -21,5 +21,7 @@ namespace Marketplace.DAO.Interfaces
         Product GetProductById(int id);
 
         void EditProductData(int id, string title, int price);
+
+        void DeleteProduct(int idProduct);
     }
 }

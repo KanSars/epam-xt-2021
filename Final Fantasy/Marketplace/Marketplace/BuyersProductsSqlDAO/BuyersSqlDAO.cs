@@ -168,7 +168,7 @@ namespace BuyersProductsSqlDAO
                 }
             }
 
-            return buyersDataList; //TODO если не получится то??
+            return buyersDataList;
         }
 
         public BuyerData GetBuyerData(string login)
@@ -191,7 +191,7 @@ namespace BuyersProductsSqlDAO
                 return buyerData;
             }
 
-            DateTime date = new DateTime(1753, 1, 1); //TODO: а как правильно?
+            DateTime date = new DateTime(1900, 1, 1);
 
             AddBuyerData(login, "", "", date, "");
 

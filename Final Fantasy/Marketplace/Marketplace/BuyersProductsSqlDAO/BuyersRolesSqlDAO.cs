@@ -79,12 +79,16 @@ namespace BuyersProductsSqlDAO
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                var query = "INSERT INTO dbo.Buyers_Roles(Id_Buyer, Id_Role) VALUES(@Id_Buyer, 1)";
+                //var query = "INSERT INTO dbo.Buyers_Roles(Id_Buyer, Id_Role) VALUES(@Id_Buyer, 1)";
+
+                var query = "INSERT  dbo.Buyers_Roles (Id_Buyer, Id_Role) " +
+                    "SELECT  @Id_Buyer, 1 " +
+                    "WHERE NOT EXISTS " +
+                    "(SELECT  1 FROM    dbo.Buyers_Roles WHERE   Id_Buyer = @Id_Buyer AND Id_Role = 1)";
 
                 var command = new SqlCommand(query, connection);
 
                 command.Parameters.AddWithValue("@Id_Buyer", idBuyer);
-                //command.Parameters.AddWithValue("@Id_Product", idProduct);
 
                 connection.Open();
 

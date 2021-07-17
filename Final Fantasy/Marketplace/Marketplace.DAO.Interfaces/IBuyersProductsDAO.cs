@@ -20,6 +20,8 @@ namespace Marketplace.DAO.Interfaces
 
         void DeleteProductFromCart(int idBuyer);
 
+        void DeleteProductFromCartByIdProduct(int idProduct);
+
         // void DeleteBuyerData(int idBuyer);
 
     }

@@ -33,20 +33,30 @@
     <div class="mycontainer">
 
         <div class="header">
-            <div>
-                "Эти кнопки доступны только авторизированным пользователям"
-                <button id="IndexBtn" type="submit" class="btn btn-primary">На главную</button>
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                        <div>
+                            <button id="IndexBtn" type="submit" class="btn btn-primary">На главную</button>
 
-                <button id="PersonalAccountBtn" type="submit" class="btn btn-primary">Личный кабинет</button>
+                            <button id="PersonalAccountBtn" type="submit" class="btn btn-primary">Личный кабинет</button>
 
-                <button id="CatalogOfProductsBtn" type="submit" class="btn btn-primary">Каталог товаров</button>
+                            <button id="CatalogOfProductsBtn" type="submit" class="btn btn-primary">Каталог товаров</button>
 
-                <button id="BuyersBtn" type="submit" class="btn btn-primary">Список пользователей</button>
+                            @{
+                                if (User.IsInRole("admin"))
+                                {
+                                    <button id="BuyersBtn" type="submit" class="btn btn-primary">Список пользователей</button>
+                                }
+                            }
 
-                <button id="CartOfProductsBtn" type="submit" class="btn btn-primary">Корзина товаров</button>
+                            <button id="CartOfProductsBtn" type="submit" class="btn btn-primary">Корзина товаров</button>
 
-                <button id="SearchingProductsBtn" type="submit" class="btn btn-primary">Поиск товаров</button>
-            </div>
+                            <button id="SearchingProductsBtn" type="submit" class="btn btn-primary">Поиск товаров</button>
+                        </div>
+                }
+            }
+
         </div>
 
         <div class="auth">
@@ -54,10 +64,8 @@
             @{
                 if (User.Identity.IsAuthenticated)
                 {
-                    <div style="width: 100%; margin-right: 30%">
-                        <p>Login: @loginStr</p>
-                        <button id="SignOutBtn" type="submit" class="btn btn-primary">Выйти</button>
-                    </div>
+                    <p>Login: @loginStr</p>
+                    <button id="SignOutBtn" type="submit" class="btn btn-primary">Выйти</button>
                 }
                 else
                 {

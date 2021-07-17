@@ -154,5 +154,30 @@ namespace BuyersProductsSqlDAO
             }
         }
 
+        public void DeleteProduct(int idProduct)
+        {
+            if (idProduct <= 0)
+            {
+                throw new FormatException("Invalid parameter format");
+            }
+
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var query = "DELETE FROM dbo.Products WHERE Id = @IdProduct";
+                var command = new SqlCommand(query, _connection);
+
+                command.Parameters.AddWithValue("@IdProduct", idProduct);
+
+                _connection.Open();
+
+                var result = command.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    throw new Exception("Couldn't delete product");
+                }
+            }
+        }
+
     }
 }

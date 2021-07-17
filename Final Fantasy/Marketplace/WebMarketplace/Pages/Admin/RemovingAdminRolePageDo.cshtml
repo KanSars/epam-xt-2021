@@ -1,23 +1,31 @@
-﻿//TODO функционал
+﻿@using Marketplace.Dependencies;
+@using NLog;
 
-//удалить login, pass public void DeleteBuyer(int idBuyer)
-удалить Дата public void DeleteBuyerData(int idBuyer)
-GetBuyerById
-удалить корзину DependencyResolver.Instance.BuyersProductsLogic.MakingAPurchase(HttpContext.Current.User.Identity.Name);
-
-@using Marketplace.Dependencies;
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
 
     var removingAdminRoleId = Request["RemovingAdminRoleId"];
 
     int idBuyer = 0;
 
-    if (int.TryParse(removingAdminRoleId, out idBuyer))
+    if (!int.TryParse(removingAdminRoleId, out idBuyer))
     {
-        //intdeletingUserId = int.Parse(deletingUserId);
+        logger.Warn("idBuyer transmission error");
     }
 
-    DependencyResolver.Instance.BuyersRolesLogic.RevokeAdminRights(idBuyer);
+    try
+    {
+        DependencyResolver.Instance.BuyersRolesLogic.RevokeAdminRights(idBuyer);
 
-    Response.Redirect(Request.UrlReferrer.ToString());
+        Response.Redirect(Request.UrlReferrer.ToString());
+    }
+    catch (Exception e)
+    {
+
+        logger.Error(e.Message);
+    }
+    finally
+    {
+        Response.Redirect("~/Index");
+    }
 }

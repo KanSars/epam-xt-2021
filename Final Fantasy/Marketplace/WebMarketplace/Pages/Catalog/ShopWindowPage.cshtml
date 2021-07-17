@@ -5,21 +5,12 @@
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
 <body>
 
-    <table class="table">
+    <table class="table, col-sm-10 my-1">
         <tr>
             <th>Наименование товара</th>
             <th>Цена</th>
-            <th></th>
-            <th></th>
         </tr>
         @{
 
@@ -28,54 +19,59 @@
             foreach (var item in productsList)
             {
                 <text>
-                        <tr>
-                            <td>@item.Title</td>
-                            <td>@item.Price</td>
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@item.Price</td>
 
-                            @{
-                                //if (User.IsInRole("admin"))
-                                if (true)
-                                {
-                                    <td>
-                                        <form action="~/Pages/Products/EditingProductPage" method="post" role="form">
-                                            <input type="hidden" value=@item.Id id="EditingProductId" name="EditingProductId">
-                                            <button type="submit" id="EditingProduct" name="EditingProduct" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Редактировать</i></button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form action="~/Pages/Catalog/BuyingPageDo" method="post" role="form">
-                                            <input type="hidden" value=@item.Id id="BuyingProductId" name="BuyingProductId">
-                                            <button type="submit" id="BuyingProduct" name="BuyingProduct" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Добавить в корзину</i></button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form action="~/Pages/Users/RemoveUserPage" method="post" role="form">
-                                            <input type="hidden" value=@item.Id id="DeletingUserId" name="DeletingUserId">
-                                            <button type="submit" id="DeleteUser" name="DeleteUser" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove">Удалить</i></button>
-                                        </form>
-                                    </td>
-                                }
+                        <td>
+                            <form action="~/Pages/Catalog/BuyingPageDo" method="post" role="form">
+                                <input type="hidden" value=@item.Id id="BuyingProductId" name="BuyingProductId">
+                                <button type="submit" id="BuyingProduct" name="BuyingProduct" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Добавить в корзину</i></button>
+                            </form>
+                        </td>
+
+                        @{
+                            if (User.IsInRole("admin"))
+                            {
+
+                                <td>
+                                    <form action="~/Pages/Products/EditingProductPage" method="post" role="form">
+                                        <input type="hidden" value=@item.Id id="EditingProductId" name="EditingProductId">
+                                        <button type="submit" id="EditingProduct" name="EditingProduct" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Редактировать</i></button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="~/Pages/Products/DeletingProductPageDo" method="post" role="form">
+                                        <input type="hidden" value=@item.Id id="DeletingProductId" name="DeletingProductId">
+                                        <button type="submit" id="DeletingProduct" name="DeletingProduct" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove">Удалить</i></button>
+                                    </form>
+                                </td>
                             }
-                        </tr>
+                        }
+                    </tr>
                 </text>
             }
         }
     </table>
 
-    <button id="AddingProductBtn" type="submit" class="btn btn-primary"> Добавить товар </button>
-
-    <script>
-        $('#BackBtn').click(function () {
-            location.href = '/Index';
-        })
-    </script>
-
-    <script>
-        $('#AddingProductBtn').click(function () {
-            location.href = '/Pages/Products/AddingProductPage';
-        })
-    </script>
+    @{
+        if (User.IsInRole("admin"))
+        {
+            <button id="AddingProductBtn" type="submit" class="btn btn-primary"> Добавить товар </button>
+        }
+    }
 
 
 </body>
-</html>
+
+<script>
+    $('#BackBtn').click(function () {
+        location.href = '/Index';
+    })
+</script>
+
+<script>
+    $('#AddingProductBtn').click(function () {
+        location.href = '/Pages/Products/AddingProductPage';
+    })
+</script>

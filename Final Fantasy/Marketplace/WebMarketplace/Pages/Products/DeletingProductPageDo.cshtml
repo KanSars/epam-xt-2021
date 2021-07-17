@@ -1,0 +1,40 @@
+﻿@using Marketplace.Dependencies;
+@using NLog;
+
+@{
+    Logger logger = LogManager.GetCurrentClassLogger();
+
+    var deletingProductId = Request["DeletingProductId"];
+
+    int idProduct = 0;
+
+    if (!int.TryParse(deletingProductId, out idProduct))
+    {
+        //logger
+    }
+
+    try
+    {
+        //TODO в одну функцию в BLL:
+
+
+        DependencyResolver.Instance.ProductsLogic.DeleteProduct(idProduct);
+        DependencyResolver.Instance.BuyersProductsLogic.DeleteProductFromCartByIdProduct(idProduct);
+
+        //DependencyResolver.Instance.ProductsLogic.DeleteProductByIdProduct(idProduct);
+
+        Response.Redirect(Request.UrlReferrer.ToString());
+    }
+    catch (Exception e)
+    {
+        logger.Error(e.Message);
+
+        Response.Redirect("~/Index");
+    }
+    //finally
+    //{
+    //    //Response.Redirect(Request.UrlReferrer.ToString());
+    //    Response.Redirect("~/Index");
+    //}
+
+}

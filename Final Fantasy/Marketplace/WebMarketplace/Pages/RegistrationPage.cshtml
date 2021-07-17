@@ -15,12 +15,16 @@
             DateTime date = new DateTime(1753, 1, 1);                                           //TODO так почему же GetBuyerData не справляется с пустой табличкой
             DependencyResolver.Instance.BuyresLogic.AddBuyerData(login, "", "", date, "");
             DependencyResolver.Instance.BuyersRolesLogic.AddRoleForBuyer(login);
-            <div class="alert alert-success" role="alert">
-                Пользователь успешно зарегистрирован!!!
+
+            <div class="col-sm-3 my-1">
+                <div class="alert alert-success" role="alert">
+                    Пользователь успешно зарегистрирован!!!
+                </div>
             </div>
+
         }
 
-}
+    }
 
 }
 
@@ -39,7 +43,7 @@
             <input name="pass" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
     </div>
-            <button type="submit" class="btn btn-primary">Зарегистрировать</button>
+    <button type="submit" class="btn btn-primary">Зарегистрировать</button>
 </form>
 
 

@@ -18,6 +18,12 @@ namespace Marketplace.BLL
         {
             _buyersDAO = listDao;
         }
+
+        private IBuyersProductsDAO _buyersProductsDAO;
+        public BuyersLogic(IBuyersProductsDAO listDAO)
+        {
+            _buyersProductsDAO = listDAO;
+        }
         public void AddBuyer(string login, string pass)
         {
             //добавить проверку на совпадение(наличие) Login
@@ -78,6 +84,13 @@ namespace Marketplace.BLL
         public bool IsUserExist(string login, string pass)
         {
             return _buyersDAO.IsUserExist(login, pass);
+        }
+
+        public void DeleteBuyerById(int idBuyer)
+        {
+            _buyersDAO.DeleteBuyer(idBuyer);
+            _buyersDAO.DeleteBuyerData(idBuyer);
+            _buyersProductsDAO.DeleteProductFromCart(idBuyer);
         }
     }
 }

@@ -20,19 +20,17 @@ namespace Marketplace.ConsolePL
         private static Logger logger = LogManager.GetCurrentClassLogger();
         static void Main(string[] args)
         {
-
             try
             {
-                DependencyResolver.Instance.BuyresLogic.DeleteBuyer(100);
+                DependencyResolver.Instance.BuyersRolesLogic.AssignAdminRights("qweqwe");
             }
-            catch (FormatException)
+            catch (Exception e)
             {
-                Console.WriteLine("vtymit yekz");
+                logger.Error(e.Message);
             }
-            catch (Exception)
-            {
-                Console.WriteLine("Фигня какая-то");
-            }
+            
+
+
             
 
             //Console.WriteLine(DependencyResolver.Instance.BuyresLogic.GetBuyer(1).Login);

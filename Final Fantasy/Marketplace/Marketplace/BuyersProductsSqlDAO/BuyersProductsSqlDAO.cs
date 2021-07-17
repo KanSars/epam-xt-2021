@@ -10,7 +10,7 @@ namespace BuyersProductsSqlDAO
 {
     public class Buyers_ProductsSqlDAO : IBuyersProductsDAO
     {
-        //private static Logger logger = LogManager.GetCurrentClassLogger();
+        static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static string _connectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
 
@@ -244,12 +244,41 @@ namespace BuyersProductsSqlDAO
                 throw new FormatException("Invalid parameter format");
             }
 
+            //проверка - а ест ли такой в таблице
+
             using (SqlConnection _connection = new SqlConnection(_connectionString))
             {
                 var query = "DELETE FROM dbo.Buyers_Products WHERE Id_Buyer = @Id_Buyer";
                 var command = new SqlCommand(query, _connection);
 
                 command.Parameters.AddWithValue("@Id_Buyer", idBuyer);
+
+                _connection.Open();
+
+                var result = command.ExecuteNonQuery();
+
+                //if (result == 0)
+                //{
+                //    throw new Exception("Couldn't delete the product from the cart");
+                //}
+
+            }
+        }
+
+        public void DeleteProductFromCartByIdProduct(int idProduct)
+        {
+            if (idProduct <= 0)
+            {
+                throw new FormatException("Invalid parameter format");
+            }
+
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var query = "DELETE FROM dbo.Buyers_Products WHERE Id_Product = @Id_Product";
+
+                var command = new SqlCommand(query, _connection);
+
+                command.Parameters.AddWithValue("@Id_Product", idProduct);
 
                 _connection.Open();
 

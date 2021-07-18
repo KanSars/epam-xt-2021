@@ -2,22 +2,25 @@
 @using Marketplace.Dependencies;
 @using NLog;
 
-//TODO Titles for all pages
-
 @{
     Logger logger = LogManager.GetCurrentClassLogger();
 
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
+    PageData["Title"] = "Добавление товаров";
+
+
     if (IsPost)
     {
         var title = Request["title"];
+
         var priceProduct = Request["priceProduct"];
         int price;
+
         if (!int.TryParse(priceProduct, out price))
         {
             logger.Warn("Price transmission error");
-            Response.Redirect(Request.UrlReferrer.ToString()); //to Error page
+            Response.Redirect(Request.UrlReferrer.ToString(), false);
         }
 
         try

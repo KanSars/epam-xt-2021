@@ -1,10 +1,5 @@
 ﻿using Marketplace.BLL.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Marketplace.DAO;
 using Marketplace.DAO.Interfaces;
 
 namespace Marketplace.BLL

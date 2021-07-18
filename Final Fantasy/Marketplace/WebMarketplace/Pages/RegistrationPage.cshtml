@@ -7,6 +7,8 @@
 
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
+    PageData["Title"] = "Регистрация";
+
     if (IsPost)
     {
         var login = Request["login"];
@@ -31,15 +33,10 @@
         }
         catch (Exception e)
         {
-
             logger.Error(e.Message);
-        }
 
-        <div class="col-sm-4 my-1">
-            <div class="alert alert-warning" role="alert">
-                Выбранный Вами логин уже используется
-            </div>
-        </div>
+            Response.Redirect(Request.UrlReferrer.ToString(), false);
+        }
 
     }
 

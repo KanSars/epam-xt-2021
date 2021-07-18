@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Marketplace.DAO;
 using Marketplace.DAO.Interfaces;
 using Marketplace.Entities;
 
@@ -85,7 +82,7 @@ namespace BuyersProductsSqlDAO
                 }
             }
 
-            return productsList; //TODO если не удалось вернуть то?
+            return productsList;
         }
 
         public List<Product> GetProductsByTitle(string partOfTitle)
@@ -94,7 +91,9 @@ namespace BuyersProductsSqlDAO
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                SqlCommand command = new SqlCommand("SELECT Id, Title, Price FROM dbo.Products WHERE Title LIKE '%' + @PartOfTitle + '%'", connection);
+                SqlCommand command = new SqlCommand("SELECT Id, Title, Price " +
+                    "FROM dbo.Products " +
+                    "WHERE Title LIKE '%' + @PartOfTitle + '%'", connection);
 
                 command.Parameters.AddWithValue("@PartOfTitle", partOfTitle);
 
@@ -111,19 +110,21 @@ namespace BuyersProductsSqlDAO
                 }
             }
 
-            return productsList; //то же (см.выше)
+            return productsList;
         }
 
         public Product GetProductById(int id)
         {
+            Product product = new Product();
+
             if (id <= 0)
             {
                 throw new FormatException("Invalid parameter format");
             }
 
-            var result = GetAllProducts().FirstOrDefault(productInList => productInList.Id == id);
+            product = GetAllProducts().FirstOrDefault(productInList => productInList.Id == id);
 
-            return result; //TODO если не удалось?
+            return product;
         }
 
         public void EditProductData(int id, string title, int price)

@@ -12,17 +12,17 @@
     if (!int.TryParse(buyingProductId, out idProduct))
     {
         logger.Warn("idProduct transmission error");
-        Response.Redirect(Request.UrlReferrer.ToString());
+        Response.Redirect(Request.UrlReferrer.ToString(), false);
     }
 
     try
     {
         DependencyResolver.Instance.BuyersProductsLogic.AddProductToCart(HttpContext.Current.User.Identity.Name, idProduct);
 
+        Response.Redirect(Request.UrlReferrer.ToString(), false);
     }
     catch (Exception e)
     {
-
         logger.Error(e.Message);
     }
     finally

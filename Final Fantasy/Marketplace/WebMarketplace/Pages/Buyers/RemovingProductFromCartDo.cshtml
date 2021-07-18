@@ -16,6 +16,8 @@
     try
     {
         DependencyResolver.Instance.BuyersProductsLogic.RemoveProductFromCart(HttpContext.Current.User.Identity.Name, idProduct);
+
+        Response.Redirect(Request.UrlReferrer.ToString(), false);
     }
     catch (Exception e)
     {
@@ -24,7 +26,7 @@
     }
     finally
     {
-        Response.Redirect("/Pages/Buyers/ShoppingCartPage"); //TODO через страницу "покупка совершена" и кнопки "Продолжить пкупки?"
+        Response.Redirect("/Pages/Buyers/ShoppingCartPage");
     }
 
 }

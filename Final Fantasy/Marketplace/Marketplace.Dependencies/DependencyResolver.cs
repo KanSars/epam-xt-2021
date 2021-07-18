@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Marketplace.BLL.Interfaces;
+﻿using Marketplace.BLL.Interfaces;
 using Marketplace.BLL;
 using Marketplace.DAO.Interfaces;
-//using Task_8.ASP.DAL.UsersAndAdwardsJsonDAO;
 using BuyersProductsSqlDAO;
-
-using Marketplace.DAO;
 
 
 namespace Marketplace.Dependencies

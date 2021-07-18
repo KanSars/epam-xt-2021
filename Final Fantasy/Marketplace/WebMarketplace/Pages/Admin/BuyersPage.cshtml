@@ -4,6 +4,8 @@
 @{
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
+    PageData["Title"] = "Список пользователей";
+
     Logger logger = LogManager.GetCurrentClassLogger();
 
     List<Marketplace.Entities.Buyer> buyersList = new List<Marketplace.Entities.Buyer>();

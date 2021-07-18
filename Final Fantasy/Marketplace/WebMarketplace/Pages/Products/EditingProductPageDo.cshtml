@@ -27,6 +27,8 @@
     try
     {
         DependencyResolver.Instance.ProductsLogic.EditProductData(productId, title, price);
+
+        Response.Redirect(Request.UrlReferrer.ToString(), false);
     }
     catch (Exception e)
     {

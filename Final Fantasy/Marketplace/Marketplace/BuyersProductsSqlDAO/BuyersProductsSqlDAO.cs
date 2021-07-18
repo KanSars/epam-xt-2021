@@ -204,11 +204,11 @@ namespace BuyersProductsSqlDAO
             }
             newCount++;
 
-            return newCount; //TODO возможно упросить и проверочку
+            return newCount;
         }
 
 
-        public void RemoveProductFromCart(string login, int idProduct) // с проверкой (можно через bool) - TODO ОШИБКА УДАЛЕНИЯ
+        public void RemoveProductFromCart(string login, int idProduct)
         {
             if (idProduct <= 0)
             {

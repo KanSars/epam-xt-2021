@@ -170,7 +170,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Pages\RegistrationPage.cshtml" />
     <Content Include="Pages\Buyers\PersonalAccountEditPage.cshtml" />
-    <Content Include="Pages\Buyers\PersonalAccountEditPageDo.cshtml" />
     <Content Include="Pages\Catalog\BuyingPageDo.cshtml" />
     <Content Include="Pages\Buyers\RemovingProductFromCartDo.cshtml" />
     <Content Include="Pages\Buyers\MakingAPurchasePageDo.cshtml" />
@@ -183,7 +182,6 @@
     <Content Include="Pages\Products\EditingProductPage.cshtml" />
     <Content Include="Pages\Admin\RemovingAdminRolePageDo.cshtml" />
     <Content Include="Pages\Layout\_Footer.cshtml" />
-    <Content Include="Pages\Buyers\PersonalAccountEditPageTemp.cshtml" />
     <Content Include="Pages\Products\DeletingProductPageDo.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />

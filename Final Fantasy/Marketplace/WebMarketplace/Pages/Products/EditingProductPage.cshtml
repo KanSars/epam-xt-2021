@@ -7,6 +7,9 @@
 
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
+    PageData["Title"] = "Редактироваие товаров";
+
+
     var editingProductId = Request["EditingProductId"];
     int idProduct;
 
@@ -15,7 +18,7 @@
     if (!int.TryParse(editingProductId, out idProduct))
     {
         logger.Warn("idProduct transmission error");
-        Response.Redirect(Request.UrlReferrer.ToString());
+        Response.Redirect(Request.UrlReferrer.ToString(), false);
     }
 
     try

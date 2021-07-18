@@ -20,7 +20,7 @@
     {
         DependencyResolver.Instance.BuyresLogic.DeleteBuyerById(idBuyer);
 
-        Response.Redirect(Request.UrlReferrer.ToString());
+        Response.Redirect(Request.UrlReferrer.ToString(), false);
     }
     catch (Exception e)
     {

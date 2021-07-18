@@ -29,7 +29,7 @@ namespace WebMarketplace.Models
                 i++;
             }
 
-            return result; //TODO проверку
+            return result;
         }
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)

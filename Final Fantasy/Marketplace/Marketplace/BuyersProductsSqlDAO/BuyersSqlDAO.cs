@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.IO;
 using System.Linq;
-using System.Text;
 using Marketplace.DAO.Interfaces;
 using Marketplace.Entities;
 using System.Configuration;
@@ -175,14 +173,14 @@ namespace BuyersProductsSqlDAO
         {
             int id_RegData = 0;
 
-            id_RegData = GetIdBuyer(login); //TODO если не получилось вернуть id
+            id_RegData = GetIdBuyer(login);
 
             if (id_RegData == 0)
             {
-                throw new Exception("Couldn't get buyer Id");
+                throw new ArgumentOutOfRangeException("Couldn't get buyer's Id");
             }
 
-            var buyersDataList = GetBuyersDataList(); //TODO есть ли лист покупателей
+            var buyersDataList = GetBuyersDataList();
 
             var buyerData = buyersDataList.FirstOrDefault(itemBuyerData => itemBuyerData.Id == id_RegData);
 
@@ -202,7 +200,6 @@ namespace BuyersProductsSqlDAO
 
         public void EditBuyerData(string login, string name, string surname, DateTime doB, string email)
         {
-            //TODO проверка
             var buyer = GetBuyerData(login);
 
             int id_RegData = buyer.Id;
@@ -242,11 +239,11 @@ namespace BuyersProductsSqlDAO
         {
             int id_RegData = 0;
 
-            id_RegData = GetIdBuyer(login); //TODO если не получилось вернуть id (см.выше)
+            id_RegData = GetIdBuyer(login);
 
             if (id_RegData == 0)
             {
-                throw new Exception("Couldn't get buyer Id");
+                throw new ArgumentOutOfRangeException("Couldn't get buyer's Id");
             }
 
             using (SqlConnection _connection = new SqlConnection(_connectionString))

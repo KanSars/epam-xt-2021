@@ -18,7 +18,7 @@
     {
         DependencyResolver.Instance.ProductsLogic.DeleteProductByIdProduct(idProduct);
 
-        Response.Redirect(Request.UrlReferrer.ToString());
+        Response.Redirect(Request.UrlReferrer.ToString(), false);
     }
     catch (Exception e)
     {

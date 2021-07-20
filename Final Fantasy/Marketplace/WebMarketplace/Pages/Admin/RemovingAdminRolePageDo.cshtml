@@ -4,22 +4,28 @@
 @{
     Logger logger = LogManager.GetCurrentClassLogger();
 
-    var addingAdminRoleLogin = Request["AddingAdminRoleLogin"];
+    var removingAdminRoleId = Request["RemovingAdminRoleId"];
 
+    int idBuyer = 0;
+
+    if (!int.TryParse(removingAdminRoleId, out idBuyer))
+    {
+        logger.Warn("idBuyer transmission error");
+    }
 
     try
     {
-        DependencyResolver.Instance.BuyersRolesLogic.AssignAdminRights(addingAdminRoleLogin);
+        DependencyResolver.Instance.BuyersRolesLogic.RevokeAdminRights(idBuyer);
 
         Response.Redirect(Request.UrlReferrer.ToString(), false);
     }
     catch (Exception e)
     {
+
         logger.Error(e.Message);
     }
     finally
     {
         Response.Redirect(Request.UrlReferrer.ToString());
     }
-
 }

@@ -61,10 +61,6 @@
       <Project>{52df904b-4894-4adf-991a-5c22f8a97f09}</Project>
       <Name>Marketplace.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Marketplace.BuyerGoodsJsonDAO\Marketplace.BuyersProductsJsonDAO.csproj">
-      <Project>{d6a6b56c-5ede-439a-b5fa-04f98c7d4ab3}</Project>
-      <Name>Marketplace.BuyersProductsJsonDAO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Marketplace.DAO.Interfaces\Marketplace.DAO.Interfaces.csproj">
       <Project>{db8dd57f-0482-42be-9760-6a0b94d1bc0f}</Project>
       <Name>Marketplace.DAO.Interfaces</Name>

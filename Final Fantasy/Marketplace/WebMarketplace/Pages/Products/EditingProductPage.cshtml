@@ -1,19 +1,34 @@
 ﻿@using Marketplace.Dependencies;
 @using Marketplace.Entities;
+@using NLog;
 
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
 
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
+    PageData["Title"] = "Редактироваие товаров";
+
+
     var editingProductId = Request["EditingProductId"];
-    int productId;
+    int idProduct;
 
     Product product = new Product();
 
-    if (int.TryParse(editingProductId, out productId)
-        )
+    if (!int.TryParse(editingProductId, out idProduct))
     {
-        product = DependencyResolver.Instance.ProductsLogic.GetProductById(productId);
+        logger.Warn("idProduct transmission error");
+        Response.Redirect(Request.UrlReferrer.ToString(), false);
+    }
+
+    try
+    {
+        product = DependencyResolver.Instance.ProductsLogic.GetProductById(idProduct);
+    }
+    catch (Exception e)
+    {
+
+        logger.Error(e.Message);
     }
 
 }
@@ -28,7 +43,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 my-1">
-            <label for="UpdatingProductPrice" class="control-label">Фамилия покупателя: (не работает)</label>
+            <label for="UpdatingProductPrice" class="control-label">Стоимость:</label>
             <input type="text" value="@product.Price" id="UpdatingProductPrice" name="UpdatingProductPrice" class="form-control">
         </div>
     </div>

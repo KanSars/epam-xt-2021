@@ -1,91 +1,93 @@
 ﻿@using Marketplace.Entities;
 @using Marketplace.Dependencies;
+@using NLog;
 
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
+
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    PageData["Title"] = "Каталог товаров";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
 <body>
-    TODO:
-    <h2>ДОБАВИТЬ: кнопку добавления и редактирования товаров (для админов)</h2>
 
-    <table class="table">
+    <table class="table, col-sm-10 my-1">
         <tr>
             <th>Наименование товара</th>
             <th>Цена</th>
-            @*<th>DayOfBirth</th>
-                <th>Age</th>*@
-            <th>Btn for admin</th>
-            <th></th>
-            <th>Btn for admin</th>
-            <th></th>
         </tr>
         @{
+            List<Marketplace.Entities.Product> productsList = new List<Marketplace.Entities.Product>();
 
-            var productsList = DependencyResolver.Instance.ProductsLogic.GetAllProducts();
+            try
+            {
+                productsList = DependencyResolver.Instance.ProductsLogic.GetAllProducts();
+            }
+            catch (Exception e)
+            {
+
+                logger.Error(e.Message);
+            }
 
             foreach (var item in productsList)
             {
                 <text>
-                        <tr>
-                            <td>@item.Title</td>
-                            <td>@item.Price</td>
-                            <td>--</td>
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@item.Price</td>
 
-                            @{
-                                //if (User.IsInRole("admin"))
-                                if (true)
-                                {
-                                    <td>
-                                        <form action="~/Pages/Products/EditingProductPage" method="post" role="form">
-                                            <input type="hidden" value=@item.Id id="EditingProductId" name="EditingProductId">
-                                            <button type="submit" id="EditingProduct" name="EditingProduct" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Редактировать</i></button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form action="~/Pages/Catalog/BuyingPageDo" method="post" role="form">
-                                            <input type="hidden" value=@item.Id id="BuyingProductId" name="BuyingProductId">
-                                            <button type="submit" id="BuyingProduct" name="BuyingProduct" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Добавить в корзину</i></button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form action="~/Pages/Users/RemoveUserPage" method="post" role="form">
-                                            <input type="hidden" value=@item.Id id="DeletingUserId" name="DeletingUserId">
-                                            <button type="submit" id="DeleteUser" name="DeleteUser" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove">Удалить</i></button>
-                                        </form>
-                                    </td>
-                                }
+                        <td>
+                            <form action="~/Pages/Catalog/BuyingPageDo" method="post" role="form">
+                                <input type="hidden" value=@item.Id id="BuyingProductId" name="BuyingProductId">
+                                <button type="submit" id="BuyingProduct" name="BuyingProduct" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Добавить в корзину</i></button>
+                            </form>
+                        </td>
+
+                        @{
+                            if (User.IsInRole("admin"))
+                            {
+
+                                <td>
+                                    <form action="~/Pages/Products/EditingProductPage" method="post" role="form">
+                                        <input type="hidden" value=@item.Id id="EditingProductId" name="EditingProductId">
+                                        <button type="submit" id="EditingProduct" name="EditingProduct" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Редактировать</i></button>
+                                        
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="~/Pages/Products/DeletingProductPageDo" method="post" role="form">
+                                        <input type="hidden" value=@item.Id id="DeletingProductId" name="DeletingProductId">
+                                        <button type="submit" id="DeletingProduct" name="DeletingProduct" class="btn btn-danger btn-group-xs" onclick="return confirm('Вы уверены, что хотите удалить товар?')"><i class="glyphicon glyphicon-remove">Удалить</i></button>
+                                    </form>
+                                </td>
+
                             }
-                        </tr>
+                        }
+                    </tr>
                 </text>
             }
         }
     </table>
 
-    <button id="BackBtn" type="submit" class="btn btn-primary"> << </button>
-
-    Только для админа:
-    <button id="AddingProductBtn" type="submit" class="btn btn-primary"> Добавить товар </button>
-
-    <script>
-        $('#BackBtn').click(function () {
-            location.href = '/Index';
-        })
-    </script>
-
-    <script>
-        $('#AddingProductBtn').click(function () {
-            location.href = '/Pages/Products/AddingProductPage';
-        })
-    </script>
+    @{
+        if (User.IsInRole("admin"))
+        {
+            <button id="AddingProductBtn" type="submit" class="btn btn-success" color=#c0ddc3> Добавить товар </button>
+        }
+    }
 
 
 </body>
-</html>
+
+<script>
+    $('#BackBtn').click(function () {
+        location.href = '/Index';
+    })
+</script>
+
+<script>
+    $('#AddingProductBtn').click(function () {
+        location.href = '/Pages/Products/AddingProductPage';
+    })
+</script>

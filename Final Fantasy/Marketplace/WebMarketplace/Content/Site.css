@@ -8,12 +8,13 @@
 /*[class*=container] {
     border: 1px solid #ccc;
 }*/
+ /*DOTO при уменьшении размеров экрана кнопки выходят за границы*/
 
 .mycontainer {
     display: grid;
     grid-gap: 5px;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: 50px 350px 50px;
+    grid-template-rows: 150px 350px 150px;
     /*grid-template-rows: 30% 800% 30%;*/
     /*max-width: 100%;*/
     grid-template-areas:
@@ -24,13 +25,20 @@
 
 .header {
     grid-area: h;
-    height: 100px;
+    height: 150px;
+    padding-left: 20px;
+    padding-top: 20px;
 }
 
 .auth {
     grid-area: a;
     /*margin: 10px 10px 10px 10px;*/
-    height: 100px;
+    height: 150px;
+    width: 100%;
+    margin-right: 30%;
+    text-align: right;
+    padding-right: 20px;
+    padding-top: 20px;
 }
 
 .menu {

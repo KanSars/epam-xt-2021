@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BuyersProductsSqlDAO
 {
@@ -16,7 +13,7 @@ namespace BuyersProductsSqlDAO
         BuyersSqlDAO buyersSqlDAO = new BuyersSqlDAO();
 
 
-        public List<string> GetRolesOfBuyer(string login)
+        public List<string> GetRoles(string login)
         {
             List<string> rolesOfBuyerList = new List<string>();
 
@@ -33,10 +30,15 @@ namespace BuyersProductsSqlDAO
                 connection.Open();
 
                 var reader = command.ExecuteReader();
+
+                if (reader == null)
+                {
+                    throw new Exception("Cannot get rignts");
+                }
+
                 while (reader.Read())
                 {
                     rolesOfBuyerList.Add((string)reader["Role"]);
-
                 }
             }
 
@@ -54,52 +56,69 @@ namespace BuyersProductsSqlDAO
                 var command = new SqlCommand(query, connection);
 
                 command.Parameters.AddWithValue("@Id_Buyer", idBuyer);
-                //command.Parameters.AddWithValue("@Id_Product", idProduct);
 
                 connection.Open();
 
-                var result = command.ExecuteScalar();
+                var result = command.ExecuteNonQuery();
 
-                //if (result != null)
-                //    return new Note(
-                //        id: (int)result,
-                //        text: text,
-                //        creationDate: creationDate);
+                if (result == 0)
+                {
+                    throw new InvalidOperationException("Cannot assign buyer rights");
+                }
 
-                //throw new InvalidOperationException(
-                //    string.Format("Cannot add Note with parameters: {0}, {1};",
-                //    text, creationDate));
             }
         }
 
-        public void AddAdminRoleForBuyer(string login)
+        public void AssignAdminRights(string login)
         {
             int idBuyer = buyersSqlDAO.GetIdBuyer(login);
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                var query = "INSERT INTO dbo.Buyers_Roles(Id_Buyer, Id_Role) VALUES(@Id_Buyer, 1)";
+                var query = "INSERT  dbo.Buyers_Roles (Id_Buyer, Id_Role) " +
+                    "SELECT  @Id_Buyer, 1 " +
+                    "WHERE NOT EXISTS " +
+                    "(SELECT  1 FROM    dbo.Buyers_Roles WHERE   Id_Buyer = @Id_Buyer AND Id_Role = 1)";
 
                 var command = new SqlCommand(query, connection);
 
                 command.Parameters.AddWithValue("@Id_Buyer", idBuyer);
-                //command.Parameters.AddWithValue("@Id_Product", idProduct);
 
                 connection.Open();
 
-                var result = command.ExecuteScalar();
+                var result = command.ExecuteNonQuery();
 
-                //if (result != null)
-                //    return new Note(
-                //        id: (int)result,
-                //        text: text,
-                //        creationDate: creationDate);
+                if (result == 0)
+                {
+                    throw new InvalidOperationException("Cannot assign admin rights");
+                }
 
-                //throw new InvalidOperationException(
-                //    string.Format("Cannot add Note with parameters: {0}, {1};",
-                //    text, creationDate));
             }
         }
 
+        public void RevokeAdminRights(int idBuyer)
+        {
+            if (idBuyer <= 0)
+            {
+                throw new FormatException("Invalid parameter format");
+            }
+
+            using (SqlConnection _connection = new SqlConnection(_connectionString))
+            {
+                var query = "DELETE FROM dbo.Buyers_Roles WHERE (Id_Buyer = @Id_Buyer AND Id_Role = 1)";
+                var command = new SqlCommand(query, _connection);
+
+                command.Parameters.AddWithValue("@Id_Buyer", idBuyer);
+
+                _connection.Open();
+
+                var result = command.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    throw new Exception("Couldn't revoke administrator rights");
+                }
+            }
+        }
     }
 }

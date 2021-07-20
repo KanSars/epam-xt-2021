@@ -25,25 +25,42 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Buttons.css" rel="stylesheet" />
 </head>
-<body style="background-color: #99a1f0;">
+<body style="background-color: #c0ddc3; ">
     <script src="~/Scripts/bootstrap.bundle.js"></script>
     <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
 
     <div class="mycontainer">
 
         <div class="header">
-            <div>
-                "Эти кнопки доступны только авторизированным пользователям"
-                <button id="IndexBtn" type="submit" class="btn btn-primary">На главную</button>
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                    <div>
+                        <button id="IndexBtn" type="submit" class="btn btn-primary">На главную</button>
 
-                <button id="PersonalAccountBtn" type="submit" class="btn btn-primary">Личный кабинет</button>
+                        <button id="PersonalAccountBtn" type="submit" class="btn btn-primary">Личный кабинет</button>
 
-                <button id="CartOfProductsBtn" type="submit" class="btn btn-primary">Корзина товаров</button>
+                        <button id="CatalogOfProductsBtn" type="submit" class="btn btn-primary">Каталог товаров</button>
 
-                <button id="CatalogOfProductsBtn" type="submit" class="btn btn-primary">Каталог товаров</button>
+                        @{
+                            if (User.IsInRole("admin"))
+                            {
+                                <button id="BuyersBtn" type="submit" class="btn btn-primary">Список пользователей</button>
+                            }
+                        }
 
-                <button id="SearchingProductsBtn" type="submit" class="btn btn-primary">Поиск товаров</button>
-            </div>
+                        <button id="CartOfProductsBtn" type="submit" class="btn btn-primary">Корзина товаров</button>
+
+                        <button id="SearchingProductsBtn" type="submit" class="btn btn-primary">Поиск товаров</button>
+                    </div>
+                }
+                else
+                {
+                    <p><h3>Пожалуйста, авторизуйтесь</h3></p>
+                }
+            }
+
         </div>
 
         <div class="auth">
@@ -51,10 +68,8 @@
             @{
                 if (User.Identity.IsAuthenticated)
                 {
-                    <div style="width: 100%; margin-right: 30%">
-                        <p>Login: @loginStr</p>
-                        <button id="SignOutBtn" type="submit" class="btn btn-primary">Выйти</button>
-                    </div>
+                    <p>Login: @loginStr</p>
+                    <button id="SignOutBtn" type="submit" class="btn btn-primary">Выйти</button>
                 }
                 else
                 {
@@ -66,16 +81,14 @@
         </div>
 
         <div class="menu">
-            MENU
         </div>
 
         <div class="content">
-            CONTENT
             <div>@RenderBody()</div>
         </div>
 
         <div class="footer">
-            FOOTER
+            @RenderPage("~/Pages/Layout/_Footer.cshtml")
         </div>
 
     </div>
@@ -95,14 +108,20 @@
 </script>
 
 <script>
-    $('#CartOfProductsBtn').click(function () {
-        location.href = '/Pages/Buyers/ShoppingCartPage';
+    $('#CatalogOfProductsBtn').click(function () {
+        location.href = '/Pages/Catalog/ShopWindowPage';
     })
 </script>
 
 <script>
-    $('#CatalogOfProductsBtn').click(function () {
-        location.href = '/Pages/Catalog/ShopWindowPage';
+    $('#BuyersBtn').click(function () {
+        location.href = '/Pages/Admin/BuyersPage';
+    })
+</script>
+
+<script>
+    $('#CartOfProductsBtn').click(function () {
+        location.href = '/Pages/Buyers/ShoppingCartPage';
     })
 </script>
 

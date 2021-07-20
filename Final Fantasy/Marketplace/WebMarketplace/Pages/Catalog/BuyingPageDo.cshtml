@@ -1,24 +1,33 @@
-﻿@using System.Globalization
-@using Marketplace.Entities;
-@using Marketplace.Dependencies;
+﻿@using Marketplace.Dependencies;
+@using NLog;
 
 @if (IsPost)
 {
+    Logger logger = LogManager.GetCurrentClassLogger();
 
     var buyingProductId = Request["BuyingProductId"];
 
-    int productId;
-    if (int.TryParse(buyingProductId, out productId)
-        // возможно еще проверки
-        )
+    int idProduct;
+
+    if (!int.TryParse(buyingProductId, out idProduct))
     {
-        //AddProductToCart(string login, int idProduct);
-        DependencyResolver.Instance.BuyersProductsLogic.AddProductToCart(HttpContext.Current.User.Identity.Name, productId);        // ПРОБРОСИТЬ ФУНКЦИЮ ЧЕРЕЗ IBLL, BLL
-
-        //Response.Redirect("/Pages/Catalog/ShopWindowPage");
-
-        Response.Redirect(Request.UrlReferrer.ToString());
-
-        return;
+        logger.Warn("idProduct transmission error");
+        Response.Redirect(Request.UrlReferrer.ToString(), false);
     }
+
+    try
+    {
+        DependencyResolver.Instance.BuyersProductsLogic.AddProductToCart(HttpContext.Current.User.Identity.Name, idProduct);
+
+        Response.Redirect(Request.UrlReferrer.ToString(), false);
+    }
+    catch (Exception e)
+    {
+        logger.Error(e.Message);
+    }
+    finally
+    {
+        Response.Redirect(Request.UrlReferrer.ToString());
+    }
+
 }

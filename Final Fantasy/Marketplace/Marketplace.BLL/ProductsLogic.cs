@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Marketplace.BLL.Interfaces;
 using Marketplace.Entities;
 using Marketplace.DAO.Interfaces;
@@ -16,6 +12,7 @@ namespace Marketplace.BLL
         {
             _productsDAO = listDao;
         }
+
 
         public void AddProduct(string title)
         {
@@ -45,6 +42,16 @@ namespace Marketplace.BLL
         public void EditProductData(int id, string title, int price)
         {
             _productsDAO.EditProductData(id, title, price);
+        }
+
+        public void DeleteProduct(int idProduct)
+        {
+            _productsDAO.DeleteProduct(idProduct);
+        }
+
+        public void DeleteProductByIdProduct(int idProduct)
+        {
+            _productsDAO.DeleteProductByIdProduct(idProduct);
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿@using Marketplace.Dependencies;
+@using NLog;
 
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
+
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
     PageData["Title"] = "Стартовая страница";
-
-    //string pageName = "Стартовая страница";
 
     int idUser = 0;
 
@@ -13,81 +14,60 @@
 
     string loginStr = HttpContext.Current.User.Identity.Name;
 
-}
+    List<string> rolesList = new List<string>();
 
-@*<div>@RenderPage("~/Pages/Catalog/ShopWindowPage.cshtml")</div>*@
-
-<a href="~/Pages/Admin/BuyersPage.cshtml">~/Pages/Admin/BuyersPage.cshtml</a>
-@{
-    if (User.Identity.IsAuthenticated)
+    try
     {
-        if (User.IsInRole("users")) // ПОЗЖЕ НАСТРОИТЬ РОЛЕВУЮ МОДЕЛЬ
-        {
-            <div>
-                'Это видят все'
-            </div>
-            <button id="counterBtn" type="submit" class="btn btn-primary">Go to counter!</button>
-            <script>
-                $('#counterBtn').click(function () {
-                    location.href = '/Pages/counter';
-                })
-            </script>
-
-        }
-
-        <div>
-        ЗДЕСЬ ДОЛЖНА БЫТЬ ИНФОРМАЦИЯ О САЙТЕ (о товарах и пр)
-        </div>
-
-        if (User.IsInRole("admin"))
-        {
-            <div>
-                'Это видит только админ'
-            </div>
-            <button id="RemoveUserBtn" type="submit" class="btn btn-primary">Go to Removing!</button>
-            <a href="~/Pages/Admin/BuyersPage.cshtml">~/Pages/Admin/BuyersPage.cshtml</a>
-        }
-
-        if (User.IsInRole("user"))
-        {
-            <div>
-                'Это видит админ и юзер'
-            </div>
-        }
-
-        <button id="SignOutBtn" type="submit" class="btn btn-primary">Go to SignOut!</button>
-        <a href="~/Pages/Buyers/PersonalAccountPage.cshtml">~/Pages/Buyers/PersonalAccountPage.cshtml</a>
-        <a href="~/Pages/Buyers/ShoppingCartPage.cshtml">~/Pages/Buyers/ShoppingCartPage.cshtml</a>
-
-
+        rolesList = DependencyResolver.Instance.BuyersRolesLogic.GetRoles(loginStr);
     }
-    else
+    catch (Exception e)
     {
-        <div> не доступно </div>
-        <button id="SignInBtn" type="submit" class="btn btn-primary">Go to SignIn!</button>
+        logger.Error(e.Message);
+
+        Response.Redirect("~/ErrorPages/ErrorPage", false);
     }
 
 }
 
-    временно для всех:
-<a href="~/Pages/Admin/BuyersPage.cshtml">~/Pages/Admin/BuyersPage.cshtml</a>
+<link href="~/Content/task_8.1-style.css" rel="stylesheet" />
 
+<div class="content">
 
-<script>
-    $('#RemoveUserBtn').click(function () {
-        location.href = '/Pages/RemoveUserPage';
-    })
-</script>
+    @{
+        if (User.Identity.IsAuthenticated)
+        {
+            <p>Вы зашли под Login: @loginStr</p>
+            <p>
+                Вам доступны следующие права:
+                @{
+                    foreach (var role in rolesList)
+                    {
+                        @role@:
+                    }
+                }
+            </p>
 
-<script>
-    $('#SignInBtn').click(function () {
-        location.href = '/Pages/SignIn';
-    })
-</script>
+        }
+        else
+        {
+            <div class="shadow" style="height: auto; width: 512px; margin: auto; background-color: #5a8988; font-size: 22px; color: White;" align="center">
+                <p>
+                    Приветствуем Вас!
+                </p>
 
-
-<script>
-    $('#SignOutBtn').click(function () {
-        location.href = '/Pages/SignOutDo';
-    })
-</script>
+                <p>
+                    Вы можете зарегистрироваться или Войти, воспользовавшись следующими данными: <br>
+                    Login: Viktor <br>
+                    Pass: 1234 <br>
+                    (будут выданы права "user") <br>
+                    <br>
+                    или<br>
+                    <br>
+                    Login: admin <br>
+                    Pass: 1234 <br>
+                    (будут выданы права "admin" и "user") <br>
+                </p>
+            </div>
+        }
+    }
+</div>

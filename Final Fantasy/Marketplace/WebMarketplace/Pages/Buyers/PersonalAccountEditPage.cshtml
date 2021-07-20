@@ -1,13 +1,71 @@
 ﻿@using Marketplace.Dependencies;
+@using System.Globalization
+@using NLog;
 
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
+
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
 
-    var buyerData = DependencyResolver.Instance.BuyresLogic.GetBuyerData(HttpContext.Current.User.Identity.Name);
+    PageData["Title"] = "Личный кабинет";
 
+    Marketplace.Entities.BuyerData buyerData = new Marketplace.Entities.BuyerData();
+
+    try
+    {
+        buyerData = DependencyResolver.Instance.BuyresLogic.GetBuyerData(HttpContext.Current.User.Identity.Name);
+    }
+    catch (Exception e)
+    {
+
+        logger.Error(e.Message);
+    }
+
+    if (IsPost)
+    {
+        var updatingBuyeruserId = Request["UpdatingBuyerID"];
+        var updatingBuyerName = Request["UpdatingBuyerName"];
+        var updatingBuyerSurname = Request["UpdatingBuyerSurname"];
+        var updatingDoB = Request["UpdatingBuyerDoB"];
+        var updatingBuyerEmail = Request["UpdatingBuyerEmail"];
+
+        DateTime dob;
+        DateTime minDate = new DateTime(1753, 1, 1, 0, 0, 0);
+        DateTime maxDate = new DateTime(9999, 12, 31, 0, 0, 0);
+
+        string dobFormat = "dd.MM.yyyy";
+
+        if (DateTime.TryParseExact(updatingDoB, dobFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dob) &&
+            (dob > minDate) && (dob < maxDate))
+        {
+            try
+            {
+                DependencyResolver.Instance.BuyresLogic.EditBuyerData(HttpContext.Current.User.Identity.Name, updatingBuyerName, updatingBuyerSurname, dob, updatingBuyerEmail);
+                Response.Redirect("~/Pages/Buyers/PersonalAccountPage");
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message);
+            }
+            finally
+            {
+                Response.Redirect("~/Pages/Buyers/PersonalAccountPage");
+            }
+
+
+        }
+        else
+        {
+            <div class="col-sm-3 my-1">
+                <div class="alert alert-danger" role="alert">
+                    Введен неверный формат даты
+                </div>
+            </div>
+        }
+    }
 }
 
-<form action="~/Pages/Buyers/PersonalAccountEditPageDo" method="post" role="form">
+<form method="post" id="signInForm">
     <div class="form-group">
         <div class="col-sm-3 my-1">
             <label for="UpdatingBuyerName" class="control-label">Имя покупателя: </label>
@@ -16,22 +74,23 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 my-1">
-            <label for="UpdatingBuyerSurname" class="control-label">Фамилия покупателя: (не работает)</label>
+            <label for="UpdatingBuyerSurname" class="control-label">Фамилия покупателя:</label>
             <input type="text" value="@buyerData.Surname" id="UpdatingBuyerSurname" name="UpdatingBuyerSurname" class="form-control">
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-3 my-1">
-            <label for="UpdatingBuyerDoB" class="control-label">Дата рождения: (не работает)</label>
+            <label for="UpdatingBuyerDoB" class="control-label">Дата рождения:</label>
             <input type="text" value="@buyerData.DoB.ToShortDateString()" id="UpdatingBuyerDoB" name="UpdatingBuyerDoB" class="form-control">
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-3 my-1">
-            <label for="UpdatingBuyerEmail" class="control-label">Email: (не работает)</label>
+            <label for="UpdatingBuyerEmail" class="control-label">Email:</label>
             <input type="text" value="@buyerData.Email" id="UpdatingBuyerEmail" name="UpdatingBuyerEmail" class="form-control">
         </div>
     </div>
 
     <button type="submit" class="btn btn-primary">Обновить данные</button>
 </form>
+

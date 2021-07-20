@@ -11,13 +11,13 @@ namespace WebMarketplace.Models
     {
         public override bool IsUserInRole(string username, string roleName)
         {
-            var rolesList = DependencyResolver.Instance.BuyersRolesLogic.GetRolesOfBuyer(username);
+            var rolesList = DependencyResolver.Instance.BuyersRolesLogic.GetRoles(username);
 
             return rolesList.Contains(roleName);
         }
         public override string[] GetRolesForUser(string username)
         {
-            var rolesList = DependencyResolver.Instance.BuyersRolesLogic.GetRolesOfBuyer(username);
+            var rolesList = DependencyResolver.Instance.BuyersRolesLogic.GetRoles(username);
 
             string[] result = new string[rolesList.Count];
 
@@ -29,7 +29,7 @@ namespace WebMarketplace.Models
                 i++;
             }
 
-            return result; //TODO проверку
+            return result;
         }
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)

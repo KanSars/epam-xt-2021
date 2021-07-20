@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Marketplace.BLL.Interfaces;
 using Marketplace.DAO.Interfaces;
 using Marketplace.Entities;
@@ -27,6 +23,11 @@ namespace Marketplace.BLL
             return _buyersProductsDAO.GetProductsOfBuyer(login);
         }
 
+        public List<ProductInCart> GetProductsInCart(string login)
+        {
+            return _buyersProductsDAO.GetProductsInCart(login);
+        }
+
         public void AddProductToCart(string login, int idProduct)
         {
             _buyersProductsDAO.AddProductToCart(login, idProduct);
@@ -39,9 +40,7 @@ namespace Marketplace.BLL
 
         public void MakingAPurchase(string login)
         {
-            //проверить - а есть ли у него что-то в корзине?
-
-            //теоретически тут должна быть проверка средств или переход к платежной системе и пр. далее удаление списка покупок из корзины:
+            //through checking the buyer's solvency
 
             List<Product> productList = GetProductsOfBuyer(login);
 
@@ -56,5 +55,11 @@ namespace Marketplace.BLL
         {
             _buyersProductsDAO.DeleteProductFromCart(idBuyer);
         }
+
+        public void DeleteProductFromCartByIdProduct(int idProduct)
+        {
+            _buyersProductsDAO.DeleteProductFromCartByIdProduct(idProduct);
+        }
+
     }
 }

@@ -52,7 +52,6 @@
     <Compile Include="BuyersLogic.cs" />
     <Compile Include="BuyersProductsLogic.cs" />
     <Compile Include="BuyersRolesLogic.cs" />
-    <Compile Include="Logic.cs" />
     <Compile Include="ProductsLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,17 +1,23 @@
 ﻿@using Marketplace.Dependencies;
+@using NLog;
+
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
 
-    var removingProductId = Request["RemovingProductId"];
-
-    int idProduct = 0;
-
-    if (int.TryParse(removingProductId, out idProduct))
+    try
     {
-        //intdeletingUserId = int.Parse(deletingUserId);
+        DependencyResolver.Instance.BuyersProductsLogic.MakingAPurchase(HttpContext.Current.User.Identity.Name);
+
+        Response.Redirect(Request.UrlReferrer.ToString(), false);
+    }
+    catch (Exception e)
+    {
+
+        logger.Error(e.Message);
+    }
+    finally
+    {
+        Response.Redirect(Request.UrlReferrer.ToString()); //TODO через страницу "покупка совершена" и кнопку "Продолжить покупки?"
     }
 
-    //MakingAPurchase(login);
-    DependencyResolver.Instance.BuyersProductsLogic.MakingAPurchase(HttpContext.Current.User.Identity.Name);
-
-    Response.Redirect("/Pages/Buyers/ShoppingCartPage");
 }

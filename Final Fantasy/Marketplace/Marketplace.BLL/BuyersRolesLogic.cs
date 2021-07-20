@@ -1,10 +1,5 @@
 ﻿using Marketplace.BLL.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Marketplace.DAO;
 using Marketplace.DAO.Interfaces;
 
 namespace Marketplace.BLL
@@ -17,10 +12,9 @@ namespace Marketplace.BLL
             _buyersRolesDAO = listDAO;
         }
 
-
-        public List<string> GetRolesOfBuyer(string login)
+        public List<string> GetRoles(string login)
         {
-            return _buyersRolesDAO.GetRolesOfBuyer(login);
+            return _buyersRolesDAO.GetRoles(login);
         }
 
         public void AddRoleForBuyer(string login)
@@ -28,9 +22,14 @@ namespace Marketplace.BLL
             _buyersRolesDAO.AddRoleForBuyer(login);
         }
 
-        public void AddAdminRoleForBuyer(string login)
+        public void AssignAdminRights(string login)
         {
-            _buyersRolesDAO.AddAdminRoleForBuyer(login);
+            _buyersRolesDAO.AssignAdminRights(login);
+        }
+
+        public void RevokeAdminRights(int idBuyer)
+        {
+            _buyersRolesDAO.RevokeAdminRights(idBuyer);
         }
     }
 }

@@ -1,31 +1,46 @@
 ﻿@using WebMarketplace.Models;
 @using Marketplace.Dependencies;
+@using NLog;
 
 @{
-        Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+    Logger logger = LogManager.GetCurrentClassLogger();
 
-        if (IsPost)
+    Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    PageData["Title"] = "Добавление товаров";
+
+
+    if (IsPost)
+    {
+        var title = Request["title"];
+
+        var priceProduct = Request["priceProduct"];
+        int price;
+
+        if (!int.TryParse(priceProduct, out price))
         {
-            var title = Request["title"];
-            var priceProduct = Request["priceProduct"];
-            int price;
-            if (int.TryParse(priceProduct, out price))
-            { }
-            {
-                DependencyResolver.Instance.ProductsLogic.AddProduct(title, price);
-
-            <div class="alert alert-success" role="alert">
-                Товар успешно добавлен!!!
-            </div>
-
-            @: Кнопка перехода "добавить ещё товар"
-
+            logger.Warn("Price transmission error");
+            Response.Redirect(Request.UrlReferrer.ToString(), false);
         }
 
+        try
+        {
+            DependencyResolver.Instance.ProductsLogic.AddProduct(title, price);
+        }
+        catch (Exception e)
+        {
+
+            logger.Error(e.Message);
+        }
+
+        <div class="col-sm-3 my-1">
+            <div class="alert alert-success" role="alert">
+                Товар успешно добавлен.
+            </div>
+        </div>
     }
 
 }
-
 
 
 <form method="post">
@@ -37,105 +52,9 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 my-1">
-            <label for="priceOfNewProduct">Password</label>
+            <label for="priceOfNewProduct">Стоимость</label>
             <input name="priceProduct" type="text" class="form-control" id="priceOfNewProduct" placeholder="Цена" value="0">
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Добавиь</button>
 </form>
-
-
-
-@*@{
-        if (IsPost)
-        {
-            // вот тут бы через другу страницу, чтобы данные при вводе не терялись - бесит ) (для этого перекинуть данные на промежуточную и обратно
-            // Добавить проверку на ошибки
-
-            var login = Request["login"];
-            var pass = Request["pass"];
-
-            //проверка на наличие такого
-            if (DependencyResolver.Instance.BuyresLogic.GetBuyer(login) > 0)
-            {
-                //через страничку "Введённый Вами логин уже используется"
-
-            }
-
-            DependencyResolver.Instance.BuyresLogic.AddBuyer(login);
-            //добавить пароль - позже
-
-            //usersBll.AddUser(new User(id: newUserId, name: userName, dateOfBirth: dateOfBirth));
-            //authDataBll.CreatPassword(newUserId, password);
-
-
-            //добавить роли - но это позже
-            //if (isUsersEmpty)
-            //{
-            //    userAndRole.AssignRole(newUserId, 0);
-            //}
-            //userAndRole.AssignRole(newUserId, 1);
-
-
-        }
-    }*@
-
-
-@*<form method="post" style="margin: 20px; width:300px">
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Name</span>
-            <input type="text" name="UserName" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">DateOfBirth</span>
-            <input type="date" name="DateOfBirth" class="form-control" placeholder="DateOfBirth" aria-label="DateOfBirth" aria-describedby="basic-addon1" required>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Password</span>
-            <input type="password" name="Password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Add</button>
-    </form>
-
-    @if (IsPost)
-    {
-        try
-        {
-            string userName = Request["UserName"];
-            bool isDate = DateTime.TryParse(Request["DateOfBirth"], out DateTime dateOfBirth);
-            string password = Request["Password"];
-            if (!isDate)
-            {
-                <div class="alert alert-danger" role="alert">
-                    Введен не верный формат даты!!
-                </div>
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(password))
-            {
-                <div class="alert alert-danger" role="alert">
-                    Введен пустой пароль!!
-                </div>
-            }
-            Guid newUserId = Guid.NewGuid();
-
-            usersBll.AddUser(new User(id: newUserId, name: userName, dateOfBirth: dateOfBirth));
-            authDataBll.CreatPassword(newUserId, password);
-            if (isUsersEmpty)
-            {
-                userAndRole.AssignRole(newUserId, 0);
-            }
-            userAndRole.AssignRole(newUserId, 1);
-
-
-            <div class="alert alert-success" role="alert">
-                Пользователь успешно зарегистрирован!!!
-            </div>
-        }
-        catch (Exception ex)
-        {
-            <div class="alert alert-danger" role="alert">
-                Пользователь не зарегистрирован!!!
-            </div>
-        }
-    }*@

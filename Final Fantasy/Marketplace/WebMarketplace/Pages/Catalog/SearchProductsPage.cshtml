@@ -1,68 +1,103 @@
 ﻿@using Marketplace.Dependencies;
+@using NLog;
 
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
+
     Layout = "~/Pages/Layout/_BasicLayout.cshtml";
+
+    PageData["Title"] = "Поиск товаров";
 }
 
-TODO: если ничего не нйдено сообщить об этом
-
 <body>
-    <div>
-        <form method="post">
-            <div class="form-group">
-                <div class="col-sm-3 my-1">
-                    <label for="desiredProductId">Поиск товаров</label>
-                    <input name="desiredProduct" type="text" class="form-control" id="desiredProductId" aria-describedby="emailHelp" placeholder="Поиск по товарам">
-                </div>
+    <form method="post">
+        <div class="form-group">
+            <div class="col-sm-3 my-1">
+                <label for="desiredProductId">Поиск товаров</label>
+                <input name="desiredProduct" type="text" class="form-control" id="desiredProductId" aria-describedby="emailHelp" placeholder="Поиск по товарам">
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-    </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Найти</button>
+    </form>
 
     @{
         if (IsPost)
         {
             var titleProduct = Request["desiredProduct"];
 
-            <table class="table">
-                <tr>
-                    <th>Наименование товара</th>
-                    <th>--</th>
-                    @*<th>DayOfBirth</th>
-                        <th>Age</th>*@
-                    <th>Цена</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                @{
+            List<Marketplace.Entities.Product> productsList = new List<Marketplace.Entities.Product>();
 
-                    var productsList = DependencyResolver.Instance.ProductsLogic.GetProductsByTitle(titleProduct);
+            try
+            {
+                productsList = DependencyResolver.Instance.ProductsLogic.GetProductsByTitle(titleProduct);
+            }
+            catch (Exception e)
+            {
 
-                    foreach (var item in productsList)
-                    {
-                        <text>
-                            <tr>
-                                <td>@item.Title </td>
-                                <td>@item.Price</td>
+                logger.Error(e.Message);
+            }
 
-                                @{
-                                    //if (User.IsInRole("admin"))
-                                    if (true)
-                                    {
-                                        <td>
-                                            <form action="~/Pages/Catalog/BuyingPageDo" method="post" role="form">
-                                                <input type="hidden" value=@item.Id id="BuyingProductId" name="BuyingProductId">
-                                                <button type="submit" id="BuyingProduct" name="BuyingProduct" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Добавить в корзину</i></button>
-                                            </form>
-                                        </td>
+            if (productsList.Count != 0)
+            {
+                <table class="table, col-sm-10 my-1">
+                    <tr>
+                        <th>Наименование товара</th>
+                        <th>Цена</th>
+                        @{
+                            if (User.IsInRole("admin"))
+                            {
+                                <th>Id</th>
+                            }
+                        }
+                    </tr>
+                    @{
+                        foreach (var item in productsList)
+                        {
+                            <text>
+                                <tr>
+                                    <td>@item.Title</td>
+                                    <td>@item.Price</td>
+                                    @{
+                                        if (User.IsInRole("admin"))
+                                        {
+                                            <td>@item.Id</td>
+                                        }
                                     }
-                                }
-                            </tr>
-                        </text>
+
+                                    <td>
+                                        <form action="~/Pages/Catalog/BuyingPageDo" method="post" role="form">
+                                            <input type="hidden" value=@item.Id id="BuyingProductId" name="BuyingProductId">
+                                            <button type="submit" id="BuyingProduct" name="BuyingProduct" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Добавить в корзину</i></button>
+                                        </form>
+                                    </td>
+
+                                    @{
+                                        if (User.IsInRole("admin"))
+                                        {
+                                            <td>
+                                                <form action="~/Pages/Products/EditingProductPage" method="post" role="form">
+                                                    <input type="hidden" value=@item.Id id="EditingProductId" name="EditingProductId">
+                                                    <button type="submit" id="EditingProduct" name="EditingProduct" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Редактировать</i></button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form action="~/Pages/Users/RemoveUserPage" method="post" role="form">
+                                                    <input type="hidden" value=@item.Id id="DeletingUserId" name="DeletingUserId">
+                                                    <button type="submit" id="DeleteUser" name="DeleteUser" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove">Удалить</i></button>
+                                                </form>
+                                            </td>
+                                        }
+                                    }
+                                </tr>
+                            </text>
+                        }
                     }
-                }
-            </table>
+                </table>
+            }
+            else
+            {
+                <div>К сожалению данного товара нет в наличии</div>
+            }
         }
     }
 </body>

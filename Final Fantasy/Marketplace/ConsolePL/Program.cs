@@ -20,6 +20,19 @@ namespace Marketplace.ConsolePL
         private static Logger logger = LogManager.GetCurrentClassLogger();
         static void Main(string[] args)
         {
+            //try
+            //{
+            //    
+            //}
+            //catch (Exception e)
+            //{
+            //    logger.Error(e.Message);
+            //}
+            
+
+
+            
+
             //Console.WriteLine(DependencyResolver.Instance.BuyresLogic.GetBuyer(1).Login);
 
             //DependencyResolver.Instance.BuyresLogic.AddBuyer("Kolya1");
@@ -30,21 +43,21 @@ namespace Marketplace.ConsolePL
 
             //DependencyResolver.Instance.BuyresLogic.DeleteBuyerData(10);
 
-            //var listof = DependencyResolver.Instance.BuyersRolesLogic.GetRolesOfBuyer("admin");
+            //var listof = DependencyResolver.Instance.BuyersRolesLogic.GetRoles("admin");
 
             //foreach (var item in listof)
             //{
             //    Console.WriteLine(item);
             //}
 
-            Console.WriteLine("Hello World!");
-            //logger.Error("Error message test");
-            var result = DependencyResolver.Instance.BuyersProductsLogic.GetProductsOfBuyer("qwe");
+            //Console.WriteLine("Hello World!");
+            ////logger.Error("Error message test");
+            //var result = DependencyResolver.Instance.BuyersProductsLogic.GetProductsOfBuyer("qwe");
 
-            foreach (var item in result)
-            {
-                Console.WriteLine(item.Title);
-            }
+            //foreach (var item in result)
+            //{
+            //    Console.WriteLine(item.Title);
+            //}
 
         }
     }

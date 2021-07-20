@@ -1,24 +1,35 @@
 ﻿@using Marketplace.Dependencies;
+@using NLog;
 @{
+    Logger logger = LogManager.GetCurrentClassLogger();
 
     var deleingBuyerId = Request["DeletingBuyerId"];
 
     int idBuyer = 0;
 
-    if (int.TryParse(deleingBuyerId, out idBuyer))
+    if (!int.TryParse(deleingBuyerId, out idBuyer))
     {
-        //intdeletingUserId = int.Parse(deletingUserId);
+        logger.Warn("idBuyer transmission error");
     }
 
-    //1. удалит логин из таблицы Buyers (а позже и пароль)
-    //2. удалить данные пользователя из BuyerData
-    //3. удалить все пары покупатель_продукт
+    //DependencyResolver.Instance.BuyresLogic.DeleteBuyer(idBuyer);
+    //DependencyResolver.Instance.BuyresLogic.DeleteBuyerData(idBuyer);
+    //DependencyResolver.Instance.BuyersProductsLogic.DeleteProductFromCart(idBuyer);
+    //Заменены на: DependencyResolver.Instance.BuyresLogic.DeleteBuyerById(idBuyer);
 
-    DependencyResolver.Instance.BuyresLogic.DeleteBuyer(idBuyer);
-    DependencyResolver.Instance.BuyresLogic.DeleteBuyerData(idBuyer);
-    DependencyResolver.Instance.BuyersProductsLogic.DeleteProductFromCart(idBuyer);
+    try
+    {
+        DependencyResolver.Instance.BuyresLogic.DeleteBuyerById(idBuyer);
 
-    //Вернуться на страницу... (через проверки и логирование)
-    //Response.Redirect("/Pages/Buyers/ShoppingCartPage"); //в дальнейшем лучше через страницу "покупка совершена" и кнопки типа "Продолжить пкупки?"
-            Response.Redirect("/Pages/Admin/BuyersPage");
+        Response.Redirect(Request.UrlReferrer.ToString(), false);
+    }
+    catch (Exception e)
+    {
+        logger.Error(e.Message);
+    }
+    finally
+    {
+        Response.Redirect(Request.UrlReferrer.ToString());
+    }
+
 }

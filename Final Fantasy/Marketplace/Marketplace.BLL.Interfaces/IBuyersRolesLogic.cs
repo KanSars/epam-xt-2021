@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Marketplace.BLL.Interfaces
 {
     public interface IBuyersRolesLogic
     {
-        List<string> GetRolesOfBuyer(string login);
+        List<string> GetRoles(string login);
 
         void AddRoleForBuyer(string login);
 
-        void AddAdminRoleForBuyer(string login);
+        void AssignAdminRights(string login);
+
+        void RevokeAdminRights(int idBuyer);
     }
 }

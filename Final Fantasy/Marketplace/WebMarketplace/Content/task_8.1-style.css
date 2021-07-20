@@ -1,0 +1,20 @@
+   .shadow {
+    width: 200px;
+    background: #fae498;
+    border: 2px solid #90734b;
+    border-radius: 10px;
+    box-shadow: 6px 6px 0 0px #880203;
+    padding: 5px;
+    font-weight:bold;
+    color: #880203;
+   }
+   
+   ul {
+    list-style: none;
+    padding: 0;
+    margin: 5px   
+   }
+   
+   li {
+    margin-bottom: 0.5em;
+   }

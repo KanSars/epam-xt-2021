@@ -4,18 +4,26 @@
 @{
     Logger logger = LogManager.GetCurrentClassLogger();
 
-    var addingAdminRoleLogin = Request["AddingAdminRoleLogin"];
+    var deletingProductId = Request["DeletingProductId"];
 
+    int idProduct = 0;
+
+    if (!int.TryParse(deletingProductId, out idProduct))
+    {
+        logger.Warn("idProduct transmission error");
+        Response.Redirect(Request.UrlReferrer.ToString());
+    }
 
     try
     {
-        DependencyResolver.Instance.BuyersRolesLogic.AssignAdminRights(addingAdminRoleLogin);
+        DependencyResolver.Instance.ProductsLogic.DeleteProductByIdProduct(idProduct);
 
         Response.Redirect(Request.UrlReferrer.ToString(), false);
     }
     catch (Exception e)
     {
         logger.Error(e.Message);
+
     }
     finally
     {

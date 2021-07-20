@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Marketplace.Entities;
 
 namespace Marketplace.DAO.Interfaces
@@ -21,5 +18,9 @@ namespace Marketplace.DAO.Interfaces
         Product GetProductById(int id);
 
         void EditProductData(int id, string title, int price);
+
+        void DeleteProduct(int idProduct);
+
+        void DeleteProductByIdProduct(int idProduct);
     }
 }

@@ -39,7 +39,6 @@ namespace BuyersProductsSqlDAO
                 while (reader.Read())
                 {
                     rolesOfBuyerList.Add((string)reader["Role"]);
-
                 }
             }
 
@@ -76,8 +75,6 @@ namespace BuyersProductsSqlDAO
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                //var query = "INSERT INTO dbo.Buyers_Roles(Id_Buyer, Id_Role) VALUES(@Id_Buyer, 1)";
-
                 var query = "INSERT  dbo.Buyers_Roles (Id_Buyer, Id_Role) " +
                     "SELECT  @Id_Buyer, 1 " +
                     "WHERE NOT EXISTS " +

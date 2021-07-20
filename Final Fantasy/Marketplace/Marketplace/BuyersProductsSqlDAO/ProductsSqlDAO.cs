@@ -50,8 +50,6 @@ namespace BuyersProductsSqlDAO
                 command.Parameters.AddWithValue("@Title", title);
                 command.Parameters.AddWithValue("@Price", price);
 
-                // DBNull.Value
-
                 _connection.Open();
 
                 var result = command.ExecuteNonQuery();

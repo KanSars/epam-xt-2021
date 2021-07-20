@@ -9,7 +9,6 @@ namespace Marketplace.Entities
         public int Price { get; set; }
         public Product()
         {
-
         }
         public Product(int id, string title)
         {

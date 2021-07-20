@@ -122,11 +122,6 @@ namespace BuyersProductsSqlDAO
                 throw new FormatException("Invalid parameter format");
             }
 
-
-            // проверт а есть ли такой в списке
-
-            //int idBuyer = buyersSqlDAO.GetIdBuyer(login);
-
             using (SqlConnection _connection = new SqlConnection(_connectionString))
             {
                 var query = "DELETE FROM dbo.Buyers WHERE Id = @IdBuyer";

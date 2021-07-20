@@ -48,13 +48,13 @@
     <div class="form-group">
         <div class="col-sm-3 my-1">
             <label for="exampleInputEmail1">Логин</label>
-            <input name="login" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="login">
+            <input name="login" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="логин">
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-3 my-1">
             <label for="exampleInputPassword1">Пароль</label>
-            <input name="pass" type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
+            <input name="pass" type="password" class="form-control" id="exampleInputPassword1" placeholder="пароль">
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Войти</button>
@@ -63,7 +63,7 @@
 <script>
     $("#signInForm").validate({
         onkeyup: true,
-        //onfocusout: false, //DOTO поэкспериментировать
+        //onfocusout: false,
         //onkeyup: false,
         //onclick: false,
         //onsubmit: false
@@ -89,24 +89,3 @@
         }
     });
 </script>
-
-
-@*<form method="post">
-        <div class="form-group">
-            <label for="exampleInputEmail1">Login</label>
-            <input name="login" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="login">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input name="pass" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
-
-    <button id="RegisterBtn" type="submit" class="btn btn-primary">Зарегистрироваться</button>
-
-    <script>
-        $('#RegisterBtn').click(function () {
-            location.href = '/Pages/RegistrationPage';
-        })
-    </script>*@

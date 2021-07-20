@@ -4,8 +4,6 @@ using Marketplace.DAO.Interfaces;
 using System;
 using System.Collections.Generic;
 
-//причесать (подсократить количество команд с обращением в DAL (можно тут на месте решить без DAL)
-
 namespace Marketplace.BLL
 {
     public class BuyersLogic : IBuyersLogic
@@ -19,8 +17,6 @@ namespace Marketplace.BLL
 
         public void AddBuyer(string login, string pass)
         {
-            //добавить проверку на совпадение(наличие) Login
-
             _buyersDAO.AddBuyer(login, pass);
         }
 
@@ -53,11 +49,6 @@ namespace Marketplace.BLL
         {
             _buyersDAO.AddBuyerData(login, name, surname, doB, email);
         }
-
-        //public void EditBuyerData(string login, string name)
-        //{
-        //    _buyersDAO.EditBuyerData(login, name);
-        //}
 
         public void EditBuyerData(string login, string name, string surname, DateTime doB, string email)
         {

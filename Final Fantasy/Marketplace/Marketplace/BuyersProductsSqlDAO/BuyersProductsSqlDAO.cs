@@ -112,36 +112,6 @@ namespace BuyersProductsSqlDAO
             return productsList;
         }
 
-        //public void AddProductToCart(string login, int idProduct)
-        //{
-        //    if (idProduct <= 0)
-        //    {
-        //        throw new FormatException("Invalid parameter format");
-        //    }
-
-        //    int idBuyer = buyersSqlDAO.GetIdBuyer(login);
-
-        //    using (SqlConnection connection = new SqlConnection(_connectionString))
-        //    {
-        //        var query = "INSERT INTO dbo.Buyers_Products(Id_Buyer, Id_Product) VALUES(@Id_Buyer, @Id_Product)";
-
-        //        var command = new SqlCommand(query, connection);
-
-        //        command.Parameters.AddWithValue("@Id_Buyer", idBuyer);
-        //        command.Parameters.AddWithValue("@Id_Product", idProduct);
-
-        //        connection.Open();
-
-        //        var result = command.ExecuteNonQuery();
-
-        //        if (result == 0)
-        //        {
-        //            throw new Exception("Couldn't add the product to the cart");
-        //        }
-
-        //    }
-        //}
-
         public void AddProductToCart(string login, int idProduct)
         {
             if (idProduct <= 0)
@@ -207,7 +177,6 @@ namespace BuyersProductsSqlDAO
             return newCount;
         }
 
-
         public void RemoveProductFromCart(string login, int idProduct)
         {
             if (idProduct <= 0)
@@ -244,8 +213,6 @@ namespace BuyersProductsSqlDAO
                 throw new FormatException("Invalid parameter format");
             }
 
-            //проверка - а ест ли такой в таблице
-
             using (SqlConnection _connection = new SqlConnection(_connectionString))
             {
                 var query = "DELETE FROM dbo.Buyers_Products WHERE Id_Buyer = @Id_Buyer";
@@ -256,12 +223,6 @@ namespace BuyersProductsSqlDAO
                 _connection.Open();
 
                 var result = command.ExecuteNonQuery();
-
-                //if (result == 0)
-                //{
-                //    throw new Exception("Couldn't delete the product from the cart");
-                //}
-
             }
         }
 

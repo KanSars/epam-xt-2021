@@ -43,27 +43,27 @@
                                     @{
                                         foreach (var role in DependencyResolver.Instance.BuyersRolesLogic.GetRoles(item.Login))
                                         {
-                                            @role;@:
+                                            @role@:
                                         }
                                     }
                                 </td>
 
                                 <td>
-                                    <form action="~/Pages/Admin/BuyerDeletingPageDo" method="post" role="form">
-                                        <input type="hidden" value=@item.Id id="DeletingBuyerId" name="DeletingBuyerId">
-                                        <button type="submit" id="DeletingBuyer" name="DeletingBuyer" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove"></i>Delete</button>
-                                    </form>
-                                </td>
-                                <td>
                                     <form action="~/Pages/Admin/AddingAdminRolePageDo" method="post" role="form">
                                         <input type="hidden" value=@item.Login id="AddingAdminRoleLogin" name="AddingAdminRoleLogin">
-                                        <button type="submit" id="AddingAdminRole" name="AddingAdminRole" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove"></i>Add admin Role</button>
+                                        <button type="submit" id="AddingAdminRole" name="AddingAdminRole" class="btn btn-success"><i class="glyphicon glyphicon-remove"></i>Add admin Role</button>
                                     </form>
                                 </td>
                                 <td>
                                     <form action="~/Pages/Admin/RemovingAdminRolePageDo" method="post" role="form">
                                         <input type="hidden" value=@item.Id id="RemovingAdminRoleId" name="RemovingAdminRoleId">
-                                        <button type="submit" id="RemovingAdminRole" name="RemovingAdminRole" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove"></i>Remove admin Role</button>
+                                        <button type="submit" id="RemovingAdminRole" name="RemovingAdminRole" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-remove"></i>Remove admin Role</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="~/Pages/Admin/BuyerDeletingPageDo" method="post" role="form">
+                                        <input type="hidden" value=@item.Id id="DeletingBuyerId" name="DeletingBuyerId">
+                                        <button type="submit" id="DeletingBuyer" name="DeletingBuyer" class="btn btn-danger btn-group-xs" onclick="return confirm('Вы уверены, что хотите удалить пользователя?')"><i class="glyphicon glyphicon-remove"></i>Delete</button>
                                     </form>
                                 </td>
 

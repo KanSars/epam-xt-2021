@@ -52,14 +52,16 @@
                                     <form action="~/Pages/Products/EditingProductPage" method="post" role="form">
                                         <input type="hidden" value=@item.Id id="EditingProductId" name="EditingProductId">
                                         <button type="submit" id="EditingProduct" name="EditingProduct" class="btn btn-warning btn-group-xs"><i class="glyphicon glyphicon-edit">Редактировать</i></button>
+                                        
                                     </form>
                                 </td>
                                 <td>
                                     <form action="~/Pages/Products/DeletingProductPageDo" method="post" role="form">
                                         <input type="hidden" value=@item.Id id="DeletingProductId" name="DeletingProductId">
-                                        <button type="submit" id="DeletingProduct" name="DeletingProduct" class="btn btn-danger btn-group-xs"><i class="glyphicon glyphicon-remove">Удалить</i></button>
+                                        <button type="submit" id="DeletingProduct" name="DeletingProduct" class="btn btn-danger btn-group-xs" onclick="return confirm('Вы уверены, что хотите удалить товар?')"><i class="glyphicon glyphicon-remove">Удалить</i></button>
                                     </form>
                                 </td>
+
                             }
                         }
                     </tr>
@@ -71,7 +73,7 @@
     @{
         if (User.IsInRole("admin"))
         {
-            <button id="AddingProductBtn" type="submit" class="btn btn-primary"> Добавить товар </button>
+            <button id="AddingProductBtn" type="submit" class="btn btn-success" color=#c0ddc3> Добавить товар </button>
         }
     }
 

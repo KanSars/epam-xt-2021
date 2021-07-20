@@ -12,7 +12,6 @@ namespace Marketplace.BLL
             _buyersRolesDAO = listDAO;
         }
 
-
         public List<string> GetRoles(string login)
         {
             return _buyersRolesDAO.GetRoles(login);

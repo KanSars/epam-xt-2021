@@ -136,7 +136,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Content\Buttons.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Index.cshtml" />
     <Content Include="Pages\Layout\_BasicLayout.cshtml" />

@@ -9,7 +9,6 @@ namespace Marketplace.Entities
         public string Pass { get; private set; }
         public Buyer()
         {
-
         }
 
         public Buyer(int id, string login)

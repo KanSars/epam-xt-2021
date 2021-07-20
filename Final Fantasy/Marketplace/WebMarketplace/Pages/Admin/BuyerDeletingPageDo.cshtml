@@ -15,6 +15,7 @@
     //DependencyResolver.Instance.BuyresLogic.DeleteBuyer(idBuyer);
     //DependencyResolver.Instance.BuyresLogic.DeleteBuyerData(idBuyer);
     //DependencyResolver.Instance.BuyersProductsLogic.DeleteProductFromCart(idBuyer);
+    //Заменены на: DependencyResolver.Instance.BuyresLogic.DeleteBuyerById(idBuyer);
 
     try
     {
@@ -31,7 +32,4 @@
         Response.Redirect(Request.UrlReferrer.ToString());
     }
 
-    //DependencyResolver.Instance.BuyresLogic.DeleteBuyer(idBuyer);
-    //DependencyResolver.Instance.BuyresLogic.DeleteBuyerData(idBuyer);
-    //DependencyResolver.Instance.BuyersProductsLogic.DeleteProductFromCart(idBuyer);
 }

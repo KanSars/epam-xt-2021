@@ -25,7 +25,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Buttons.css" rel="stylesheet" />
 </head>
-<body style="background-color: #99a1f0;">
+<body style="background-color: #c0ddc3; ">
     <script src="~/Scripts/bootstrap.bundle.js"></script>
     <script src="~/Scripts/jquery-3.6.0.min.js"></script>
 
@@ -55,6 +55,10 @@
                         <button id="SearchingProductsBtn" type="submit" class="btn btn-primary">Поиск товаров</button>
                     </div>
                 }
+                else
+                {
+                    <p><h3>Пожалуйста, авторизуйтесь</h3></p>
+                }
             }
 
         </div>
@@ -77,11 +81,9 @@
         </div>
 
         <div class="menu">
-            MENU
         </div>
 
         <div class="content">
-            CONTENT
             <div>@RenderBody()</div>
         </div>
 

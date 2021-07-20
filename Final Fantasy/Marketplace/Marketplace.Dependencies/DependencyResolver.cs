@@ -14,12 +14,19 @@ namespace Marketplace.Dependencies
         {
             get
             {
-                return _instance = new DependencyResolver(); //добавит проверку ??=
+                if (_instance is null)
+                {
+                    _instance = new DependencyResolver();
+
+                    return _instance;
+                }
+                else
+                {
+                    return _instance;
+                }
             }
         }
 
-
-        //private IBuyersDAO BuyersDAO => new BuyersDAO();
         private IBuyersDAO BuyersDAO => new BuyersSqlDAO();
         public IBuyersLogic BuyresLogic => new BuyersLogic(BuyersDAO);
 
@@ -28,7 +35,6 @@ namespace Marketplace.Dependencies
 
         private IBuyersProductsDAO BuyersProductsDAO => new Buyers_ProductsSqlDAO();
         public IBuyersProductsLogic BuyersProductsLogic => new BuyersProductsLogic(BuyersProductsDAO);
-
 
         private IBuyersRolesDAO BuyersRolesDAO => new Buyers_RolesSqlDAO();
         public IBuyersRolesLogic BuyersRolesLogic => new BuyersRolesLogic(BuyersRolesDAO);

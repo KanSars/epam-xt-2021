@@ -40,9 +40,7 @@ namespace Marketplace.BLL
 
         public void MakingAPurchase(string login)
         {
-            //проверить - а есть ли у него что-то в корзине?
-
-            //теоретически тут должна быть проверка средств или переход к платежной системе и пр. далее удаление списка покупок из корзины:
+            //through checking the buyer's solvency
 
             List<Product> productList = GetProductsOfBuyer(login);
 

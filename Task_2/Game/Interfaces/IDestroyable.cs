@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game
+namespace Game.Interfaces
 {
-    public interface IInteraction 
+    interface IDestroyable
     {
-        int ChangeHp();
     }
 }

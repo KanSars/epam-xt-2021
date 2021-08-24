@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game;
 
 namespace Game
 {
-    public abstract class StaticObjects : GameObject
+    public abstract class GameObject
     {
-        
-        public StaticObjects(Location location)
+        public Location location { get; set; }
+
+        public GameObject(Location point)
         {
-           
+            location = point;
         }
+
     }
 }

@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class Lung: MovingObject
+    interface IMovable
     {
-        int Hp = 1;
+        void Move(int x, int y)
+        { 
+        }
+
     }
 }

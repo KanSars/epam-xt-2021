@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game
+namespace Game.Interfaces
 {
-    interface IMovebl
+    interface IDoingDamage
     {
-        void Move(int x, int y);
+        void Attack(MovingObject movingObject)
+        {
+        }
+
     }
 }

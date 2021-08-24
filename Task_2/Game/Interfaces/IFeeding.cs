@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game
+namespace Game.Interfaces
 {
-    public abstract class GameObject
+    interface IFeeding
     {
-        public Location location { get; set; }
+        void Feeding(MovingObject movingObject)
+        { 
+        }
+
     }
 }

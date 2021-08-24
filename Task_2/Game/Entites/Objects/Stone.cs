@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game
+namespace Game.Entites.Objects
 {
-    public class Dumpling : Yummy
+    public class Stone : StaticObjects
     {
-        public Dumpling(Location location) : base (location)
-        { 
+        public Stone(Location location) : base(location)
+        {
         }
     }
 }

@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public struct Location
+    public class Location
     {
-        public int row;
-        public int collumn;
+        public int Row { get; set; }
+        public int Collumn { get; set; }
         public Location(int X, int Y)
         {
-            this.row = X;
-            this.collumn = Y;
+            Row = X;
+            Collumn = Y;
         }
     }
 }

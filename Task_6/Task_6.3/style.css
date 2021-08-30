@@ -1,0 +1,31 @@
+.pointer{
+    
+    background-color: #88b7d5;
+    color: whitesmoke;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    vertical-align: 100px;
+    position: relative;
+    top: 120px;
+    margin: 10px;
+    border: 5px solid #c5e2f4;
+    
+    height: 200px;
+    line-height: 200px;
+}
+
+   .pointer:before {
+    content: ''; 
+    position: absolute;
+    left: 50%; bottom: 300px;
+    margin: -100px;
+    border: 100px solid transparent; border-bottom: 100px solid #c5e2f4;
+}
+.pointer:after {
+    content: ''; 
+    position: absolute;
+    right: 50%; bottom: 293px;
+    margin: -100px;
+    border: 100px solid transparent; border-bottom: 100px solid #88b7d5;
+}

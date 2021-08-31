@@ -1,0 +1,29 @@
+   .main {
+      
+    width: 680px;
+    background: #fae498;
+    border: 2px solid #90734b;
+    border-radius: 10px;
+    box-shadow: 6px 6px 0 0px #880203;
+    padding: 15px;
+    font-weight:bold;
+    color: #880203;
+   }
+   
+   .main input {
+    border-radius: 2px;
+    margin: 0px
+   }
+   
+   .main button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-family: sans-serif;
+      letter-spacing: 1px;
+      font-size: 16xp;
+      color :#000000;
+      background-color: #8db3c1;
+      outline: none;
+      cursor: pointer;
+   }

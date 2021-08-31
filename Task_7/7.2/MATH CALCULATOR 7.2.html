@@ -23,6 +23,8 @@
       let i = 1;
 
       while (arrStr.length > 2) {
+        arrStr[0] = parseFloat(arrStr[0]);
+        arrStr[2] = parseFloat(arrStr[2]);
         switch (arrStr[1]) {
           case '+':
             arrStr.splice(0, 3, arrStr[0] + arrStr[2]);
